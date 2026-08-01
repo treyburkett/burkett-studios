@@ -1,0 +1,20 @@
+# Burkett Studios marketing site — Workers Static Assets
+# Deploy: npm run deploy
+# Live: burkettstudios.com + www (custom domains auto DNS)
+
+name = "burkett-studios-site"
+compatibility_date = "2026-07-01"
+workers_dev = false
+
+[assets]
+directory = "./public"
+html_handling = "auto-trailing-slash"
+not_found_handling = "none"
+
+[[routes]]
+pattern = "burkettstudios.com"
+custom_domain = true
+
+[[routes]]
+pattern = "www.burkettstudios.com"
+custom_domain = true

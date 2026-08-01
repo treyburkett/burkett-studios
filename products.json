@@ -1,0 +1,111 @@
+[
+  {
+    "slug": "year-wall",
+    "id": "yearwall",
+    "name": "Year Wall",
+    "tag": "iOS · Web",
+    "status": "ship",
+    "statusLabel": "Web live",
+    "card": "A full-year calendar that makes plans feel spatial. See the year, not a list of days.",
+    "lede": "Plan in space. Year Wall is a calendar you can feel: the whole year on one wall, not a pile of day lists.",
+    "bullets": [
+      "Full-year grid that shows density and room at a glance",
+      "Web live today at yearwall.burkettinv.com",
+      "iOS in active polish; TestFlight ships when quality clears the bar"
+    ],
+    "external": "https://yearwall.burkettinv.com",
+    "externalLabel": "Open Year Wall",
+    "waitlist": false
+  },
+  {
+    "slug": "wandered",
+    "id": "wandered",
+    "name": "Wandered",
+    "tag": "iOS · Web",
+    "status": "ship",
+    "statusLabel": "Web live",
+    "card": "Travel map and passport for the places you have been. Quiet, visual, shareable when you want it.",
+    "lede": "Your world, mapped calmly. Wandered is a travel map and passport for places you have been, not another trip checklist.",
+    "bullets": [
+      "Map-first view of where you have wandered",
+      "Passport and trip surfaces that stay out of the way",
+      "Web is the primary dogfood surface while iOS TestFlight is held"
+    ],
+    "external": "https://wandered.burkettinv.com",
+    "externalLabel": "Open Wandered",
+    "waitlist": false
+  },
+  {
+    "slug": "surrostack",
+    "id": "surrostack",
+    "name": "SurroStack",
+    "tag": "Web",
+    "status": "ship",
+    "statusLabel": "Live pilot",
+    "card": "Operational stack for surrogacy journeys: tasks, calendar, and a calm place for the hard logistics.",
+    "lede": "Logistics for a journey that is already enough. SurroStack keeps tasks, calendar, money, and share surfaces in one calm stack.",
+    "bullets": [
+      "Task portal and calendar built for real journey load",
+      "Share Status for partners and support people",
+      "Live pilot at app.burkettinv.com/surrostack"
+    ],
+    "external": "https://app.burkettinv.com/surrostack/",
+    "externalLabel": "Open SurroStack",
+    "waitlist": false
+  },
+  {
+    "slug": "massagenow",
+    "id": "massagenow",
+    "name": "MassageNow",
+    "tag": "Marketplace",
+    "status": "build",
+    "statusLabel": "Pilot",
+    "card": "Last-minute massage marketplace. Open studio slots, booked in a few taps. Nashville pilot.",
+    "lede": "Same-day massage when a slot opens up. MassageNow connects spontaneous bookers with licensed studios that have last-minute availability.",
+    "bullets": [
+      "Consumer booking in a few taps",
+      "Studio partners fill cancelled tables",
+      "Nashville pilot; marketing site at getmassagenow.com"
+    ],
+    "external": "https://getmassagenow.com",
+    "externalLabel": "Visit MassageNow",
+    "waitlist": true,
+    "waitlistNote": "Studio partners and early users can also join the studio waitlist below."
+  },
+  {
+    "slug": "orient",
+    "id": "orient",
+    "name": "Orient",
+    "tag": "Guide",
+    "status": "seed",
+    "statusLabel": "Seed",
+    "card": "Place guides that feel local, not SEO spam. Starting with a Minnesota pilot region.",
+    "lede": "Local orientation without the affiliate sludge. Orient is a place guide product starting with a Minnesota pilot.",
+    "bullets": [
+      "Editorial, local voice over generic directory pages",
+      "Minnesota pilot region first",
+      "No public product URL yet: join the waitlist"
+    ],
+    "external": null,
+    "externalLabel": null,
+    "waitlist": true
+  },
+  {
+    "slug": "conflict-patterns",
+    "id": "conflict",
+    "name": "Conflict Patterns",
+    "tag": "Personal",
+    "status": "seed",
+    "statusLabel": "Seed",
+    "card": "A private tracker for relationship repair patterns, grounded in research, not gimmicks.",
+    "lede": "Private pattern tracking for hard conversations. Conflict Patterns is a personal tool grounded in research, not performative relationship tips.",
+    "bullets": [
+      "Built for privacy first",
+      "Research-backed structure without gimmicks",
+      "In design: waitlist for early access"
+    ],
+    "external": null,
+    "externalLabel": null,
+    "waitlist": true
+  }
+]
