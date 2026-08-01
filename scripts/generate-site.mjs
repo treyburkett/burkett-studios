@@ -130,46 +130,47 @@ const products = [
   },
 ];
 
+/** How we run our own products (not client services). */
 const capabilities = [
   {
     num: "01",
-    title: "Product strategy",
-    body: "Scope, prioritization, and shipping criteria so builds stay coherent under real constraints.",
+    title: "Own the product",
+    body: "We conceive, build, ship, and operate software we own. Year Wall, Wandered, SurroStack, and the rest sit under Burkett Studios.",
   },
   {
     num: "02",
-    title: "Product design",
-    body: "Identity-locked UI systems, Figma design files, and interaction specs that survive engineering.",
+    title: "Design under Burkett Identity",
+    body: "Same design law as burkettinv.com: sharp geometry, gold ignition, production restraint. No second brand system for digital.",
   },
   {
     num: "03",
-    title: "iOS engineering",
-    body: "Native clients with disciplined quality gates. Distribution when the product is ready, not when the calendar says so.",
+    title: "iOS and web production",
+    body: "Native clients and web platforms run as real products with quality gates, not demos that never leave the lab.",
   },
   {
     num: "04",
-    title: "Web & platform",
-    body: "Production web apps, APIs, and Cloudflare infrastructure with agent-operable deploy paths.",
+    title: "Infrastructure we operate",
+    body: "Cloudflare, deploy automation, and agent-operable paths so our products stay live and maintainable.",
   },
   {
     num: "05",
-    title: "Internal systems",
-    body: "Ops tooling and company software for Burkett Investments when the work needs a real product surface.",
+    title: "Company systems when needed",
+    body: "When Burkett Investments needs a real product surface for ops, Studios builds and runs it under the same stack.",
   },
 ];
 
 const approach = [
   {
+    title: "Owned digital assets",
+    body: "Studios is not a services desk. We build, run, and own the portfolio: consumer apps, marketplaces, and platforms with Burkett on the title.",
+  },
+  {
     title: "Same brand law as burkettinv.com",
-    body: "Cybertruck geometry, gold ignition, hairline systems. Studios products inherit Burkett Identity, not a second visual language.",
+    body: "Cybertruck geometry, gold ignition, hairline systems. Digital products inherit Burkett Identity, not a spin-off look.",
   },
   {
-    title: "Ship production, not decks",
-    body: "Live domains, git history, and deploy automation. Design work ends in code on Cloudflare and the App Store pipeline.",
-  },
-  {
-    title: "Focused execution",
-    body: "One product deep per session. Quality compounds when context does not thrash across four codebases.",
+    title: "Ship production, keep operating",
+    body: "Live domains, git history, and ongoing ops. Launch is the start of ownership, not the end of a client engagement.",
   },
 ];
 
@@ -200,11 +201,11 @@ const header = (active = "") => `
         <span class="mark-text">Burkett <em>Studios</em></span>
       </a>
       <nav class="nav" aria-label="Primary">
-        <a href="/#capabilities"${active === "capabilities" ? ' aria-current="page"' : ""}>Capabilities</a>
         <a href="/#products"${active === "products" ? ' aria-current="page"' : ""}>Products</a>
-        <a href="/#approach"${active === "approach" ? ' aria-current="page"' : ""}>Approach</a>
+        <a href="/#how"${active === "how" ? ' aria-current="page"' : ""}>How we work</a>
+        <a href="/#about"${active === "about" ? ' aria-current="page"' : ""}>About</a>
         <a href="/#contact"${active === "contact" ? ' aria-current="page"' : ""}>Contact</a>
-        <a class="nav-cta" href="mailto:trey@burkettinv.com?subject=Burkett%20Studios%20inquiry">Start a project</a>
+        <a class="nav-cta" href="/#products">Our products</a>
       </nav>
     </div>
   </header>`;
@@ -214,8 +215,9 @@ const footer = `
     <div class="shell footer-inner">
       <p class="footer-mark">Burkett Studios</p>
       <p class="footer-note">
-        App development and product engineering arm of
-        <a href="https://burkettinv.com" rel="noopener">Burkett Investments</a>.
+        The arm of
+        <a href="https://burkettinv.com" rel="noopener">Burkett Investments</a>
+        that builds, runs, and owns our digital products.
         Real estate consulting and investment management remain on burkettinv.com.
       </p>
       <p class="footer-legal">© <span data-year></span> Burkett Studios. All rights reserved.</p>
@@ -340,8 +342,8 @@ function indexPage() {
     .join("\n");
 
   return `${head(
-    "Burkett Studios — App development & product engineering",
-    "Burkett Studios designs and ships production software: iOS, web, and platform systems under Burkett Investments brand law.",
+    "Burkett Studios — Digital products we build, run, and own",
+    "Burkett Studios is the arm of Burkett Investments that builds, runs, and owns our digital products: Year Wall, Wandered, SurroStack, and more.",
     "https://burkettstudios.com/"
   )}
 <body>
@@ -349,29 +351,28 @@ ${header()}
   <main id="main">
     <section class="hero shell">
       <span class="gold-rule" aria-hidden="true"></span>
-      <p class="eyebrow">Burkett Investments · Product engineering</p>
+      <p class="eyebrow">Burkett Investments · Digital products</p>
       <h1>
-        Professional software<br />
-        <span class="hero-accent">built to ship.</span>
+        Software we build,<br />
+        <span class="hero-accent">run, and own.</span>
       </h1>
       <p class="lede">
-        Burkett Studios is the app development and product engineering arm of Burkett Investments.
-        We design, build, and operate production products: native clients, web platforms, and the
-        infrastructure that keeps them live.
+        Burkett Studios is the arm of Burkett Investments for digital products.
+        We invent, ship, operate, and hold title to apps and platforms such as Year Wall,
+        Wandered, and SurroStack. We do not build software for outside clients.
       </p>
       <div class="hero-actions">
-        <a class="btn btn-primary" href="#products">View products</a>
-        <a class="btn btn-ghost" href="mailto:trey@burkettinv.com?subject=Burkett%20Studios%20inquiry">Start a project</a>
+        <a class="btn btn-primary" href="#products">Our products</a>
         <a class="btn btn-ghost" href="https://burkettinv.com" rel="noopener">Burkett Investments</a>
       </div>
     </section>
 
-    <section class="spec-strip" aria-label="Firm specs">
+    <section class="spec-strip" aria-label="Studios facts">
       <div class="shell">
         <dl class="spec-grid">
           <div class="spec-cell">
-            <dt>Discipline</dt>
-            <dd>App development</dd>
+            <dt>Role</dt>
+            <dd>Owned products</dd>
           </div>
           <div class="spec-cell">
             <dt>Surfaces</dt>
@@ -382,35 +383,21 @@ ${header()}
             <dd>Cloudflare</dd>
           </div>
           <div class="spec-cell">
-            <dt>Identity</dt>
-            <dd>Burkett system</dd>
+            <dt>Parent</dt>
+            <dd>Burkett Investments</dd>
           </div>
         </dl>
       </div>
     </section>
 
-    <section id="capabilities" class="section shell">
-      <div class="section-head">
-        <span class="gold-rule" aria-hidden="true"></span>
-        <p class="eyebrow">Capabilities</p>
-        <h2>What the firm delivers</h2>
-        <p class="section-copy">
-          End-to-end product work for consumer apps and operational software.
-          Strategy through production, under one brand system.
-        </p>
-      </div>
-      <ul class="cap-list">
-${caps}
-      </ul>
-    </section>
-
     <section id="products" class="section shell">
       <div class="section-head">
         <span class="gold-rule" aria-hidden="true"></span>
-        <p class="eyebrow">Product portfolio</p>
-        <h2>Software in market</h2>
+        <p class="eyebrow">Portfolio</p>
+        <h2>Digital assets we own</h2>
         <p class="section-copy">
-          Owned and operated products. Each has a detail page; live apps ship on their own domains.
+          Products Burkett Studios builds, runs, and owns. Live apps ship on their own domains;
+          seed products take a waitlist until they are ready.
         </p>
       </div>
       <div class="product-grid">
@@ -418,18 +405,33 @@ ${cards}
       </div>
     </section>
 
-    <section id="approach" class="section shell">
+    <section id="how" class="section shell">
       <div class="section-head">
         <span class="gold-rule" aria-hidden="true"></span>
-        <p class="eyebrow">Approach</p>
-        <h2>How engagement works</h2>
+        <p class="eyebrow">How we work</p>
+        <h2>How Studios operates</h2>
+        <p class="section-copy">
+          Internal product practice, not a consultancy. Strategy through production for software
+          that stays on our books.
+        </p>
+      </div>
+      <ul class="cap-list">
+${caps}
+      </ul>
+    </section>
+
+    <section id="about" class="section shell">
+      <div class="section-head">
+        <span class="gold-rule" aria-hidden="true"></span>
+        <p class="eyebrow">About</p>
+        <h2>Part of Burkett Investments</h2>
       </div>
       <div class="approach-grid">
         <div class="approach-copy">
           <p class="section-copy" style="margin:0">
-            Burkett Studios runs as a product engineering practice inside the Burkett multi-avenue firm.
-            Visual and interaction law is the same Identity system as burkettinv.com: sharp geometry,
-            gold ignition, production-grade restraint.
+            Burkett Investments is multi-avenue. Consulting and investment management live on
+            burkettinv.com. Burkett Studios is the digital product arm: we own the code, the
+            domains, and the ongoing operation of the software listed here.
           </p>
         </div>
         <div class="approach-list-wrap">
@@ -444,13 +446,13 @@ ${approachItems}
       <div class="contact-panel">
         <span class="gold-rule" aria-hidden="true"></span>
         <p class="eyebrow">Contact</p>
-        <h2>Discuss a build</h2>
+        <h2>Get in touch</h2>
         <p class="section-copy">
-          Product concepts, rebuilds, iOS and web delivery, or internal systems for operators.
+          Press, partnership, product feedback, or waitlist questions for our own apps.
           Reach Burkett Investments and ask for Studios.
         </p>
         <div class="contact-actions">
-          <a class="btn btn-primary" href="mailto:trey@burkettinv.com?subject=Burkett%20Studios%20inquiry">Email Trey</a>
+          <a class="btn btn-primary" href="mailto:trey@burkettinv.com?subject=Burkett%20Studios">Email Trey</a>
           <a class="btn btn-ghost" href="https://burkettinv.com" rel="noopener">Company site</a>
         </div>
       </div>

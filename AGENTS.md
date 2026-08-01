@@ -8,11 +8,18 @@
 **Docs:** Drive `Burkett Studios/`  
 **Product truth:** edit `scripts/generate-site.mjs` then `npm run generate`
 
+## What Burkett Studios is
+
+The arm of **Burkett Investments** that **builds, runs, and owns** Burkett digital products
+(Year Wall, Wandered, SurroStack, MassageNow, and related).
+
+**Not** a client services shop. **Not** “we build apps for others.”
+
 ## Brand boundary
 
 | Domain | Role |
 |--------|------|
-| burkettstudios.com | Product studio / apps portfolio |
+| burkettstudios.com | Owned digital product portfolio |
 | burkettinv.com | Real estate, consulting, company OS |
 
 ## Deploy
@@ -26,14 +33,15 @@ Worker custom domains auto-manage DNS (`AAAA 100::`). Prefer Worker over Pages f
 
 ## Agentic loop
 
-1. Edit `public/` (code is live SSOT)
+1. Edit product truth in `scripts/generate-site.mjs` (or styles in `public/styles.css`)
 2. `npm run deploy`
-3. Figma: design frames via `use_figma`, or capture live via `generate_figma_design`
+3. Figma: keep copy aligned with owned-product positioning
 4. Update `CURRENT.md`
 
 ## Style
 
 - No em dashes in Trey-facing copy.
 - **Brand law = burkettinv.com DESIGN-LOCK:** radius 0, hairlines, black/steel/gold ignition, Burkett blue focus only.
-- Positioning: professional app development / product engineering arm of Burkett Investments (not a casual indie studio voice).
+- Positioning: owned product arm of Burkett Investments.
 - Do not market Nashville HQ on the public hero.
+- Do not use client-services language (start a project, discuss a build, what we deliver for hire).
