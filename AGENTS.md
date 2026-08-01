@@ -33,4 +33,7 @@ Worker custom domains auto-manage DNS (`AAAA 100::`). Prefer Worker over Pages f
 
 ## Style
 
-No em dashes in Trey-facing copy. Studio blue accent, not Investments gold OS.
+- No em dashes in Trey-facing copy.
+- **Brand law = burkettinv.com DESIGN-LOCK:** radius 0, hairlines, black/steel/gold ignition, Burkett blue focus only.
+- Positioning: professional app development / product engineering arm of Burkett Investments (not a casual indie studio voice).
+- Do not market Nashville HQ on the public hero.

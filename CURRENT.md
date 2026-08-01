@@ -1,7 +1,7 @@
 # CURRENT — Burkett Studios marketing site
 
 **Updated:** 2026-08-01  
-**Status:** LIVE multi-page site + GitHub + Figma tokens
+**Status:** LIVE multi-page site · Identity-aligned (burkettinv DESIGN-LOCK)
 
 ## Live
 
