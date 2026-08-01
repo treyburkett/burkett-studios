@@ -2,9 +2,11 @@
 
 **Domain:** https://burkettstudios.com  
 **Code:** `~/Developer/burkett/burkett-studios`  
+**GitHub:** https://github.com/treyburkett/burkett-studios  
 **Deploy:** Cloudflare Worker `burkett-studios-site` (static assets + custom domains)  
 **Design:** [Figma](https://www.figma.com/design/2LfrC7rHqG7hSdovic403Z)  
-**Docs:** Drive `Burkett Studios/`
+**Docs:** Drive `Burkett Studios/`  
+**Product truth:** edit `scripts/generate-site.mjs` then `npm run generate`
 
 ## Brand boundary
 
