@@ -2,6 +2,7 @@
 /**
  * Generates marketing pages from product truth.
  * Brand: burkettinv.com DESIGN-LOCK (Cybertruck / gold ignition).
+ * Positioning: Burkett's owned digital products (not client services).
  * Run: node scripts/generate-site.mjs
  */
 import { writeFileSync, mkdirSync } from "node:fs";
@@ -11,7 +12,11 @@ import { fileURLToPath } from "node:url";
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const pub = join(root, "public");
 
-/** @type {const} */
+/**
+ * marketing: public product site (story, waitlist, brand)
+ * app: product itself when separate from marketing
+ * studios page is always /products/<slug>/
+ */
 const products = [
   {
     slug: "year-wall",
@@ -19,17 +24,24 @@ const products = [
     name: "Year Wall",
     tag: "iOS · Web",
     status: "ship",
-    statusLabel: "Web live",
-    card:
-      "Full-year calendar product. Spatial planning surface for people who think in years, not day lists.",
-    lede: "Year Wall is a full-year calendar product: density, room, and plans visible in one spatial field.",
+    statusLabel: "Live",
+    oneLiner: "Your whole year on one screen.",
+    card: "A dense year wall with continuous plan bars. Household planning at a glance, not another day-list calendar.",
+    lede: "Year Wall puts the full year in front of you: continuous plan bars, household cloud, web and iPhone. Built for people who plan in seasons, not scrollable day lists.",
     bullets: [
-      "Full-year grid engineered for glanceable density",
-      "Web product live at yearwall.burkettinv.com",
-      "iOS client in active polish; ships when quality clears the bar",
+      "Whole-year wall with continuous plan bars",
+      "Household cloud login across web and iPhone",
+      "Web live now; iOS ships when quality clears the bar",
     ],
-    external: "https://yearwall.burkettinv.com",
-    externalLabel: "Open Year Wall",
+    marketing: {
+      href: "https://yearwall.burkettinv.com",
+      label: "Year Wall site",
+      host: "yearwall.burkettinv.com",
+    },
+    app: {
+      href: "https://yearwall.burkettinv.com",
+      label: "Open Year Wall",
+    },
     waitlist: false,
   },
   {
@@ -38,37 +50,48 @@ const products = [
     name: "Wandered",
     tag: "iOS · Web",
     status: "ship",
-    statusLabel: "Web live",
-    card:
-      "Travel map and passport product. Places you have been, mapped without the checklist noise.",
-    lede: "Wandered is a map-first travel product: a calm passport for where you have been, built for long-term use.",
+    statusLabel: "Live",
+    oneLiner: "Your world, filled in.",
+    card: "Exact coastlines, a real trip journal, and a passport that fills as you go. Travel as a map worth looking at.",
+    lede: "Wandered turns where you have been into a map with real precision: countries and provinces painted in, trips kept, passport filling up. Free to start. Your data stays yours.",
     bullets: [
-      "Map-primary architecture for visited places",
-      "Passport and trip surfaces with restrained chrome",
-      "Web is the production surface while iOS distribution is held",
+      "Unsimplified borders: fjords, islands, real coastlines",
+      "Trip journal and passport that track the real path",
+      "iPhone and web; open the app from the marketing site",
     ],
-    external: "https://wandered.burkettinv.com",
-    externalLabel: "Open Wandered",
+    marketing: {
+      href: "https://wandered.burkettinv.com",
+      label: "Wandered site",
+      host: "wandered.burkettinv.com",
+    },
+    app: {
+      href: "https://wandered.burkettinv.com/app",
+      label: "Open Wandered",
+    },
     waitlist: false,
   },
   {
     slug: "surrostack",
     id: "surrostack",
     name: "SurroStack",
-    tag: "Web platform",
+    tag: "Web",
     status: "ship",
     statusLabel: "Live pilot",
-    card:
-      "Operations platform for surrogacy journeys: tasks, calendar, money, and share surfaces.",
-    lede: "SurroStack is an operations stack for a high-stakes personal journey: tasks, calendar, money, and share status in one system.",
+    oneLiner: "Logistics for a journey that is already enough.",
+    card: "Tasks, calendar, money, and share status for surrogacy journeys. Operational software for a high-stakes personal process.",
+    lede: "SurroStack is the operations layer for a surrogacy journey: task portal, calendar, money, and Share Status for partners and support people. Built for load, not vibes.",
     bullets: [
-      "Task and calendar core for journey load",
-      "Share Status for partners and support networks",
-      "Live pilot at app.burkettinv.com/surrostack",
+      "Task and calendar core sized for real journey load",
+      "Share Status for partners and the support network",
+      "Live pilot portal (sign-in required)",
     ],
-    external: "https://app.burkettinv.com/surrostack/",
-    externalLabel: "Open SurroStack",
+    marketing: null,
+    app: {
+      href: "https://app.burkettinv.com/surrostack/",
+      label: "Open SurroStack",
+    },
     waitlist: false,
+    note: "No separate public marketing site yet. This page is the public face; the product lives behind sign-in.",
   },
   {
     slug: "massagenow",
@@ -77,100 +100,83 @@ const products = [
     tag: "Marketplace",
     status: "build",
     statusLabel: "Pilot",
-    card:
-      "Two-sided marketplace for last-minute massage inventory. Consumer book, studio fill.",
-    lede: "MassageNow is a marketplace product that matches spontaneous demand to open studio capacity.",
+    oneLiner: "Same-day openings. Licensed studios. A few taps.",
+    card: "Last-minute massage marketplace for Nashville. Open studio inventory when a slot frees up; book and pay fast.",
+    lede: "MassageNow matches spontaneous demand to last-minute openings at licensed massage studios. Nashville pilot first. Marketing and waitlist live on getmassagenow.com.",
     bullets: [
-      "Consumer booking path designed for speed",
-      "Partner studio surface for cancelled-slot inventory",
-      "Pilot market live marketing at getmassagenow.com",
+      "Consumer path built for speed, not browsing theater",
+      "Studios fill cancelled tables instead of empty hours",
+      "Pilot waitlist and story on getmassagenow.com",
     ],
-    external: "https://getmassagenow.com",
-    externalLabel: "Visit MassageNow",
+    marketing: {
+      href: "https://getmassagenow.com",
+      label: "MassageNow site",
+      host: "getmassagenow.com",
+    },
+    app: null,
     waitlist: true,
-    waitlistNote: "Studios and early users can also join the waitlist below.",
+    waitlistNote: "Prefer the product site waitlist when it is open; you can also leave your email here.",
   },
   {
     slug: "orient",
     id: "orient",
     name: "Orient",
-    tag: "Content product",
+    tag: "Guides",
     status: "seed",
     statusLabel: "Seed",
-    card:
-      "Place-guide product with editorial standards. Local orientation without affiliate sludge.",
-    lede: "Orient is a place-guide product line: local voice, strict content rules, region pilots before scale.",
+    oneLiner: "Local orientation without the affiliate sludge.",
+    card: "Place guides with editorial standards. Region pilots first, SEO directories never.",
+    lede: "Orient is a place-guide product: local voice, strict content rules, and region pilots before scale. No public product site yet.",
     bullets: [
       "Editorial standards over SEO directory defaults",
       "Minnesota pilot region first",
-      "No public product URL yet: join the waitlist",
+      "Waitlist here until a public product site ships",
     ],
-    external: null,
-    externalLabel: null,
+    marketing: null,
+    app: null,
     waitlist: true,
   },
   {
     slug: "conflict-patterns",
     id: "conflict",
     name: "Conflict Patterns",
-    tag: "Personal software",
+    tag: "Personal",
     status: "seed",
     statusLabel: "Seed",
-    card:
-      "Private relationship-pattern tracker. Research structure, not performative advice content.",
-    lede: "Conflict Patterns is personal software for tracking repair patterns with privacy-first design.",
+    oneLiner: "Private pattern tracking for hard conversations.",
+    card: "A private tracker for relationship repair patterns. Research structure, not performative advice.",
+    lede: "Conflict Patterns is personal software for noticing and tracking repair patterns with privacy first. Still in design; no public product site yet.",
     bullets: [
-      "Privacy-first product architecture",
+      "Privacy-first architecture",
       "Research-backed structure without gimmicks",
-      "In design: waitlist for early access",
+      "Waitlist for early access",
     ],
-    external: null,
-    externalLabel: null,
+    marketing: null,
+    app: null,
     waitlist: true,
   },
 ];
 
-/** How we run our own products (not client services). */
-const capabilities = [
+const howWeWork = [
   {
     num: "01",
     title: "Own the product",
-    body: "We conceive, build, ship, and operate software we own. Year Wall, Wandered, SurroStack, and the rest sit under Burkett Studios.",
+    body: "We invent, ship, and keep operating software under Burkett title. Launch is not a handoff to someone else.",
   },
   {
     num: "02",
-    title: "Design under Burkett Identity",
-    body: "Same design law as burkettinv.com: sharp geometry, gold ignition, production restraint. No second brand system for digital.",
+    title: "One Identity system",
+    body: "Studios products sit under Burkett design law: black, steel, gold ignition, sharp geometry. Same family as burkettinv.com.",
   },
   {
     num: "03",
-    title: "iOS and web production",
-    body: "Native clients and web platforms run as real products with quality gates, not demos that never leave the lab.",
+    title: "Production surfaces",
+    body: "iOS, web, and APIs with real deploy paths. Domains stay live; quality gates decide when mobile distribution opens.",
   },
   {
     num: "04",
-    title: "Infrastructure we operate",
-    body: "Cloudflare, deploy automation, and agent-operable paths so our products stay live and maintainable.",
-  },
-  {
-    num: "05",
-    title: "Company systems when needed",
-    body: "When Burkett Investments needs a real product surface for ops, Studios builds and runs it under the same stack.",
-  },
-];
-
-const approach = [
-  {
-    title: "Owned digital assets",
-    body: "Studios is not a services desk. We build, run, and own the portfolio: consumer apps, marketplaces, and platforms with Burkett on the title.",
-  },
-  {
-    title: "Same brand law as burkettinv.com",
-    body: "Cybertruck geometry, gold ignition, hairline systems. Digital products inherit Burkett Identity, not a spin-off look.",
-  },
-  {
-    title: "Ship production, keep operating",
-    body: "Live domains, git history, and ongoing ops. Launch is the start of ownership, not the end of a client engagement.",
+    title: "Operate what we ship",
+    body: "Cloudflare, auth, mail, and agent-operable deploy. Ownership includes the boring work after day one.",
   },
 ];
 
@@ -183,14 +189,21 @@ const head = (title, description, canonical) => `<!DOCTYPE html>
   <meta name="description" content="${description}" />
   <meta name="theme-color" content="#08080a" />
   <link rel="canonical" href="${canonical}" />
-  <meta property="og:title" content="${title.replace(/ — .*$/, "")}" />
-  <meta property="og:description" content="${description}" />
+  <meta property="og:title" content="${esc(title.replace(/ — .*$/, ""))}" />
+  <meta property="og:description" content="${esc(description)}" />
   <meta property="og:url" content="${canonical}" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="/styles.css" />
 </head>`;
+
+function esc(s) {
+  return String(s)
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;");
+}
 
 const header = (active = "") => `
   <a class="skip" href="#main">Skip to content</a>
@@ -205,21 +218,31 @@ const header = (active = "") => `
         <a href="/#how"${active === "how" ? ' aria-current="page"' : ""}>How we work</a>
         <a href="/#about"${active === "about" ? ' aria-current="page"' : ""}>About</a>
         <a href="/#contact"${active === "contact" ? ' aria-current="page"' : ""}>Contact</a>
-        <a class="nav-cta" href="/#products">Our products</a>
+        <a class="nav-cta" href="/#products">Portfolio</a>
       </nav>
     </div>
   </header>`;
 
 const footer = `
   <footer class="site-footer">
-    <div class="shell footer-inner">
-      <p class="footer-mark">Burkett Studios</p>
-      <p class="footer-note">
-        The arm of
+    <div class="shell footer-grid">
+      <div>
+        <p class="footer-mark">Burkett Studios</p>
+        <p class="footer-note">
+          The arm of
+          <a href="https://burkettinv.com" rel="noopener">Burkett Investments</a>
+          that builds, runs, and owns our digital products.
+        </p>
+      </div>
+      <div class="footer-links">
+        <a href="/#products">Products</a>
+        <a href="https://yearwall.burkettinv.com" rel="noopener">Year Wall</a>
+        <a href="https://wandered.burkettinv.com" rel="noopener">Wandered</a>
+        <a href="https://getmassagenow.com" rel="noopener">MassageNow</a>
         <a href="https://burkettinv.com" rel="noopener">Burkett Investments</a>
-        that builds, runs, and owns our digital products.
-        Real estate consulting and investment management remain on burkettinv.com.
-      </p>
+      </div>
+    </div>
+    <div class="shell">
       <p class="footer-legal">© <span data-year></span> Burkett Studios. All rights reserved.</p>
     </div>
   </footer>
@@ -227,15 +250,66 @@ const footer = `
 </body>
 </html>`;
 
+function productLinks(p, { compact = false } = {}) {
+  const links = [];
+  // Always link to Studios detail page on cards
+  if (compact) {
+    links.push(
+      `<a class="product-link" href="/products/${p.slug}/">Overview</a>`
+    );
+  }
+  if (p.marketing) {
+    links.push(
+      `<a class="product-link${compact ? " secondary" : ""}" href="${p.marketing.href}" rel="noopener">${compact ? p.marketing.host : p.marketing.label}</a>`
+    );
+  }
+  if (p.app && (!p.marketing || p.app.href !== p.marketing.href)) {
+    links.push(
+      `<a class="product-link secondary" href="${p.app.href}" rel="noopener">${p.app.label}</a>`
+    );
+  } else if (p.app && p.marketing && p.app.href === p.marketing.href && !compact) {
+    // same URL: only one primary already covered by marketing on detail pages
+  }
+  if (!p.marketing && !p.app && p.waitlist) {
+    links.push(
+      `<a class="product-link secondary" href="/products/${p.slug}/#waitlist">Join waitlist</a>`
+    );
+  }
+  return links.join("\n          ");
+}
+
+function productActions(p) {
+  const actions = [];
+  if (p.marketing) {
+    actions.push(
+      `<a class="btn btn-primary" href="${p.marketing.href}" rel="noopener">${p.marketing.label}</a>`
+    );
+  }
+  if (p.app && (!p.marketing || p.app.href !== p.marketing.href)) {
+    actions.push(
+      `<a class="btn ${p.marketing ? "btn-ghost" : "btn-primary"}" href="${p.app.href}" rel="noopener">${p.app.label}</a>`
+    );
+  } else if (p.app && p.marketing && p.app.href === p.marketing.href) {
+    // marketing already covers open; add ghost to studios portfolio only
+  }
+  if (p.waitlist) {
+    actions.push(
+      `<a class="btn btn-ghost" href="#waitlist">${p.marketing || p.app ? "Studios waitlist" : "Join waitlist"}</a>`
+    );
+  }
+  actions.push(`<a class="btn btn-ghost" href="/#products">All products</a>`);
+  return actions.join("\n        ");
+}
+
 function waitlistBlock(productName) {
   const id = productName.toLowerCase().replace(/\s+/g, "-");
   return `
       <section class="waitlist-panel" id="waitlist">
         <span class="gold-rule" aria-hidden="true"></span>
         <p class="eyebrow">Waitlist</p>
-        <h2>Request early access</h2>
-        <p class="section-copy">Leave your email. We write when there is a build ready to try.</p>
-        <form class="waitlist-form" data-waitlist="${productName}">
+        <h2>Early access</h2>
+        <p class="section-copy">Leave an email. We only write when there is something real to try.</p>
+        <form class="waitlist-form" data-waitlist="${esc(productName)}">
           <label class="sr-only" for="email-${id}">Email</label>
           <input id="email-${id}" name="email" type="email" required placeholder="you@example.com" autocomplete="email" />
           <label class="sr-only" for="note-${id}">Note (optional)</label>
@@ -247,18 +321,25 @@ function waitlistBlock(productName) {
 }
 
 function productPage(p) {
-  const actions = [];
-  if (p.external) {
-    actions.push(
-      `<a class="btn btn-primary" href="${p.external}" rel="noopener">${p.externalLabel}</a>`
-    );
+  const linkRows = [];
+  if (p.marketing) {
+    linkRows.push(`
+        <a class="link-row" href="${p.marketing.href}" rel="noopener">
+          <span class="link-row-kicker">Product site</span>
+          <span class="link-row-title">${esc(p.marketing.label)}</span>
+          <span class="link-row-host">${esc(p.marketing.host)}</span>
+          <span class="link-row-go" aria-hidden="true">→</span>
+        </a>`);
   }
-  if (p.waitlist) {
-    actions.push(
-      `<a class="btn btn-ghost" href="#waitlist">${p.external ? "Also join waitlist" : "Join waitlist"}</a>`
-    );
+  if (p.app && (!p.marketing || p.app.href !== p.marketing.href)) {
+    linkRows.push(`
+        <a class="link-row" href="${p.app.href}" rel="noopener">
+          <span class="link-row-kicker">Open product</span>
+          <span class="link-row-title">${esc(p.app.label)}</span>
+          <span class="link-row-host">${esc(p.app.href.replace(/^https?:\/\//, "").replace(/\/$/, ""))}</span>
+          <span class="link-row-go" aria-hidden="true">→</span>
+        </a>`);
   }
-  actions.push(`<a class="btn btn-ghost" href="/#products">All products</a>`);
 
   return `${head(
     `${p.name} — Burkett Studios`,
@@ -269,23 +350,37 @@ function productPage(p) {
 ${header("products")}
   <main id="main">
     <section class="product-hero shell">
-      <p class="crumb"><a href="/">Studios</a> / <a href="/#products">Products</a> / ${p.name}</p>
+      <p class="crumb"><a href="/">Studios</a> / <a href="/#products">Products</a> / ${esc(p.name)}</p>
       <div class="product-top product-hero-top">
-        <span class="product-tag">${p.tag}</span>
-        <span class="status ${p.status}">${p.statusLabel}</span>
+        <span class="product-tag">${esc(p.tag)}</span>
+        <span class="status ${p.status}">${esc(p.statusLabel)}</span>
       </div>
-      <h1>${p.name}</h1>
-      <p class="lede">${p.lede}</p>
+      <h1>${esc(p.name)}</h1>
+      <p class="one-liner">${esc(p.oneLiner)}</p>
+      <p class="lede">${esc(p.lede)}</p>
       <div class="hero-actions">
-        ${actions.join("\n        ")}
+        ${productActions(p)}
       </div>
     </section>
 
+    ${
+      linkRows.length
+        ? `<section class="shell product-links-block">
+      <p class="eyebrow">Go to the product</p>
+      <div class="link-rows">
+        ${linkRows.join("\n")}
+      </div>
+    </section>`
+        : ""
+    }
+
     <section class="product-body shell">
+      <p class="eyebrow">What it is</p>
       <ul class="feature-list">
-        ${p.bullets.map((b) => `<li>${b}</li>`).join("\n        ")}
+        ${p.bullets.map((b) => `<li>${esc(b)}</li>`).join("\n        ")}
       </ul>
-      ${p.waitlistNote ? `<p class="section-copy">${p.waitlistNote}</p>` : ""}
+      ${p.note ? `<p class="section-copy callout">${esc(p.note)}</p>` : ""}
+      ${p.waitlistNote ? `<p class="section-copy">${esc(p.waitlistNote)}</p>` : ""}
       ${p.waitlist ? waitlistBlock(p.name) : ""}
     </section>
   </main>
@@ -298,52 +393,35 @@ function indexPage() {
       (p) => `
         <article class="product-card" data-product="${p.id}">
           <div class="product-top">
-            <span class="product-tag">${p.tag}</span>
-            <span class="status ${p.status}">${p.statusLabel}</span>
+            <span class="product-tag">${esc(p.tag)}</span>
+            <span class="status ${p.status}">${esc(p.statusLabel)}</span>
           </div>
-          <h3><a href="/products/${p.slug}/">${p.name}</a></h3>
-          <p>${p.card}</p>
-          <a class="product-link" href="/products/${p.slug}/">View product</a>
-          ${
-            p.external
-              ? `<a class="product-link secondary" href="${p.external}" rel="noopener">${p.external.replace(
-                  /^https?:\/\//,
-                  ""
-                )}</a>`
-              : p.waitlist
-                ? `<a class="product-link secondary" href="/products/${p.slug}/#waitlist">Join waitlist</a>`
-                : ""
-          }
+          <h3><a href="/products/${p.slug}/">${esc(p.name)}</a></h3>
+          <p class="card-one-liner">${esc(p.oneLiner)}</p>
+          <p>${esc(p.card)}</p>
+          <div class="card-links">
+          ${productLinks(p, { compact: true })}
+          </div>
         </article>`
     )
     .join("\n");
 
-  const caps = capabilities
+  const how = howWeWork
     .map(
       (c) => `
           <li>
             <span class="cap-num">${c.num}</span>
             <div>
-              <strong>${c.title}</strong>
-              <span>${c.body}</span>
+              <strong>${esc(c.title)}</strong>
+              <span>${esc(c.body)}</span>
             </div>
           </li>`
     )
     .join("\n");
 
-  const approachItems = approach
-    .map(
-      (a) => `
-            <li>
-              <strong>${a.title}</strong>
-              <span>${a.body}</span>
-            </li>`
-    )
-    .join("\n");
-
   return `${head(
     "Burkett Studios — Digital products we build, run, and own",
-    "Burkett Studios is the arm of Burkett Investments that builds, runs, and owns our digital products: Year Wall, Wandered, SurroStack, and more.",
+    "Burkett Studios is the arm of Burkett Investments that builds, runs, and owns Year Wall, Wandered, SurroStack, MassageNow, and more.",
     "https://burkettstudios.com/"
   )}
 <body>
@@ -357,12 +435,12 @@ ${header()}
         <span class="hero-accent">run, and own.</span>
       </h1>
       <p class="lede">
-        Burkett Studios is the arm of Burkett Investments for digital products.
-        We invent, ship, operate, and hold title to apps and platforms such as Year Wall,
-        Wandered, and SurroStack. We do not build software for outside clients.
+        Burkett Studios is where Burkett Investments ships digital products.
+        Year Wall, Wandered, SurroStack, MassageNow, and what comes next:
+        we invent them, operate them, and keep title. We do not build software for hire.
       </p>
       <div class="hero-actions">
-        <a class="btn btn-primary" href="#products">Our products</a>
+        <a class="btn btn-primary" href="#products">See the portfolio</a>
         <a class="btn btn-ghost" href="https://burkettinv.com" rel="noopener">Burkett Investments</a>
       </div>
     </section>
@@ -379,7 +457,7 @@ ${header()}
             <dd>iOS · Web · API</dd>
           </div>
           <div class="spec-cell">
-            <dt>Infrastructure</dt>
+            <dt>Stack</dt>
             <dd>Cloudflare</dd>
           </div>
           <div class="spec-cell">
@@ -391,14 +469,16 @@ ${header()}
     </section>
 
     <section id="products" class="section shell">
-      <div class="section-head">
-        <span class="gold-rule" aria-hidden="true"></span>
-        <p class="eyebrow">Portfolio</p>
-        <h2>Digital assets we own</h2>
-        <p class="section-copy">
-          Products Burkett Studios builds, runs, and owns. Live apps ship on their own domains;
-          seed products take a waitlist until they are ready.
-        </p>
+      <div class="section-head section-head-row">
+        <div>
+          <span class="gold-rule" aria-hidden="true"></span>
+          <p class="eyebrow">Portfolio</p>
+          <h2>Products we own</h2>
+          <p class="section-copy">
+            Each product has a Studios overview. Live products also link to their own marketing site
+            and, when separate, the app itself.
+          </p>
+        </div>
       </div>
       <div class="product-grid">
 ${cards}
@@ -409,14 +489,13 @@ ${cards}
       <div class="section-head">
         <span class="gold-rule" aria-hidden="true"></span>
         <p class="eyebrow">How we work</p>
-        <h2>How Studios operates</h2>
+        <h2>How Studios runs</h2>
         <p class="section-copy">
-          Internal product practice, not a consultancy. Strategy through production for software
-          that stays on our books.
+          An internal product practice. Strategy through production for software that stays on our books.
         </p>
       </div>
       <ul class="cap-list">
-${caps}
+${how}
       </ul>
     </section>
 
@@ -431,12 +510,23 @@ ${caps}
           <p class="section-copy" style="margin:0">
             Burkett Investments is multi-avenue. Consulting and investment management live on
             burkettinv.com. Burkett Studios is the digital product arm: we own the code, the
-            domains, and the ongoing operation of the software listed here.
+            domains, and day-to-day operation of the portfolio below.
           </p>
         </div>
         <div class="approach-list-wrap">
           <ul class="approach-list">
-${approachItems}
+            <li>
+              <strong>Owned digital assets</strong>
+              <span>Not a services desk. Consumer apps, marketplaces, and platforms with Burkett on the title.</span>
+            </li>
+            <li>
+              <strong>Same brand law</strong>
+              <span>Cybertruck geometry, gold ignition, hairline systems. Digital inherits Burkett Identity.</span>
+            </li>
+            <li>
+              <strong>Ship, then operate</strong>
+              <span>Live domains and ongoing ops. Launch is the start of ownership, not a client handoff.</span>
+            </li>
           </ul>
         </div>
       </div>
@@ -448,7 +538,7 @@ ${approachItems}
         <p class="eyebrow">Contact</p>
         <h2>Get in touch</h2>
         <p class="section-copy">
-          Press, partnership, product feedback, or waitlist questions for our own apps.
+          Press, partnership, product feedback, or waitlist questions for our apps.
           Reach Burkett Investments and ask for Studios.
         </p>
         <div class="contact-actions">
@@ -491,4 +581,4 @@ writeFileSync(
   join(root, "products.json"),
   JSON.stringify(products, null, 2) + "\n"
 );
-console.log(`Generated home + ${products.length} product pages (Identity-aligned).`);
+console.log(`Generated home + ${products.length} product pages.`);
