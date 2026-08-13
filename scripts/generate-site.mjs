@@ -181,6 +181,18 @@ function esc(s) {
     .replace(/</g, "&lt;");
 }
 
+function stripProtocol(href) {
+  return String(href).replace(/^https?:\/\//, "");
+}
+
+function hrefHost(href) {
+  return stripProtocol(href).split("/")[0];
+}
+
+function hrefHostPath(href) {
+  return stripProtocol(href).replace(/\/$/, "");
+}
+
 const head = (title, description, canonical) => `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -216,6 +228,14 @@ const header = (active = "") => `
     </div>
   </header>`;
 
+const footerProductLinks = products
+  .filter((p) => p.marketing)
+  .map(
+    (p) =>
+      `        <a href="${p.marketing.href}" rel="noopener">${esc(p.name)}</a>`
+  )
+  .join("\n");
+
 const footer = `
   <footer class="site-footer">
     <div class="shell footer-grid">
@@ -228,9 +248,7 @@ const footer = `
       </div>
       <div class="footer-links">
         <a href="/#products">All products</a>
-        <a href="https://yearwall.burkettinv.com" rel="noopener">Year Wall</a>
-        <a href="https://wandered.burkettinv.com" rel="noopener">Wandered</a>
-        <a href="https://getmassagenow.com" rel="noopener">MassageNow</a>
+${footerProductLinks}
         <a href="https://burkettinv.com" rel="noopener">Burkett Investments</a>
       </div>
     </div>
@@ -291,7 +309,7 @@ function productPage(p) {
         <a class="link-row" href="${p.app.href}" rel="noopener">
           <span class="link-row-kicker">Open product</span>
           <span class="link-row-title">${esc(p.app.label)}</span>
-          <span class="link-row-host">${esc(p.app.href.replace(/^https?:\/\//, "").replace(/\/$/, ""))}</span>
+          <span class="link-row-host">${esc(hrefHostPath(p.app.href))}</span>
           <span class="link-row-go" aria-hidden="true">→</span>
         </a>`);
   }
@@ -311,6 +329,27 @@ function productPage(p) {
     actions.push(`<a class="btn btn-ghost" href="#waitlist">Waitlist</a>`);
   }
   actions.push(`<a class="btn btn-ghost" href="/#products">All products</a>`);
+
+  const linksBlock = rows.length
+    ? `
+    <section class="shell product-links-block">
+      <p class="eyebrow">Where it lives</p>
+      <div class="link-rows">${rows.join("")}
+      </div>
+    </section>
+`
+    : "";
+
+  const bodyExtras = [];
+  if (p.note) {
+    bodyExtras.push(
+      `      <p class="section-copy callout">${esc(p.note)}</p>`
+    );
+  }
+  if (p.waitlistNote) {
+    bodyExtras.push(`      <p class="section-copy">${esc(p.waitlistNote)}</p>`);
+  }
+  if (p.waitlist) bodyExtras.push(waitlistBlock(p.name).trimEnd());
 
   return `${head(
     `${p.name} — Burkett Studios`,
@@ -334,26 +373,13 @@ ${header("products")}
         ${actions.join("\n        ")}
       </div>
     </section>
-
-    ${
-      rows.length
-        ? `<section class="shell product-links-block">
-      <p class="eyebrow">Where it lives</p>
-      <div class="link-rows">${rows.join("")}
-      </div>
-    </section>`
-        : ""
-    }
-
+${linksBlock}
     <section class="product-body shell">
       <p class="eyebrow">In short</p>
       <ul class="feature-list">
         ${p.bullets.map((b) => `<li>${esc(b)}</li>`).join("\n        ")}
       </ul>
-      ${p.note ? `<p class="section-copy callout">${esc(p.note)}</p>` : ""}
-      ${p.waitlistNote ? `<p class="section-copy">${esc(p.waitlistNote)}</p>` : ""}
-      ${p.waitlist ? waitlistBlock(p.name) : ""}
-    </section>
+${bodyExtras.length ? `${bodyExtras.join("\n")}\n` : ""}    </section>
   </main>
 ${footer}`;
 }
@@ -367,6 +393,11 @@ function indexPage() {
         p.marketing && p.app
           ? `<a class="product-link secondary" href="${p.app.href}" rel="noopener">${esc(p.app.label)}</a>`
           : `<a class="product-link secondary" href="/products/${p.slug}/">Studios overview</a>`;
+      const host = p.marketing
+        ? `<span class="product-host">${esc(p.marketing.host)}</span>`
+        : p.app
+          ? `<span class="product-host">${esc(hrefHost(p.app.href))}</span>`
+          : "";
 
       return `
         <article class="product-card" data-product="${p.id}">
@@ -381,14 +412,7 @@ function indexPage() {
           <p>${esc(p.card)}</p>
           <div class="card-links">
             <a class="product-link" href="${primary}"${primaryIsExternal ? ' rel="noopener"' : ""}>${esc(primaryLabel(p))}</a>
-            ${secondary}
-            ${
-              p.marketing
-                ? `<span class="product-host">${esc(p.marketing.host)}</span>`
-                : p.app
-                  ? `<span class="product-host">${esc(p.app.href.replace(/^https?:\/\//, "").split("/")[0])}</span>`
-                  : ""
-            }
+            ${secondary}${host ? `\n            ${host}` : ""}
           </div>
         </article>`;
     })
