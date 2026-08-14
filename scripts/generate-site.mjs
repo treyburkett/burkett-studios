@@ -2,6 +2,16 @@
 /**
  * Burkett Studios marketing site generator
  *
+ * THIS FILE is the product table. Edit products here, then:
+ *   npm run generate
+ *   npm run deploy    (only when Trey confirms a live ship)
+ *
+ * products.json is a snapshot this script writes. Do not edit it by hand.
+ * public/*.html and public/sitemap.xml are also written here. Do not edit those by hand.
+ * PURPOSE.md is the locked purpose note. This script does not overwrite it.
+ *
+ * Johnson Harvesting (jh.burkettstudios.com) is a different site. Not in this table.
+ *
  * PURPOSE OF burkettstudios.com
  * -----------------------------
  * Home for Burkett's owned digital products.
@@ -53,6 +63,7 @@ const products = [
       "Household cloud across web and iPhone",
       "Web live; iOS when quality clears the bar",
     ],
+    // Audit 2026-08-14: this hostname did not resolve. Public URL left unchanged.
     marketing: {
       href: "https://yearwall.burkettinv.com",
       label: "Go to Year Wall",
@@ -178,7 +189,8 @@ function esc(s) {
   return String(s)
     .replace(/&/g, "&amp;")
     .replace(/"/g, "&quot;")
-    .replace(/</g, "&lt;");
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
 }
 
 function stripProtocol(href) {
@@ -201,10 +213,10 @@ const head = (title, description, canonical) => `<!DOCTYPE html>
   <title>${esc(title)}</title>
   <meta name="description" content="${esc(description)}" />
   <meta name="theme-color" content="#08080a" />
-  <link rel="canonical" href="${canonical}" />
+  <link rel="canonical" href="${esc(canonical)}" />
   <meta property="og:title" content="${esc(title.replace(/ — .*$/, ""))}" />
   <meta property="og:description" content="${esc(description)}" />
-  <meta property="og:url" content="${canonical}" />
+  <meta property="og:url" content="${esc(canonical)}" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -232,7 +244,7 @@ const footerProductLinks = products
   .filter((p) => p.marketing)
   .map(
     (p) =>
-      `        <a href="${p.marketing.href}" rel="noopener">${esc(p.name)}</a>`
+      `        <a href="${esc(p.marketing.href)}" rel="noopener">${esc(p.name)}</a>`
   )
   .join("\n");
 
@@ -297,7 +309,7 @@ function productPage(p) {
   const rows = [];
   if (p.marketing) {
     rows.push(`
-        <a class="link-row" href="${p.marketing.href}" rel="noopener">
+        <a class="link-row" href="${esc(p.marketing.href)}" rel="noopener">
           <span class="link-row-kicker">Product site</span>
           <span class="link-row-title">${esc(p.marketing.label)}</span>
           <span class="link-row-host">${esc(p.marketing.host)}</span>
@@ -306,7 +318,7 @@ function productPage(p) {
   }
   if (p.app) {
     rows.push(`
-        <a class="link-row" href="${p.app.href}" rel="noopener">
+        <a class="link-row" href="${esc(p.app.href)}" rel="noopener">
           <span class="link-row-kicker">Open product</span>
           <span class="link-row-title">${esc(p.app.label)}</span>
           <span class="link-row-host">${esc(hrefHostPath(p.app.href))}</span>
@@ -317,12 +329,12 @@ function productPage(p) {
   const actions = [];
   if (p.marketing) {
     actions.push(
-      `<a class="btn btn-primary" href="${p.marketing.href}" rel="noopener">${esc(p.marketing.label)}</a>`
+      `<a class="btn btn-primary" href="${esc(p.marketing.href)}" rel="noopener">${esc(p.marketing.label)}</a>`
     );
   }
   if (p.app) {
     actions.push(
-      `<a class="btn ${p.marketing ? "btn-ghost" : "btn-primary"}" href="${p.app.href}" rel="noopener">${esc(p.app.label)}</a>`
+      `<a class="btn ${p.marketing ? "btn-ghost" : "btn-primary"}" href="${esc(p.app.href)}" rel="noopener">${esc(p.app.label)}</a>`
     );
   }
   if (p.waitlist) {
@@ -354,7 +366,7 @@ function productPage(p) {
   return `${head(
     `${p.name} — Burkett Studios`,
     p.card,
-    `https://burkettstudios.com/products/${p.slug}/`
+    `https://burkettstudios.com/products/${esc(p.slug)}/`
   )}
 <body class="product-page" data-product="${p.id}">
 ${header("products")}
@@ -391,8 +403,8 @@ function indexPage() {
       const primaryIsExternal = primary.startsWith("http");
       const secondary =
         p.marketing && p.app
-          ? `<a class="product-link secondary" href="${p.app.href}" rel="noopener">${esc(p.app.label)}</a>`
-          : `<a class="product-link secondary" href="/products/${p.slug}/">Studios overview</a>`;
+          ? `<a class="product-link secondary" href="${esc(p.app.href)}" rel="noopener">${esc(p.app.label)}</a>`
+          : `<a class="product-link secondary" href="/products/${esc(p.slug)}/">Studios overview</a>`;
       const host = p.marketing
         ? `<span class="product-host">${esc(p.marketing.host)}</span>`
         : p.app
@@ -406,12 +418,12 @@ function indexPage() {
             <span class="status ${p.status}">${esc(p.statusLabel)}</span>
           </div>
           <h3>
-            <a href="${primary}"${primaryIsExternal ? ' rel="noopener"' : ""}>${esc(p.name)}</a>
+            <a href="${esc(primary)}"${primaryIsExternal ? ' rel="noopener"' : ""}>${esc(p.name)}</a>
           </h3>
           <p class="card-one-liner">${esc(p.oneLiner)}</p>
           <p>${esc(p.card)}</p>
           <div class="card-links">
-            <a class="product-link" href="${primary}"${primaryIsExternal ? ' rel="noopener"' : ""}>${esc(primaryLabel(p))}</a>
+            <a class="product-link" href="${esc(primary)}"${primaryIsExternal ? ' rel="noopener"' : ""}>${esc(primaryLabel(p))}</a>
             ${secondary}${host ? `\n            ${host}` : ""}
           </div>
         </article>`;
@@ -549,36 +561,14 @@ for (const p of products) {
 writeFileSync(join(pub, "sitemap.xml"), sitemap());
 writeFileSync(
   join(root, "products.json"),
-  JSON.stringify({ purpose: PURPOSE, products }, null, 2) + "\n"
+  JSON.stringify(
+    {
+      generatedFrom: "scripts/generate-site.mjs",
+      purpose: PURPOSE,
+      products,
+    },
+    null,
+    2
+  ) + "\n"
 );
-writeFileSync(
-  join(root, "PURPOSE.md"),
-  `# Purpose of burkettstudios.com
-
-## One sentence
-
-**Home and map for digital products Burkett Investments owns through Burkett Studios.**
-
-## Jobs to do
-
-1. **Ownership** — Make clear these products are Burkett’s (built, run, owned), not client work.
-2. **Directory** — List the portfolio with honest status (live / pilot / seed).
-3. **Handoff** — Send people to each product’s own marketing site (and app when separate).
-4. **Boundary** — Separate Studios (digital assets) from burkettinv.com (RE / consulting / company OS).
-
-## Jobs not to do
-
-- Sell software consulting or “build for hire”
-- Replace Year Wall / Wandered / MassageNow marketing sites with a mega brochure
-- Deep product docs or app UI chrome
-
-## Design consequence
-
-Lead with portfolio. Primary CTA per product = product marketing site.
-Studios product pages = short ownership overview + links out.
-Minimal about/contact only.
-
-Last locked: 2026-08-01
-`
-);
-console.log("Generated purpose-led home + product pages.");
+console.log("Generated home + product pages from scripts/generate-site.mjs.");
