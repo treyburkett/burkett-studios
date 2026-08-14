@@ -1,6 +1,7 @@
 # Burkett Studios marketing site — Workers Static Assets
-# Deploy: npm run deploy
-# Live: burkettstudios.com + www (custom domains auto DNS)
+# Deploy: npm run deploy (Trey confirm first)
+# Live: burkettstudios.com + www only.
+# jh.burkettstudios.com is Johnson Harvesting (different project). Do not add it here.
 
 name = "burkett-studios-site"
 compatibility_date = "2026-07-01"

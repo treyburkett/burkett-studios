@@ -1,4 +1,5 @@
 {
+  "generatedFrom": "scripts/generate-site.mjs",
   "purpose": {
     "title": "Burkett Studios — Digital products we own",
     "description": "Burkett Studios is the digital-product arm of Burkett Investments. A map of products we build, run, and own, with links to each product site.",

@@ -5,6 +5,7 @@
   "description": "Marketing site for Burkett Studios (burkettstudios.com)",
   "scripts": {
     "generate": "node scripts/generate-site.mjs",
+    "check": "node --check scripts/generate-site.mjs && node scripts/check-generate.mjs",
     "dev": "npm run generate && npx wrangler dev -c wrangler.worker.toml --port 8788",
     "deploy": "npm run generate && npx wrangler deploy -c wrangler.worker.toml",
     "deploy:pages-backup": "npm run generate && npx wrangler pages deploy public --project-name burkett-studios --branch main --commit-dirty=true"

@@ -18,11 +18,24 @@
 
 Primary CTA per product = product marketing URL when it exists.
 
+## Product table
+
+Edit products only in `scripts/generate-site.mjs`. Then `npm run generate` and `npm run check`.
+
+Do not edit `public/*.html` or `products.json` by hand. Those are generated.
+
+`PURPOSE.md` is the locked purpose note. The generator does not overwrite it.
+
+Johnson Harvesting (`jh.burkettstudios.com`) is a different site. Do not change it from this repo.
+
 ## Deploy
 
 ```bash
 cd ~/Developer/burkett/burkett-studios
 # edit products in scripts/generate-site.mjs
+npm run generate
+npm run check
+# live ship only with Trey confirm
 npm run deploy
 ```
 
