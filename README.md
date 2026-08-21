@@ -1,8 +1,8 @@
 # Burkett Studios (marketing site)
 
-Public face for Kyle and Trey Burkett: **https://burkettstudios.com**.
+**https://burkettstudios.com**
 
-They make household software in Nashville. Walli is the lead product. It is still building and not public yet. This is not a consultancy, and it is not Johnson Harvesting. Johnson Harvesting lives on **jh.burkettstudios.com** in a different repo. Do not edit that from here.
+Burkett Studios makes household software. Walli is the lead product: a household year calendar. This is not a consultancy, and it is not Johnson Harvesting. Johnson Harvesting lives on **jh.burkettstudios.com** in a different repo. Do not edit that from here.
 
 ## How to change a product
 
@@ -14,6 +14,8 @@ They make household software in Nashville. Walli is the lead product. It is stil
 Do not edit `public/*.html` or `products.json` by hand. Those are written by the generator. `PURPOSE.md` is the locked purpose note and is not overwritten.
 
 Product name is **Walli** only. Never write “Year Wall” on this site.
+
+If people are named or shown: Trey first, then Kyle. Do not make the homepage about them.
 
 ## Quick start
 
@@ -30,6 +32,7 @@ npm run deploy     # live Cloudflare ship (needs Trey confirm)
 - A small Node script writes static HTML into `public/`.
 - Cloudflare Worker `burkett-studios-site` serves those files on burkettstudios.com and www.
 - Look and feel: cream, ink, house system sans. Coral `#ff5c54` only when Walli is on stage. Wandered keeps `#5b8cff`.
+- CSS is `/styles.css?v=<hash>` plus inline critical CSS.
 
 ## Brand boundary
 

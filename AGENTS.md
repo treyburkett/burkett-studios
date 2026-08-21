@@ -7,17 +7,17 @@
 
 ## Purpose (design around this)
 
-**Kyle and Trey Burkett make household software in Nashville.**
+**Burkett Studios makes household software.**
 
-1. Studio sentence first (who we are)
-2. Name Kyle and Trey
-3. Walli is the lead product, not the company. Still building. Not public yet.
-4. Handoff to Wandered and MassageNow. Keep SurroStack light. Leave Johnson Harvesting off this homepage.
+1. Studio one-liner first (company, not a person)
+2. Then Walli, using the lock sentence and only the four locked abilities
+3. Wandered and MassageNow as their own short faces
+4. If people are named or shown: Trey first, then Kyle. Portraits are secondary. No PM/MIS bio.
 
-**Not** build-for-hire. **Not** a SaaS about page. **Not** a Burkett Investments brochure.
+**Not** build-for-hire. **Not** a SaaS about page. **Not** a Burkett Investments brochure. **Not** a founder about page.
 
 Product name is **Walli** only. Never “Year Wall” on this site.
-Do not hard-sell unfinished Walli.
+Do not hard-sell unfinished Walli. No wallicalendar.com, waitlist, or download CTAs.
 
 ## Product table
 
@@ -44,10 +44,10 @@ Merge to `main` does not publish. Production is `npm run deploy` (Worker `burket
 
 ## Style
 
-- No em dashes.
+- No em dashes in house copy. The Walli lock sentence is the exception (use it exactly).
 - House sans: `system-ui, -apple-system, "Segoe UI", sans-serif`. No Geist. No Inter.
 - Studio palette is cream / ink / neutral. Coral `#ff5c54` only on Walli moments.
 - Wandered blue `#5b8cff` stays on Wandered. Do not recast it in coral.
+- Pages load `/styles.css?v=<hash>` plus inline critical CSS. Never relative `styles.css`.
 - No Orient or Conflict Patterns on the public homepage or nav.
 - No decorative slabs, fake year-bars, or extra parallax.
-- Do not write Trey as a solo founder.
