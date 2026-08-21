@@ -7,17 +7,17 @@
 
 ## Purpose (design around this)
 
-**Public face for Trey Burkett and his husband: two people in Nashville building products, led by Walli.**
+**Kyle and Trey Burkett make household software in Nashville.**
 
-1. Introduce the studio as people, not a holding company
-2. Lead with Walli (year-at-a-glance calendar)
-3. Honest list of the other real products
-4. Quiet handoff to a product site when one already exists
+1. Studio sentence first (who we are)
+2. Name Kyle and Trey
+3. Walli is the lead product, not the company. Still building. Not public yet.
+4. Handoff to Wandered and MassageNow. Keep SurroStack light. Leave Johnson Harvesting off this homepage.
 
-**Not** build-for-hire. **Not** “the products we own.” **Not** a mega brochure that replaces Wandered / MassageNow sites.
+**Not** build-for-hire. **Not** a SaaS about page. **Not** a Burkett Investments brochure.
 
 Product name is **Walli** only. Never “Year Wall” on this site.
-Do not hard-sell unfinished Walli to cold traffic.
+Do not hard-sell unfinished Walli.
 
 ## Product table
 
@@ -40,10 +40,14 @@ npm run check
 npm run deploy
 ```
 
+Merge to `main` does not publish. Production is `npm run deploy` (Worker `burkett-studios-site`).
+
 ## Style
 
 - No em dashes.
-- Accent is Walli coral `#ff5c54` only. Neutrals, black, cream around it.
-- One sans family (Geist). No serif. No gold.
-- Nashville is welcome. This site is the X-profile public face.
-- Do not write Trey as a solo founder. Do not invent his husband’s name.
+- House sans: `system-ui, -apple-system, "Segoe UI", sans-serif`. No Geist. No Inter.
+- Studio palette is cream / ink / neutral. Coral `#ff5c54` only on Walli moments.
+- Wandered blue `#5b8cff` stays on Wandered. Do not recast it in coral.
+- No Orient or Conflict Patterns on the public homepage or nav.
+- No decorative slabs, fake year-bars, or extra parallax.
+- Do not write Trey as a solo founder.

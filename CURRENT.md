@@ -1,7 +1,7 @@
 # CURRENT. Burkett Studios marketing site
 
 **Updated:** 2026-08-21  
-**Status:** Studio homepage rebuilt as a founder public face (Walli-first, Geist, coral `#ff5c54`)
+**Status:** Studio homepage: Kyle and Trey, household-software thesis, honest Walli, two live handoffs.
 
 ## Live
 
@@ -19,12 +19,19 @@ Johnson Harvesting at https://jh.burkettstudios.com is a different live site. No
 
 | Product | Status on this site | Outbound |
 |---------|--------|-----------------|
-| Walli | Building · page `/products/walli/` · old `/products/year-wall/` redirects here | In-progress site kept quiet: yearwall.burkettinv.com. Not a “go use it” CTA. Never call it Year Wall. |
-| Wandered | Live · https://wandered.burkettinv.com · page `/products/wandered/` | Public marketing site |
-| SurroStack | Private · page `/products/surrostack/` | Login-gated portal. Do not hard-sell. |
-| MassageNow | Live · https://getmassagenow.com · waitlist on page | Public waitlist site |
-| Orient | Waitlist · `/products/orient/#waitlist` | On this site |
-| Conflict Patterns | In design · `/products/conflict-patterns/#waitlist` | On this site |
+| Walli | Building · not public yet · page `/products/walli/` · old `/products/year-wall/` redirects here | No “go use it” CTA. Never call it Year Wall. |
+| Wandered | Live · https://wandered.burkettinv.com · page `/products/wandered/` | Public marketing site. Keep blue `#5b8cff`. |
+| MassageNow | Live · https://getmassagenow.com · page `/products/massagenow/` | Public site. |
+| SurroStack | Private/pilot · page `/products/surrostack/` · light mention on `/work/` | https://app.burkettinv.com. No hard sell. |
+| Orient | Unlisted seed. Page kept so the old URL does not 404. | Off homepage and nav. |
+| Conflict Patterns | Unlisted seed. Page kept so the old URL does not 404. | Off homepage and nav. |
+
+## Public map
+
+Homepage: thesis, Kyle and Trey, Walli, then Wandered and MassageNow.  
+Directory: `/work/`, `/about/`, `/pulse/`, `/contact/`. One note: `/notes/household-software/`.
+
+Portraits in `public/team/` came from burkettinv.com official team assets. There is no photo of the two of them together in this repo.
 
 ## Ship path
 
@@ -35,18 +42,15 @@ npm run generate
 npm run check
 # live ship only with Trey confirm:
 npm run deploy
-git add -A && git commit -m "..." && git push
 ```
 
-`deploy:pages-backup` is an old Cloudflare Pages fallback. Do not use it unless the Worker deploy is down.
+Merge to `main` does not publish. `deploy:pages-backup` is an old Cloudflare Pages fallback. Do not use it unless the Worker deploy is down.
 
 ## Voice
 
-Trey’s line, for tone: “Software PM for 10 years. Building Walli with my husband. Nashville.”
-X: [@TreyBurkett](https://x.com/TreyBurkett). Do not write Trey as a solo founder. Do not invent his husband’s name.
+Kyle and Trey. Nashville. Trey: software PM for 10 years, MIS, building with Kyle.
+X: [@TreyBurkett](https://x.com/TreyBurkett). Do not write Trey as a solo founder.
 
 ## Next
 
-1. Live ship only with Trey confirm (`npm run deploy`).
-2. Decide later whether Walli’s quiet outbound should become wallicalendar.com.
-3. Optional Formspree/Workers form instead of mailto waitlist.
+Live ship is authorized on this pass (`npm run deploy` after merge).

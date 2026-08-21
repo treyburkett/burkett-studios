@@ -2,28 +2,26 @@
 
 ## One sentence
 
-**Public face for Trey Burkett and his husband: two people in Nashville building products, led by Walli.**
+**Kyle and Trey Burkett make household software in Nashville.**
 
 ## Jobs to do
 
-1. **Introduce.** Feel like two people building real products, not a holding company or PE portfolio.
-2. **Lead with Walli.** Year-at-a-glance calendar. Product name is Walli only. Never “Year Wall” on this site.
-3. **Directory.** List the other real products with honest status (building / live / waitlist / private / in design).
-4. **Handoff.** Quiet links to a live product site when one already exists. Do not hard-sell unfinished Walli.
+1. **Introduce the studio.** Two people. A thesis that is not a product pitch. Then the work.
+2. **Name them.** Kyle and Trey. Nashville. Trey: software PM for 10 years, MIS, building with Kyle.
+3. **Lead product, not the company.** Walli is the lead. Still building. Not public yet. No “go use it” CTA.
+4. **Handoff the live work.** Wandered and MassageNow keep their own sites. SurroStack stays a light private/pilot mention. Johnson Harvesting stays off this homepage.
 
 ## Jobs not to do
 
 - Sell software consulting or “build for hire”
-- Sound like “the products we own” or an asset map
-- Send cold X traffic to Walli as a finished app
+- Sound like a SaaS about page, an agency, or “the products we own”
+- Put Orient, Conflict Patterns, or Johnson Harvesting on the public homepage or nav
+- Hard-sell unfinished Walli to wallicalendar.com
 - Replace Wandered / MassageNow marketing sites with a mega brochure
-- Put Johnson Harvesting on the public homepage
-- Invent a second brand accent. Coral is `#ff5c54`.
+- Paint the house in Walli coral, or use Geist / Inter
 
 ## Design consequence
 
-Lead with Walli and founder voice (we / husband / Nashville).
-Primary CTA for Walli = more about Walli on this site, not “go use the app.”
-Studios product pages = short and human. Minimal contact.
+Studio sentence first. Cream, ink, house sans. Coral `#ff5c54` only when Walli is on stage. Wandered keeps `#5b8cff`. Product pages are short letters.
 
 Last locked: 2026-08-21

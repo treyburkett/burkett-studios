@@ -1,152 +1,91 @@
 {
+  "generatedAt": "2026-08-21",
   "generatedFrom": "scripts/generate-site.mjs",
-  "site": {
-    "title": "Burkett Studios · Building Walli in Nashville",
-    "description": "Trey Burkett and his husband build products in Nashville. Right now that means Walli, a year-at-a-glance calendar.",
-    "heroEyebrow": "Nashville",
-    "heroH1a": "We're building",
-    "heroH1b": "Walli.",
-    "heroLede": "The year-at-a-glance calendar. Whole year on one screen, continuous plan bars, household cloud. Two of us, making products we want to use.",
-    "voiceLine": "Software PM for 10 years. Building Walli with my husband. Nashville."
-  },
+  "site": "https://burkettstudios.com",
+  "contact": "trey@burkettinv.com",
+  "thesis": "We make household software.",
+  "people": [
+    "Kyle Burkett",
+    "Trey Burkett"
+  ],
   "products": [
     {
       "slug": "walli",
-      "id": "walli",
       "name": "Walli",
-      "tag": "Calendar",
-      "status": "build",
-      "statusLabel": "Building",
-      "featured": true,
-      "quietOutbound": true,
-      "oneLiner": "Your whole year on one screen.",
-      "card": "Whole year at a glance, continuous plan bars, household cloud.",
-      "lede": "Walli is the year-at-a-glance calendar we are building in Nashville. The whole year stays on one screen, so a plan can stretch instead of getting chopped into a stack of days.",
-      "bullets": [
-        "The full year visible at once",
-        "Continuous plan bars, not a day list",
-        "Household cloud across web and iPhone"
-      ],
-      "marketing": {
-        "href": "https://yearwall.burkettinv.com",
-        "label": "In-progress site",
-        "host": "yearwall.burkettinv.com"
-      },
-      "app": null,
-      "waitlist": false,
-      "note": "We are still building Walli. It is not ready to send people into an app yet."
+      "status": "building",
+      "listed": true,
+      "lead": true,
+      "href": "/products/walli/",
+      "outbound": null,
+      "color": "#ff5c54",
+      "oneLiner": "One year. On the wall. In the house.",
+      "summary": "A year you can walk up to. Still building. Not public yet.",
+      "pageTitle": "Walli"
     },
     {
       "slug": "wandered",
-      "id": "wandered",
       "name": "Wandered",
-      "tag": "Travel map",
       "status": "live",
-      "statusLabel": "Live",
-      "oneLiner": "Your world, filled in.",
-      "card": "Exact coastlines, trip journal, a passport that fills as you travel.",
-      "lede": "Wandered paints where you have been onto a real map. Real coastlines, the trips that got you there, and a passport that fills itself.",
-      "bullets": [
-        "Unsimplified borders and real coastlines",
-        "Trip journal and a passport that fills as you go",
-        "iPhone and web"
-      ],
-      "marketing": {
-        "href": "https://wandered.burkettinv.com",
-        "label": "Wandered site",
-        "host": "wandered.burkettinv.com"
-      },
-      "app": {
-        "href": "https://wandered.burkettinv.com/app",
-        "label": "Open the app"
-      },
-      "waitlist": false
-    },
-    {
-      "slug": "surrostack",
-      "id": "surrostack",
-      "name": "SurroStack",
-      "tag": "Journey ops",
-      "status": "private",
-      "statusLabel": "Private",
-      "quietOutbound": true,
-      "oneLiner": "Ops for a surrogacy journey.",
-      "card": "Tasks, calendar, money, and a way to share status.",
-      "lede": "SurroStack helps a household keep a surrogacy journey in one place: tasks, calendar, money, and status you can share. It is a private pilot today.",
-      "bullets": [
-        "Tasks and calendar for the journey load",
-        "Share status with partners and support",
-        "Signed-in portal. Not a public launch."
-      ],
-      "marketing": null,
-      "app": {
-        "href": "https://app.burkettinv.com/surrostack/",
-        "label": "Portal (if you have access)"
-      },
-      "waitlist": false,
-      "note": "Private pilot. The portal link only helps if you already have access."
+      "listed": true,
+      "lead": false,
+      "href": "/products/wandered/",
+      "outbound": "https://wandered.burkettinv.com",
+      "color": "#5b8cff",
+      "oneLiner": "A trip you can still walk after you get home.",
+      "summary": "Live trip software. The map stays after the flight home.",
+      "pageTitle": "Wandered"
     },
     {
       "slug": "massagenow",
-      "id": "massagenow",
       "name": "MassageNow",
-      "tag": "Nashville",
       "status": "live",
-      "statusLabel": "Live",
-      "oneLiner": "Last-minute massage openings in Nashville.",
-      "card": "Same-day openings at licensed studios.",
-      "lede": "MassageNow is our Nashville experiment for last-minute massage inventory. The public story and waitlist live on getmassagenow.com.",
-      "bullets": [
-        "Same-day openings at licensed studios",
-        "Built for the empty slot, not a six-week book-ahead",
-        "Nashville first"
-      ],
-      "marketing": {
-        "href": "https://getmassagenow.com",
-        "label": "MassageNow site",
-        "host": "getmassagenow.com"
-      },
-      "app": null,
-      "waitlist": true,
-      "waitlistNote": "The product site is the better waitlist if it is open. Or leave an email below."
+      "listed": true,
+      "lead": false,
+      "href": "/products/massagenow/",
+      "outbound": "https://getmassagenow.com",
+      "color": null,
+      "oneLiner": "A booking site for a real table.",
+      "summary": "A booking site for a real table. Live.",
+      "pageTitle": "MassageNow"
+    },
+    {
+      "slug": "surrostack",
+      "name": "SurroStack",
+      "status": "pilot",
+      "listed": false,
+      "lead": false,
+      "href": "/products/surrostack/",
+      "outbound": "https://app.burkettinv.com",
+      "color": null,
+      "oneLiner": "A private pilot. Not a public product.",
+      "summary": "In use on a small private stack. Not for sale from this page.",
+      "pageTitle": "SurroStack"
     },
     {
       "slug": "orient",
-      "id": "orient",
       "name": "Orient",
-      "tag": "Guides",
-      "status": "waitlist",
-      "statusLabel": "Waitlist",
-      "oneLiner": "Place guides with a point of view.",
-      "card": "Local orientation, not an SEO directory.",
-      "lede": "Orient is a place-guide product in early days. Editorial standards first. No public site yet.",
-      "bullets": [
-        "Guides with a point of view, not directory sludge",
-        "Region pilots before a big map",
-        "Waitlist until there is something to try"
-      ],
-      "marketing": null,
-      "app": null,
-      "waitlist": true
+      "status": "seed",
+      "listed": false,
+      "lead": false,
+      "href": "/products/orient/",
+      "outbound": null,
+      "color": null,
+      "oneLiner": "A seed. Not on the public map.",
+      "summary": "Unlisted. Kept so the old URL does not 404.",
+      "pageTitle": "Orient"
     },
     {
       "slug": "conflict-patterns",
-      "id": "conflict",
       "name": "Conflict Patterns",
-      "tag": "Personal",
-      "status": "design",
-      "statusLabel": "In design",
-      "oneLiner": "Private pattern tracking for hard conversations.",
-      "card": "Still in design. Privacy first.",
-      "lede": "Conflict Patterns is personal software for seeing patterns in hard conversations. Still in design. Privacy first.",
-      "bullets": [
-        "Private by default",
-        "Pattern tracking, not a gimmick journal",
-        "Waitlist for when there is something to try"
-      ],
-      "marketing": null,
-      "app": null,
-      "waitlist": true
+      "status": "seed",
+      "listed": false,
+      "lead": false,
+      "href": "/products/conflict-patterns/",
+      "outbound": null,
+      "color": null,
+      "oneLiner": "A seed. Not on the public map.",
+      "summary": "Unlisted. Kept so the old URL does not 404.",
+      "pageTitle": "Conflict Patterns"
     }
   ]
 }

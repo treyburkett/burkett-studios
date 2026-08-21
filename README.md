@@ -1,8 +1,8 @@
 # Burkett Studios (marketing site)
 
-Public face for Trey Burkett and his husband: **https://burkettstudios.com**.
+Public face for Kyle and Trey Burkett: **https://burkettstudios.com**.
 
-Two people in Nashville, building products. Led by **Walli**, a year-at-a-glance calendar. This is not a consultancy, and it is not Johnson Harvesting. Johnson Harvesting lives on **jh.burkettstudios.com** in a different repo. Do not edit that from here.
+They make household software in Nashville. Walli is the lead product. It is still building and not public yet. This is not a consultancy, and it is not Johnson Harvesting. Johnson Harvesting lives on **jh.burkettstudios.com** in a different repo. Do not edit that from here.
 
 ## How to change a product
 
@@ -29,13 +29,13 @@ npm run deploy     # live Cloudflare ship (needs Trey confirm)
 
 - A small Node script writes static HTML into `public/`.
 - Cloudflare Worker `burkett-studios-site` serves those files on burkettstudios.com and www.
-- Look and feel: cream, black, Geist, and Walli coral `#ff5c54`. No second accent. No serif.
+- Look and feel: cream, ink, house system sans. Coral `#ff5c54` only when Walli is on stage. Wandered keeps `#5b8cff`.
 
 ## Brand boundary
 
 | Domain | What it is |
 |--------|--------|
-| burkettstudios.com | Studio homepage / X-profile public face |
+| burkettstudios.com | Studio homepage |
 | burkettinv.com | Real estate and the other company |
 | jh.burkettstudios.com | Johnson Harvesting (different site, different repo) |
 

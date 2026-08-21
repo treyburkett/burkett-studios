@@ -1,474 +1,503 @@
-#!/usr/bin/env node
-/**
- * Burkett Studios marketing site generator
- *
- * THIS FILE is the product table. Edit products here, then:
- *   npm run generate
- *   npm run deploy    (only when Trey confirms a live ship)
- *
- * products.json is a snapshot this script writes. Do not edit it by hand.
- * public/*.html and public/sitemap.xml are also written here. Do not edit those by hand.
- * PURPOSE.md is the locked purpose note. This script does not overwrite it.
- *
- * Johnson Harvesting (jh.burkettstudios.com) is a different site. Not in this table.
- * Do not put it on the public homepage.
- *
- * PURPOSE OF burkettstudios.com
- * -----------------------------
- * Public face for Trey Burkett and his husband: two people in Nashville
- * building products, led by Walli. Not a holding-company map.
- *
- * Product name is Walli only. Never "Year Wall" on this site.
- * Do not hard-sell unfinished Walli to cold traffic.
- *
- * Brand: Walli coral #ff5c54. Neutrals, black, cream around it.
- * Run: node scripts/generate-site.mjs
- */
-import { writeFileSync, mkdirSync, rmSync } from "node:fs";
-import { join, dirname } from "node:path";
+import { mkdir, writeFile, readFile } from "node:fs/promises";
+import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-const pub = join(root, "public");
+const publicDir = join(root, "public");
+const siteOrigin = "https://burkettstudios.com";
+const generatedAt = new Date().toISOString().slice(0, 10);
+const contactEmail = "trey@burkettinv.com";
 
-const SITE = {
-  title: "Burkett Studios · Building Walli in Nashville",
-  description:
-    "Trey Burkett and his husband build products in Nashville. Right now that means Walli, a year-at-a-glance calendar.",
-  heroEyebrow: "Nashville",
-  heroH1a: "We're building",
-  heroH1b: "Walli.",
-  heroLede:
-    "The year-at-a-glance calendar. Whole year on one screen, continuous plan bars, household cloud. Two of us, making products we want to use.",
-  voiceLine: "Software PM for 10 years. Building Walli with my husband. Nashville.",
-};
+const walliCoral = "#ff5c54";
+const wanderedBlue = "#5b8cff";
 
-/**
- * marketing = public product site (canonical story / waitlist / brand)
- * app = open the product when different from marketing
- * quietOutbound = keep the URL, do not use it as a hard-sell CTA
- */
 const products = [
   {
     slug: "walli",
-    id: "walli",
     name: "Walli",
-    tag: "Calendar",
-    status: "build",
-    statusLabel: "Building",
-    featured: true,
-    quietOutbound: true,
-    oneLiner: "Your whole year on one screen.",
-    card: "Whole year at a glance, continuous plan bars, household cloud.",
-    lede: "Walli is the year-at-a-glance calendar we are building in Nashville. The whole year stays on one screen, so a plan can stretch instead of getting chopped into a stack of days.",
-    bullets: [
-      "The full year visible at once",
-      "Continuous plan bars, not a day list",
-      "Household cloud across web and iPhone",
-    ],
-    marketing: {
-      href: "https://yearwall.burkettinv.com",
-      label: "In-progress site",
-      host: "yearwall.burkettinv.com",
-    },
-    app: null,
-    waitlist: false,
-    note: "We are still building Walli. It is not ready to send people into an app yet.",
+    status: "building",
+    listed: true,
+    lead: true,
+    href: "/products/walli/",
+    outbound: null,
+    color: walliCoral,
+    oneLiner: "One year. On the wall. In the house.",
+    summary: "A year you can walk up to. Still building. Not public yet.",
+    pageTitle: "Walli",
+    letter: [
+      "Walli is a year on the wall.",
+      "Not a feed. Not a dashboard. A thing you can walk up to in the house and see the year you are actually in.",
+      "Trey and Kyle are still building it. It is not public yet. There is no \"go use it\" button here, because that would be a lie.",
+      "When it is ready to live with, it will have its own door. Until then, this letter is the honest page."
+    ]
   },
   {
     slug: "wandered",
-    id: "wandered",
     name: "Wandered",
-    tag: "Travel map",
     status: "live",
-    statusLabel: "Live",
-    oneLiner: "Your world, filled in.",
-    card: "Exact coastlines, trip journal, a passport that fills as you travel.",
-    lede: "Wandered paints where you have been onto a real map. Real coastlines, the trips that got you there, and a passport that fills itself.",
-    bullets: [
-      "Unsimplified borders and real coastlines",
-      "Trip journal and a passport that fills as you go",
-      "iPhone and web",
-    ],
-    marketing: {
-      href: "https://wandered.burkettinv.com",
-      label: "Wandered site",
-      host: "wandered.burkettinv.com",
-    },
-    app: {
-      href: "https://wandered.burkettinv.com/app",
-      label: "Open the app",
-    },
-    waitlist: false,
-  },
-  {
-    slug: "surrostack",
-    id: "surrostack",
-    name: "SurroStack",
-    tag: "Journey ops",
-    status: "private",
-    statusLabel: "Private",
-    quietOutbound: true,
-    oneLiner: "Ops for a surrogacy journey.",
-    card: "Tasks, calendar, money, and a way to share status.",
-    lede: "SurroStack helps a household keep a surrogacy journey in one place: tasks, calendar, money, and status you can share. It is a private pilot today.",
-    bullets: [
-      "Tasks and calendar for the journey load",
-      "Share status with partners and support",
-      "Signed-in portal. Not a public launch.",
-    ],
-    marketing: null,
-    app: {
-      href: "https://app.burkettinv.com/surrostack/",
-      label: "Portal (if you have access)",
-    },
-    waitlist: false,
-    note: "Private pilot. The portal link only helps if you already have access.",
+    listed: true,
+    lead: false,
+    href: "/products/wandered/",
+    outbound: "https://wandered.burkettinv.com",
+    color: wanderedBlue,
+    oneLiner: "A trip you can still walk after you get home.",
+    summary: "Live trip software. The map stays after the flight home.",
+    pageTitle: "Wandered",
+    letter: [
+      "Wandered is for a trip you want to keep.",
+      "Not a dump of tickets. A place you can walk after you get home.",
+      "It is live. If you have a trip, that is the next step."
+    ]
   },
   {
     slug: "massagenow",
-    id: "massagenow",
     name: "MassageNow",
-    tag: "Nashville",
     status: "live",
-    statusLabel: "Live",
-    oneLiner: "Last-minute massage openings in Nashville.",
-    card: "Same-day openings at licensed studios.",
-    lede: "MassageNow is our Nashville experiment for last-minute massage inventory. The public story and waitlist live on getmassagenow.com.",
-    bullets: [
-      "Same-day openings at licensed studios",
-      "Built for the empty slot, not a six-week book-ahead",
-      "Nashville first",
-    ],
-    marketing: {
-      href: "https://getmassagenow.com",
-      label: "MassageNow site",
-      host: "getmassagenow.com",
-    },
-    app: null,
-    waitlist: true,
-    waitlistNote: "The product site is the better waitlist if it is open. Or leave an email below.",
+    listed: true,
+    lead: false,
+    href: "/products/massagenow/",
+    outbound: "https://getmassagenow.com",
+    color: null,
+    oneLiner: "A booking site for a real table.",
+    summary: "A booking site for a real table. Live.",
+    pageTitle: "MassageNow",
+    letter: [
+      "MassageNow is a booking site for a real table.",
+      "Not a marketplace. Not a pitch deck. A working front door.",
+      "If you need an appointment, go to the site."
+    ]
+  },
+  {
+    slug: "surrostack",
+    name: "SurroStack",
+    status: "pilot",
+    listed: false,
+    lead: false,
+    href: "/products/surrostack/",
+    outbound: "https://app.burkettinv.com",
+    color: null,
+    oneLiner: "A private pilot. Not a public product.",
+    summary: "In use on a small private stack. Not for sale from this page.",
+    pageTitle: "SurroStack",
+    letter: [
+      "SurroStack is a private pilot.",
+      "It sits behind app.burkettinv.com. It is not a public product and this page is not a sales letter.",
+      "If you already know why you are here, you already have the door."
+    ]
   },
   {
     slug: "orient",
-    id: "orient",
     name: "Orient",
-    tag: "Guides",
-    status: "waitlist",
-    statusLabel: "Waitlist",
-    oneLiner: "Place guides with a point of view.",
-    card: "Local orientation, not an SEO directory.",
-    lede: "Orient is a place-guide product in early days. Editorial standards first. No public site yet.",
-    bullets: [
-      "Guides with a point of view, not directory sludge",
-      "Region pilots before a big map",
-      "Waitlist until there is something to try",
-    ],
-    marketing: null,
-    app: null,
-    waitlist: true,
+    status: "seed",
+    listed: false,
+    lead: false,
+    href: "/products/orient/",
+    outbound: null,
+    color: null,
+    oneLiner: "A seed. Not on the public map.",
+    summary: "Unlisted. Kept so the old URL does not 404.",
+    pageTitle: "Orient",
+    letter: [
+      "Orient is a seed. It is not on the public homepage or in the nav.",
+      "If you landed here from an old link, go back to the studio."
+    ]
   },
   {
     slug: "conflict-patterns",
-    id: "conflict",
     name: "Conflict Patterns",
-    tag: "Personal",
-    status: "design",
-    statusLabel: "In design",
-    oneLiner: "Private pattern tracking for hard conversations.",
-    card: "Still in design. Privacy first.",
-    lede: "Conflict Patterns is personal software for seeing patterns in hard conversations. Still in design. Privacy first.",
-    bullets: [
-      "Private by default",
-      "Pattern tracking, not a gimmick journal",
-      "Waitlist for when there is something to try",
-    ],
-    marketing: null,
-    app: null,
-    waitlist: true,
-  },
+    status: "seed",
+    listed: false,
+    lead: false,
+    href: "/products/conflict-patterns/",
+    outbound: null,
+    color: null,
+    oneLiner: "A seed. Not on the public map.",
+    summary: "Unlisted. Kept so the old URL does not 404.",
+    pageTitle: "Conflict Patterns",
+    letter: [
+      "Conflict Patterns is a seed. It is not on the public homepage or in the nav.",
+      "If you landed here from an old link, go back to the studio."
+    ]
+  }
 ];
 
-const featured = products.find((p) => p.featured);
-const rest = products.filter((p) => !p.featured);
+const listed = products.filter((product) => product.listed);
+const leadProduct = listed.find((product) => product.lead);
+const otherLive = listed.filter((product) => !product.lead);
+const walli = products.find((product) => product.slug === "walli");
+const surro = products.find((product) => product.slug === "surrostack");
 
-function esc(s) {
-  return String(s)
-    .replace(/&/g, "&amp;")
-    .replace(/"/g, "&quot;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
+const nav = [
+  { href: "/work/", label: "Work" },
+  { href: "/about/", label: "About" },
+  { href: "/pulse/", label: "Pulse" },
+  { href: "/contact/", label: "Contact" }
+];
+
+const footerNav = [
+  { href: "/work/", label: "Work" },
+  { href: "/about/", label: "About" },
+  { href: "/pulse/", label: "Pulse" },
+  { href: "/contact/", label: "Contact" },
+  { href: "/notes/household-software/", label: "A note" }
+];
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
 }
 
-function hrefHostPath(href) {
-  return String(href).replace(/^https?:\/\//, "").replace(/\/$/, "");
+function pageUrl(path) {
+  return new URL(path, `${siteOrigin}/`).href;
 }
 
-const head = (title, description, canonical) => `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>${esc(title)}</title>
-  <meta name="description" content="${esc(description)}" />
-  <meta name="theme-color" content="#f6f1e8" />
-  <link rel="canonical" href="${esc(canonical)}" />
-  <meta property="og:title" content="${esc(title.replace(/ [·—] .*$/, ""))}" />
-  <meta property="og:description" content="${esc(description)}" />
-  <meta property="og:url" content="${esc(canonical)}" />
-  <meta property="og:type" content="website" />
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:creator" content="@TreyBurkett" />
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Geist:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/styles.css" />
-</head>`;
-
-const header = (active = "") => `
-  <a class="skip" href="#main">Skip to content</a>
-  <header class="site-header">
-    <div class="shell header-inner">
-      <a class="mark" href="/" aria-label="Burkett Studios home">Burkett <em>Studios</em></a>
-      <nav class="nav" aria-label="Primary">
-        <a href="/#walli"${active === "walli" ? ' aria-current="page"' : ""}>Walli</a>
-        <a href="/#work"${active === "work" ? ' aria-current="page"' : ""}>Work</a>
-        <a href="/#about"${active === "about" ? ' aria-current="page"' : ""}>About</a>
-      </nav>
-    </div>
-  </header>`;
-
-const footer = `
-  <footer class="site-footer">
-    <div class="shell footer-grid">
-      <div>
-        <p class="footer-mark">Burkett <em>Studios</em></p>
-        <p class="footer-note">
-          Two people in Nashville, building products. Led by Walli.
-        </p>
-      </div>
-      <div class="footer-links">
-        <a href="/#walli">Walli</a>
-        <a href="/#work">Work</a>
-        <a href="/#about">About</a>
-        <a href="https://x.com/TreyBurkett" rel="noopener">Trey on X</a>
-        <a href="https://burkettinv.com" rel="noopener">burkettinv.com</a>
-      </div>
-    </div>
-    <div class="shell">
-      <p class="footer-legal">© <span data-year></span> Burkett Studios. Nashville.</p>
-    </div>
-  </footer>
-  <script src="/site.js" defer></script>
-</body>
-</html>`;
-
-function waitlistBlock(productName) {
-  const id = productName.toLowerCase().replace(/\s+/g, "-");
-  return `
-      <section class="waitlist" id="waitlist">
-        <h2>Early access</h2>
-        <p>We only write when there is something to try.</p>
-        <form data-waitlist="${esc(productName)}">
-          <label class="sr-only" for="email-${id}">Email</label>
-          <input id="email-${id}" name="email" type="email" required placeholder="you@example.com" autocomplete="email" />
-          <label class="sr-only" for="note-${id}">Note</label>
-          <input id="note-${id}" name="note" type="text" placeholder="Optional note" />
-          <button class="btn" type="submit">Join waitlist</button>
-        </form>
-        <p class="form-note" data-form-note hidden></p>
-      </section>`;
+function cssUrl(fromDir) {
+  const depth = fromDir.split("/").filter(Boolean).length;
+  return `${"../".repeat(depth)}styles.css`;
 }
 
-function yearMotif() {
-  const heights = [68, 40, 86, 52, 34, 74, 46, 90, 38, 64, 50, 78];
-  const bars = heights
-    .map(
-      (h, i) =>
-        `<span class="year-bar" style="--h:${h}%;--i:${i}"></span>`
-    )
-    .join("");
-  return `<div class="year-motif" aria-hidden="true">${bars}</div>`;
-}
-
-function productPage(p) {
-  const outs = [];
-  if (p.marketing) {
-    outs.push(
-      `<a href="${esc(p.marketing.href)}" rel="noopener">${esc(p.marketing.host)}</a>${p.quietOutbound ? " <span>(in progress)</span>" : ""}`
-    );
-  } else if (p.app) {
-    outs.push(
-      `<a href="${esc(p.app.href)}" rel="noopener">${esc(hrefHostPath(p.app.href))}</a>${p.quietOutbound ? " <span>(if you have access)</span>" : ""}`
-    );
-  }
-
-  const extras = [];
-  if (p.note) extras.push(`      <p class="note">${esc(p.note)}</p>`);
-  if (p.waitlistNote) extras.push(`      <p>${esc(p.waitlistNote)}</p>`);
-  if (p.waitlist) extras.push(waitlistBlock(p.name).trimEnd());
-
-  const pageActive = p.featured ? "walli" : "work";
-
-  return `${head(
-    `${p.name} · Burkett Studios`,
-    p.card,
-    `https://burkettstudios.com/products/${esc(p.slug)}/`
-  )}
-<body class="product-page" data-product="${p.id}">
-${header(pageActive)}
-  <main id="main">
-    <article class="product shell">
-      <p class="crumb"><a href="/">Home</a> / <a href="/#work">Work</a> / ${esc(p.name)}</p>
-      <h1>${esc(p.name)}</h1>
-      <p class="one-liner">${esc(p.oneLiner)}</p>
-      <p class="lede">${esc(p.lede)}</p>
-      ${outs.length ? `<p class="out">${outs.join("<br />")}</p>` : ""}
-      <ul class="points">
-        ${p.bullets.map((b) => `<li>${esc(b)}</li>`).join("\n        ")}
-      </ul>
-${extras.length ? `${extras.join("\n")}\n` : ""}      <p class="back"><a href="/#work">Other work</a></p>
-    </article>
-  </main>
-${footer}`;
-}
-
-function workItem(p) {
-  const internal = `/products/${esc(p.slug)}/`;
-  const host =
-    p.marketing && !p.quietOutbound
-      ? `\n          <a class="work-host" href="${esc(p.marketing.href)}" rel="noopener">${esc(p.marketing.host)}</a>`
-      : "";
-  return `
-        <li class="work-item" data-product="${p.id}">
-          <a class="work-name" href="${internal}">${esc(p.name)}</a>
-          <p class="work-line">${esc(p.oneLiner)}</p>${host}
-        </li>`;
-}
-
-function indexPage() {
-  const workItems = rest.map(workItem).join("\n");
-
-  return `${head(SITE.title, SITE.description, "https://burkettstudios.com/")}
-<body class="home">
-  <div class="wash wash-a" aria-hidden="true"></div>
-  <div class="wash wash-b" aria-hidden="true"></div>
-${header()}
-  <main id="main">
-    <section class="hero shell">
-      <div class="hero-layer">
-        <p class="place">${esc(SITE.heroEyebrow)}</p>
-        <h1>
-          ${esc(SITE.heroH1a)}
-          <a class="hero-accent" href="#walli">${esc(SITE.heroH1b)}</a>
-        </h1>
-        <p class="lede">${esc(SITE.heroLede)}</p>
-        <p class="voice">${esc(SITE.voiceLine)}</p>
-      </div>
-    </section>
-
-    <section id="walli" class="walli">
-      <div class="shell walli-grid">
-        <div class="walli-copy">
-          <h2>${esc(featured.name)}</h2>
-          <p class="one-liner">${esc(featured.oneLiner)}</p>
-          <p>${esc(featured.lede)}</p>
-          <p>${esc(featured.note)}</p>
-          <p class="more"><a href="/products/${esc(featured.slug)}/">Walli, in a little more detail</a></p>
-        </div>
-        ${yearMotif()}
-      </div>
-    </section>
-
-    <section id="work" class="work shell">
-      <h2>Also</h2>
-      <ul class="work-list">
-${workItems}
-      </ul>
-    </section>
-
-    <section id="about" class="about shell">
-      <h2>Two people. Nashville.</h2>
-      <p>
-        Trey spent ten years as a software PM. Now he and his husband build
-        products they want to use, starting with Walli.
-      </p>
-      <p>
-        Real estate lives on
-        <a href="https://burkettinv.com" rel="noopener">burkettinv.com</a>.
-      </p>
-    </section>
-
-    <section id="contact" class="contact shell">
-      <h2>Say hi.</h2>
-      <p>Questions, notes, or just hello. Trey reads the mail.</p>
-      <p class="contact-links">
-        <a href="mailto:trey@burkettinv.com?subject=Burkett%20Studios">Email Trey</a>
-        <a href="https://x.com/TreyBurkett" rel="noopener">Trey on X</a>
-      </p>
-    </section>
-  </main>
-${footer}`;
-}
-
-function walliRedirectPage() {
+function layout({
+  title,
+  description,
+  path,
+  bodyClass = "",
+  extraHead = "",
+  main
+}) {
+  const canonical = pageUrl(path);
+  const fromDir = path.endsWith("/") ? path : dirname(path);
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Moved to Walli · Burkett Studios</title>
-  <meta http-equiv="refresh" content="0; url=/products/walli/" />
-  <link rel="canonical" href="https://burkettstudios.com/products/walli/" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${escapeHtml(title)}</title>
+  <meta name="description" content="${escapeHtml(description)}">
+  <link rel="canonical" href="${escapeHtml(canonical)}">
+  <meta property="og:title" content="${escapeHtml(title)}">
+  <meta property="og:description" content="${escapeHtml(description)}">
+  <meta property="og:url" content="${escapeHtml(canonical)}">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="${cssUrl(fromDir)}">
+  ${extraHead}
 </head>
-<body>
-  <p>This page moved to <a href="/products/walli/">Walli</a>.</p>
+<body class="${escapeHtml(bodyClass)}">
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="top">
+    <a class="wordmark" href="/">Burkett Studios</a>
+    <nav aria-label="Primary">
+      ${nav.map((item) => `<a href="${escapeHtml(item.href)}">${escapeHtml(item.label)}</a>`).join("\n      ")}
+    </nav>
+  </header>
+  <main id="main">
+    ${main}
+  </main>
+  <footer class="foot">
+    <p class="foot-mark">Burkett Studios</p>
+    <nav aria-label="Directory">
+      ${footerNav.map((item) => `<a href="${escapeHtml(item.href)}">${escapeHtml(item.label)}</a>`).join("\n      ")}
+    </nav>
+    <p class="fine">${escapeHtml(contactEmail)}</p>
+  </footer>
 </body>
 </html>
 `;
 }
 
-function sitemap() {
-  const urls = [
-    "https://burkettstudios.com/",
-    ...products.map((p) => `https://burkettstudios.com/products/${p.slug}/`),
-  ];
-  return `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls
-  .map(
-    (u) => `  <url>
-    <loc>${u}</loc>
-    <changefreq>weekly</changefreq>
-  </url>`
-  )
-  .join("\n")}
-</urlset>
+function writeRedirect(fromPath, toPath) {
+  const target = pageUrl(toPath);
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="refresh" content="0; url=${escapeHtml(toPath)}">
+  <link rel="canonical" href="${escapeHtml(target)}">
+  <title>Moved</title>
+  <script>location.replace(${JSON.stringify(toPath)})</script>
+</head>
+<body>
+  <p>Moved to <a href="${escapeHtml(toPath)}">${escapeHtml(toPath)}</a>.</p>
+</body>
+</html>
 `;
 }
 
-rmSync(join(pub, "products", "year-wall"), { recursive: true, force: true });
+const photoBlock = `
+<figure class="faces">
+  <div class="faces-row">
+    <figure>
+      <img src="/team/kyle-burkett.jpg" width="800" height="800" alt="Kyle Burkett">
+      <figcaption>Kyle</figcaption>
+    </figure>
+    <figure>
+      <img src="/team/trey-burkett.jpg" width="800" height="800" alt="Trey Burkett">
+      <figcaption>Trey</figcaption>
+    </figure>
+  </div>
+</figure>
+`;
 
-writeFileSync(join(pub, "index.html"), indexPage());
-for (const p of products) {
-  const dir = join(pub, "products", p.slug);
-  mkdirSync(dir, { recursive: true });
-  writeFileSync(join(dir, "index.html"), productPage(p));
+const home = layout({
+  title: "Burkett Studios",
+  description: "Kyle and Trey Burkett make household software in Nashville.",
+  path: "/",
+  bodyClass: "home",
+  extraHead: `<script type="application/ld+json">${JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Burkett Studios",
+    url: siteOrigin,
+    email: contactEmail,
+    founder: [
+      { "@type": "Person", name: "Trey Burkett" },
+      { "@type": "Person", name: "Kyle Burkett" }
+    ]
+  })}</script>`,
+  main: `
+    <section class="fold thesis">
+      <p class="kicker">Kyle and Trey · Nashville</p>
+      <h1>We make household software.</h1>
+      <p class="lead">Trey spent ten years as a software product manager. He studied MIS. Now he and Kyle build the software they want to live in.</p>
+      ${photoBlock}
+    </section>
+    <section class="fold walli-stage" aria-labelledby="walli-head">
+      <p class="kicker walli-kicker">${escapeHtml(walli.name)}</p>
+      <h2 id="walli-head">${escapeHtml(walli.oneLiner)}</h2>
+      <p class="lead">Still building. Not public yet.</p>
+      <p><a class="text-link walli-link" href="${escapeHtml(walli.href)}">Read the letter</a></p>
+    </section>
+    <section class="fold others" aria-labelledby="others-head">
+      <h2 id="others-head">Also live</h2>
+      <ul class="quiet-list">
+        ${otherLive
+          .map(
+            (product) => `
+          <li>
+            <a href="${escapeHtml(product.href)}">${escapeHtml(product.name)}</a>
+            <span>${escapeHtml(product.oneLiner)}</span>
+          </li>`
+          )
+          .join("")}
+      </ul>
+    </section>
+  `
+});
+
+const work = layout({
+  title: "Work · Burkett Studios",
+  description: "Walli, then the live work. A short directory.",
+  path: "/work/",
+  main: `
+    <article class="letter">
+      <p class="kicker">Work</p>
+      <h1>What is on the table.</h1>
+      <p class="lead">Walli is the lead. Wandered and MassageNow are live. That is the public list.</p>
+      <ol class="work-list">
+        ${[leadProduct, ...otherLive]
+          .map(
+            (product) => `
+          <li>
+            <a href="${escapeHtml(product.href)}">${escapeHtml(product.name)}</a>
+            <p>${escapeHtml(product.summary)}</p>
+            ${product.outbound ? `<p class="fine"><a href="${escapeHtml(product.outbound)}">${escapeHtml(product.outbound.replace("https://", ""))}</a></p>` : `<p class="fine">Not public yet.</p>`}
+          </li>`
+          )
+          .join("")}
+      </ol>
+      <p class="aside">SurroStack is a private pilot at <a href="${escapeHtml(surro.outbound)}">app.burkettinv.com</a>. It is not for sale from this page.</p>
+    </article>
+  `
+});
+
+const about = layout({
+  title: "About · Burkett Studios",
+  description: "Kyle and Trey Burkett. A studio of two in Nashville.",
+  path: "/about/",
+  main: `
+    <article class="letter">
+      <p class="kicker">About</p>
+      <h1>Kyle and Trey.</h1>
+      <p class="lead">A studio of two in Nashville. Husband and husband. They build household software together.</p>
+      ${photoBlock}
+      <p>Trey Burkett spent ten years as a software product manager. He studied management information systems. Kyle Burkett builds with him.</p>
+      <p>This site is the studio. Burkett Investments is the parent company. It has its own door. This is not that brochure, and it is not a page about owning assets.</p>
+      <p><a class="text-link" href="/contact/">Write Trey</a></p>
+    </article>
+  `
+});
+
+const pulseIndex = layout({
+  title: "Pulse · Burkett Studios",
+  description: "A short log. One real entry is enough.",
+  path: "/pulse/",
+  main: `
+    <article class="letter">
+      <p class="kicker">Pulse</p>
+      <h1>What changed.</h1>
+      <ol class="pulse-list">
+        <li>
+          <time datetime="2026-08-21">21 Aug 2026</time>
+          <a href="/pulse/2026-08-21-studio-site/">This studio site shipped.</a>
+        </li>
+      </ol>
+    </article>
+  `
+});
+
+const pulseEntry = layout({
+  title: "This studio site shipped · Pulse",
+  description: "21 Aug 2026. Burkett Studios got a public face.",
+  path: "/pulse/2026-08-21-studio-site/",
+  main: `
+    <article class="letter">
+      <p class="kicker"><a href="/pulse/">Pulse</a> · 21 Aug 2026</p>
+      <h1>This studio site shipped.</h1>
+      <p>burkettstudios.com was a holding-company map. Today it is the public face of the studio: Kyle and Trey, a sentence about household software, and an honest page for Walli.</p>
+      <p>Wandered and MassageNow stay live on their own sites. Johnson Harvesting stays off this homepage. The seed names are off the public map.</p>
+      <p>One dated note. No fake history behind it.</p>
+    </article>
+  `
+});
+
+const note = layout({
+  title: "Household software · Burkett Studios",
+  description: "Why a studio of two ships the thing they want to live in.",
+  path: "/notes/household-software/",
+  main: `
+    <article class="letter">
+      <p class="kicker">A note</p>
+      <h1>Ship the thing you want to live in.</h1>
+      <p>Most software is for a company you visit. Household software is for a room you already occupy. A year on the wall. A trip you can still walk. A table someone actually books.</p>
+      <p>Kyle and Trey are a studio of two. That is the point, not a constraint to apologize for. Two people can finish a thing they will use on Tuesday.</p>
+      <p>Walli is the one they want in the house. It is not public yet. The other live work already has a door. The work is to ship the next true thing, not to look busy.</p>
+    </article>
+  `
+});
+
+const contact = layout({
+  title: "Contact · Burkett Studios",
+  description: `Write Trey at ${contactEmail}.`,
+  path: "/contact/",
+  main: `
+    <article class="letter">
+      <p class="kicker">Contact</p>
+      <h1>Write Trey.</h1>
+      <p class="lead"><a class="text-link" href="mailto:${escapeHtml(contactEmail)}">${escapeHtml(contactEmail)}</a></p>
+      <p>That is the door. Kyle and Trey read what comes in. There is no form and no calendar embed on this page.</p>
+    </article>
+  `
+});
+
+function productPage(product) {
+  const isWalli = product.slug === "walli";
+  const next = product.outbound
+    ? `<p><a class="text-link" href="${escapeHtml(product.outbound)}">${escapeHtml(product.outbound.replace("https://", ""))}</a></p>`
+    : isWalli
+      ? `<p class="aside">Not public yet. No outbound button until that is true.</p>`
+      : `<p class="aside">Not on the public map.</p>`;
+
+  return layout({
+    title: `${product.pageTitle} · Burkett Studios`,
+    description: product.summary,
+    path: product.href,
+    bodyClass: isWalli ? "product walli-page" : product.slug === "wandered" ? "product wandered-page" : "product",
+    extraHead: product.color ? `<style>:root { --product: ${product.color}; }</style>` : "",
+    main: `
+      <article class="letter">
+        <p class="kicker">${isWalli ? `<span class="walli-kicker">${escapeHtml(product.name)}</span>` : escapeHtml(product.name)}</p>
+        <h1>${escapeHtml(product.oneLiner)}</h1>
+        ${product.letter.map((para) => `<p>${escapeHtml(para)}</p>`).join("\n        ")}
+        ${next}
+      </article>
+    `
+  });
 }
-mkdirSync(join(pub, "products", "year-wall"), { recursive: true });
-writeFileSync(join(pub, "products", "year-wall", "index.html"), walliRedirectPage());
-writeFileSync(join(pub, "sitemap.xml"), sitemap());
-writeFileSync(
-  join(root, "products.json"),
-  JSON.stringify(
-    {
-      generatedFrom: "scripts/generate-site.mjs",
-      site: SITE,
-      products,
-    },
-    null,
-    2
-  ) + "\n"
-);
-console.log("Generated home + product pages from scripts/generate-site.mjs.");
+
+const robots = `User-agent: *
+Allow: /
+
+Sitemap: ${siteOrigin}/sitemap.xml
+`;
+
+const sitemapPaths = [
+  "/",
+  "/work/",
+  "/about/",
+  "/pulse/",
+  "/pulse/2026-08-21-studio-site/",
+  "/notes/household-software/",
+  "/contact/",
+  ...products.filter((product) => product.listed || product.slug === "surrostack").map((product) => product.href)
+];
+
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${sitemapPaths
+  .map((path) => `  <url><loc>${pageUrl(path)}</loc><lastmod>${generatedAt}</lastmod></url>`)
+  .join("\n")}
+</urlset>
+`;
+
+const productsSnapshot = `${JSON.stringify(
+  {
+    generatedAt,
+    generatedFrom: "scripts/generate-site.mjs",
+    site: siteOrigin,
+    contact: contactEmail,
+    thesis: "We make household software.",
+    people: ["Kyle Burkett", "Trey Burkett"],
+    products: products.map(({ letter, ...rest }) => rest)
+  },
+  null,
+  2
+)}\n`;
+
+const files = {
+  "index.html": home,
+  "work/index.html": work,
+  "about/index.html": about,
+  "pulse/index.html": pulseIndex,
+  "pulse/2026-08-21-studio-site/index.html": pulseEntry,
+  "notes/household-software/index.html": note,
+  "contact/index.html": contact,
+  "robots.txt": robots,
+  "sitemap.xml": sitemap
+};
+
+for (const product of products) {
+  files[`products/${product.slug}/index.html`] = productPage(product);
+}
+files["products/year-wall/index.html"] = writeRedirect("/products/year-wall/", "/products/walli/");
+
+await mkdir(publicDir, { recursive: true });
+await writeFile(join(root, "products.json"), productsSnapshot);
+for (const [rel, contents] of Object.entries(files)) {
+  const dest = join(publicDir, rel);
+  await mkdir(dirname(dest), { recursive: true });
+  await writeFile(dest, contents);
+}
+
+if (
+  home.includes("Orient") ||
+  home.includes("Conflict") ||
+  home.includes("Geist") ||
+  home.includes("Inter") ||
+  home.includes("Year Wall")
+) {
+  throw new Error("Homepage leaked a seed name, banned type, or Year Wall.");
+}
+if (!home.includes("Kyle") || !home.includes("Trey") || !home.includes("household software")) {
+  throw new Error("Homepage missing Kyle, Trey, or the studio thesis.");
+}
+
+const css = await readFile(join(publicDir, "styles.css"), "utf8");
+if (css.includes("Geist") || css.includes("Inter") || css.includes("slab")) {
+  throw new Error("House CSS still carries Geist, Inter, or slab theater. Fix styles.css.");
+}
+
+console.log(`generated ${Object.keys(files).length} files for ${listed.length} listed products`);
