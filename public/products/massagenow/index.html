@@ -16,7 +16,7 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,600;1,6..72,500&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/styles.css" />
 </head>
 <body class="product-page" data-product="massagenow">
@@ -24,10 +24,7 @@
   <a class="skip" href="#main">Skip to content</a>
   <header class="site-header">
     <div class="shell header-inner">
-      <a class="mark" href="/" aria-label="Burkett Studios home">
-        <span class="mark-glyph" aria-hidden="true"></span>
-        <span class="mark-text">Burkett <em>Studios</em></span>
-      </a>
+      <a class="mark" href="/" aria-label="Burkett Studios home">Burkett <em>Studios</em></a>
       <nav class="nav" aria-label="Primary">
         <a href="/#walli">Walli</a>
         <a href="/#work" aria-current="page">Work</a>
@@ -36,58 +33,33 @@
     </div>
   </header>
   <main id="main">
-    <section class="product-hero shell">
+    <article class="product shell">
       <p class="crumb"><a href="/">Home</a> / <a href="/#work">Work</a> / MassageNow</p>
-      <div class="product-top product-hero-top">
-        <span class="product-tag">Nashville</span>
-        <span class="status live">Live</span>
-      </div>
       <h1>MassageNow</h1>
       <p class="one-liner">Last-minute massage openings in Nashville.</p>
       <p class="lede">MassageNow is our Nashville experiment for last-minute massage inventory. The public story and waitlist live on getmassagenow.com.</p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="https://getmassagenow.com" rel="noopener">MassageNow site</a>
-        <a class="btn btn-ghost" href="#waitlist">Join waitlist</a>
-        <a class="btn btn-ghost" href="/#work">Other work</a>
-      </div>
-    </section>
-
-    <section class="shell product-links-block">
-      <p class="eyebrow">Where it lives</p>
-      <div class="link-rows">
-        <a class="link-row" href="https://getmassagenow.com" rel="noopener">
-          <span class="link-row-kicker">Product site</span>
-          <span class="link-row-title">MassageNow site</span>
-          <span class="link-row-host">getmassagenow.com</span>
-          <span class="link-row-go" aria-hidden="true">→</span>
-        </a>
-      </div>
-    </section>
-
-    <section class="product-body shell">
-      <p class="eyebrow">In short</p>
-      <ul class="feature-list">
+      <p class="out"><a href="https://getmassagenow.com" rel="noopener">getmassagenow.com</a></p>
+      <ul class="points">
         <li>Same-day openings at licensed studios</li>
         <li>Built for the empty slot, not a six-week book-ahead</li>
         <li>Nashville first</li>
       </ul>
-      <p class="section-copy">The product site is the better waitlist if it is open. Or leave an email below.</p>
+      <p>The product site is the better waitlist if it is open. Or leave an email below.</p>
 
-      <section class="waitlist-panel" id="waitlist">
-        <span class="coral-rule" aria-hidden="true"></span>
-        <p class="eyebrow">Waitlist</p>
+      <section class="waitlist" id="waitlist">
         <h2>Early access</h2>
-        <p class="section-copy">We only write when there is something to try.</p>
-        <form class="waitlist-form" data-waitlist="MassageNow">
+        <p>We only write when there is something to try.</p>
+        <form data-waitlist="MassageNow">
           <label class="sr-only" for="email-massagenow">Email</label>
           <input id="email-massagenow" name="email" type="email" required placeholder="you@example.com" autocomplete="email" />
           <label class="sr-only" for="note-massagenow">Note</label>
           <input id="note-massagenow" name="note" type="text" placeholder="Optional note" />
-          <button class="btn btn-primary" type="submit">Join waitlist</button>
+          <button class="btn" type="submit">Join waitlist</button>
         </form>
         <p class="form-note" data-form-note hidden></p>
       </section>
-    </section>
+      <p class="back"><a href="/#work">Other work</a></p>
+    </article>
   </main>
 
   <footer class="site-footer">

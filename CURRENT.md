@@ -1,7 +1,7 @@
 # CURRENT. Burkett Studios marketing site
 
 **Updated:** 2026-08-21  
-**Status:** Studio homepage rebuilt as a founder public face (Walli-first, coral `#ff5c54`)
+**Status:** Studio homepage rebuilt as a founder public face (Walli-first, Geist, coral `#ff5c54`)
 
 ## Live
 

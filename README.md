@@ -29,7 +29,7 @@ npm run deploy     # live Cloudflare ship (needs Trey confirm)
 
 - A small Node script writes static HTML into `public/`.
 - Cloudflare Worker `burkett-studios-site` serves those files on burkettstudios.com and www.
-- Look and feel: cream, black, and Walli coral `#ff5c54`. No second accent.
+- Look and feel: cream, black, Geist, and Walli coral `#ff5c54`. No second accent. No serif.
 
 ## Brand boundary
 

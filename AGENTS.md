@@ -44,6 +44,6 @@ npm run deploy
 
 - No em dashes.
 - Accent is Walli coral `#ff5c54` only. Neutrals, black, cream around it.
-- Do not bring back burkettinv gold as a second brand color.
+- One sans family (Geist). No serif. No gold.
 - Nashville is welcome. This site is the X-profile public face.
 - Do not write Trey as a solo founder. Do not invent his husband’s name.

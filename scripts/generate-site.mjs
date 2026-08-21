@@ -200,16 +200,8 @@ function esc(s) {
     .replace(/>/g, "&gt;");
 }
 
-function stripProtocol(href) {
-  return String(href).replace(/^https?:\/\//, "");
-}
-
-function hrefHost(href) {
-  return stripProtocol(href).split("/")[0];
-}
-
 function hrefHostPath(href) {
-  return stripProtocol(href).replace(/\/$/, "");
+  return String(href).replace(/^https?:\/\//, "").replace(/\/$/, "");
 }
 
 const head = (title, description, canonical) => `<!DOCTYPE html>
@@ -230,7 +222,7 @@ const head = (title, description, canonical) => `<!DOCTYPE html>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,600;1,6..72,500&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/styles.css" />
 </head>`;
 
@@ -238,10 +230,7 @@ const header = (active = "") => `
   <a class="skip" href="#main">Skip to content</a>
   <header class="site-header">
     <div class="shell header-inner">
-      <a class="mark" href="/" aria-label="Burkett Studios home">
-        <span class="mark-glyph" aria-hidden="true"></span>
-        <span class="mark-text">Burkett <em>Studios</em></span>
-      </a>
+      <a class="mark" href="/" aria-label="Burkett Studios home">Burkett <em>Studios</em></a>
       <nav class="nav" aria-label="Primary">
         <a href="/#walli"${active === "walli" ? ' aria-current="page"' : ""}>Walli</a>
         <a href="/#work"${active === "work" ? ' aria-current="page"' : ""}>Work</a>
@@ -278,136 +267,47 @@ const footer = `
 function waitlistBlock(productName) {
   const id = productName.toLowerCase().replace(/\s+/g, "-");
   return `
-      <section class="waitlist-panel" id="waitlist">
-        <span class="coral-rule" aria-hidden="true"></span>
-        <p class="eyebrow">Waitlist</p>
+      <section class="waitlist" id="waitlist">
         <h2>Early access</h2>
-        <p class="section-copy">We only write when there is something to try.</p>
-        <form class="waitlist-form" data-waitlist="${esc(productName)}">
+        <p>We only write when there is something to try.</p>
+        <form data-waitlist="${esc(productName)}">
           <label class="sr-only" for="email-${id}">Email</label>
           <input id="email-${id}" name="email" type="email" required placeholder="you@example.com" autocomplete="email" />
           <label class="sr-only" for="note-${id}">Note</label>
           <input id="note-${id}" name="note" type="text" placeholder="Optional note" />
-          <button class="btn btn-primary" type="submit">Join waitlist</button>
+          <button class="btn" type="submit">Join waitlist</button>
         </form>
         <p class="form-note" data-form-note hidden></p>
       </section>`;
 }
 
 function yearMotif() {
-  const columns = [
-    [28, 14, 40],
-    [18, 46],
-    [22, 16, 34],
-    [50, 12],
-    [16, 24, 20],
-    [36, 18],
-    [14, 42, 16],
-    [24, 30],
-    [18, 14, 38],
-    [44, 20],
-    [16, 28, 18],
-    [32, 14, 22],
-  ];
-  const labels = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"];
-  const cols = columns
-    .map((bars, i) => {
-      const barHtml = bars
-        .map((h, j) => {
-          const tone = j === 0 ? "year-bar-strong" : "year-bar-soft";
-          return `<span class="year-bar ${tone}" style="height:${h}%"></span>`;
-        })
-        .join("");
-      return `
-          <div class="year-col">
-            <div class="year-bars">${barHtml}</div>
-            <span class="year-label">${labels[i]}</span>
-          </div>`;
-    })
+  const heights = [68, 40, 86, 52, 34, 74, 46, 90, 38, 64, 50, 78];
+  const bars = heights
+    .map(
+      (h, i) =>
+        `<span class="year-bar" style="--h:${h}%;--i:${i}"></span>`
+    )
     .join("");
-  return `
-        <div class="year-motif" aria-hidden="true">
-${cols}
-        </div>`;
+  return `<div class="year-motif" aria-hidden="true">${bars}</div>`;
 }
 
 function productPage(p) {
-  const rows = [];
-  if (p.marketing && !p.quietOutbound) {
-    rows.push(`
-        <a class="link-row" href="${esc(p.marketing.href)}" rel="noopener">
-          <span class="link-row-kicker">Product site</span>
-          <span class="link-row-title">${esc(p.marketing.label)}</span>
-          <span class="link-row-host">${esc(p.marketing.host)}</span>
-          <span class="link-row-go" aria-hidden="true">→</span>
-        </a>`);
-  }
-  if (p.marketing && p.quietOutbound) {
-    rows.push(`
-        <a class="link-row quiet" href="${esc(p.marketing.href)}" rel="noopener">
-          <span class="link-row-kicker">In progress</span>
-          <span class="link-row-title">${esc(p.marketing.label)}</span>
-          <span class="link-row-host">${esc(p.marketing.host)}</span>
-          <span class="link-row-go" aria-hidden="true">→</span>
-        </a>`);
-  }
-  if (p.app && !p.quietOutbound) {
-    rows.push(`
-        <a class="link-row" href="${esc(p.app.href)}" rel="noopener">
-          <span class="link-row-kicker">Open product</span>
-          <span class="link-row-title">${esc(p.app.label)}</span>
-          <span class="link-row-host">${esc(hrefHostPath(p.app.href))}</span>
-          <span class="link-row-go" aria-hidden="true">→</span>
-        </a>`);
-  }
-  if (p.app && p.quietOutbound) {
-    rows.push(`
-        <a class="link-row quiet" href="${esc(p.app.href)}" rel="noopener">
-          <span class="link-row-kicker">Private</span>
-          <span class="link-row-title">${esc(p.app.label)}</span>
-          <span class="link-row-host">${esc(hrefHostPath(p.app.href))}</span>
-          <span class="link-row-go" aria-hidden="true">→</span>
-        </a>`);
+  const outs = [];
+  if (p.marketing) {
+    outs.push(
+      `<a href="${esc(p.marketing.href)}" rel="noopener">${esc(p.marketing.host)}</a>${p.quietOutbound ? " <span>(in progress)</span>" : ""}`
+    );
+  } else if (p.app) {
+    outs.push(
+      `<a href="${esc(p.app.href)}" rel="noopener">${esc(hrefHostPath(p.app.href))}</a>${p.quietOutbound ? " <span>(if you have access)</span>" : ""}`
+    );
   }
 
-  const actions = [];
-  if (p.marketing && !p.quietOutbound) {
-    actions.push(
-      `<a class="btn btn-primary" href="${esc(p.marketing.href)}" rel="noopener">${esc(p.marketing.label)}</a>`
-    );
-  }
-  if (p.app && !p.quietOutbound) {
-    actions.push(
-      `<a class="btn ${p.marketing && !p.quietOutbound ? "btn-ghost" : "btn-primary"}" href="${esc(p.app.href)}" rel="noopener">${esc(p.app.label)}</a>`
-    );
-  }
-  if (p.waitlist) {
-    actions.push(
-      `<a class="btn ${actions.length ? "btn-ghost" : "btn-primary"}" href="#waitlist">Join waitlist</a>`
-    );
-  }
-  actions.push(`<a class="btn btn-ghost" href="/#work">Other work</a>`);
-
-  const linksBlock = rows.length
-    ? `
-    <section class="shell product-links-block">
-      <p class="eyebrow">${p.quietOutbound ? "Quiet links" : "Where it lives"}</p>
-      <div class="link-rows">${rows.join("")}
-      </div>
-    </section>
-`
-    : "";
-
-  const bodyExtras = [];
-  if (p.note) {
-    bodyExtras.push(
-      `      <p class="section-copy callout">${esc(p.note)}</p>`
-    );
-  }
-  if (p.waitlistNote) {
-    bodyExtras.push(`      <p class="section-copy">${esc(p.waitlistNote)}</p>`);
-  }
-  if (p.waitlist) bodyExtras.push(waitlistBlock(p.name).trimEnd());
+  const extras = [];
+  if (p.note) extras.push(`      <p class="note">${esc(p.note)}</p>`);
+  if (p.waitlistNote) extras.push(`      <p>${esc(p.waitlistNote)}</p>`);
+  if (p.waitlist) extras.push(waitlistBlock(p.name).trimEnd());
 
   const pageActive = p.featured ? "walli" : "work";
 
@@ -419,158 +319,94 @@ function productPage(p) {
 <body class="product-page" data-product="${p.id}">
 ${header(pageActive)}
   <main id="main">
-    <section class="product-hero shell">
+    <article class="product shell">
       <p class="crumb"><a href="/">Home</a> / <a href="/#work">Work</a> / ${esc(p.name)}</p>
-      <div class="product-top product-hero-top">
-        <span class="product-tag">${esc(p.tag)}</span>
-        <span class="status ${p.status}">${esc(p.statusLabel)}</span>
-      </div>
       <h1>${esc(p.name)}</h1>
       <p class="one-liner">${esc(p.oneLiner)}</p>
       <p class="lede">${esc(p.lede)}</p>
-      <div class="hero-actions">
-        ${actions.join("\n        ")}
-      </div>
-    </section>
-${linksBlock}
-    <section class="product-body shell">
-      <p class="eyebrow">In short</p>
-      <ul class="feature-list">
+      ${outs.length ? `<p class="out">${outs.join("<br />")}</p>` : ""}
+      <ul class="points">
         ${p.bullets.map((b) => `<li>${esc(b)}</li>`).join("\n        ")}
       </ul>
-${bodyExtras.length ? `${bodyExtras.join("\n")}\n` : ""}    </section>
+${extras.length ? `${extras.join("\n")}\n` : ""}      <p class="back"><a href="/#work">Other work</a></p>
+    </article>
   </main>
 ${footer}`;
 }
 
-function workRow(p) {
+function workItem(p) {
   const internal = `/products/${esc(p.slug)}/`;
-  const extra =
+  const host =
     p.marketing && !p.quietOutbound
-      ? `<a class="work-link" href="${esc(p.marketing.href)}" rel="noopener">${esc(p.marketing.host)}</a>`
-      : p.waitlist
-        ? `<a class="work-link" href="${internal}#waitlist">Waitlist</a>`
-        : "";
-
+      ? `\n          <a class="work-host" href="${esc(p.marketing.href)}" rel="noopener">${esc(p.marketing.host)}</a>`
+      : "";
   return `
-        <article class="work-row" data-product="${p.id}">
-          <div class="work-head">
-            <h3>
-              <a href="${internal}">${esc(p.name)}</a>
-            </h3>
-            <span class="status ${p.status}">${esc(p.statusLabel)}</span>
-          </div>
-          <p class="card-one-liner">${esc(p.oneLiner)}</p>
-          <p>${esc(p.card)}</p>
-          <div class="work-links">
-            <a class="work-link primary" href="${internal}">Read more</a>
-            ${extra}
-          </div>
-        </article>`;
+        <li class="work-item" data-product="${p.id}">
+          <a class="work-name" href="${internal}">${esc(p.name)}</a>
+          <p class="work-line">${esc(p.oneLiner)}</p>${host}
+        </li>`;
 }
 
 function indexPage() {
-  const workRows = rest.map(workRow).join("\n");
+  const workItems = rest.map(workItem).join("\n");
 
   return `${head(SITE.title, SITE.description, "https://burkettstudios.com/")}
-<body>
+<body class="home">
+  <div class="wash wash-a" aria-hidden="true"></div>
+  <div class="wash wash-b" aria-hidden="true"></div>
 ${header()}
   <main id="main">
     <section class="hero shell">
-      <span class="coral-rule" aria-hidden="true"></span>
-      <p class="eyebrow">${esc(SITE.heroEyebrow)}</p>
-      <h1>
-        ${esc(SITE.heroH1a)}<br />
-        <span class="hero-accent">${esc(SITE.heroH1b)}</span>
-      </h1>
-      <p class="lede">${esc(SITE.heroLede)}</p>
-      <p class="voice-line">${esc(SITE.voiceLine)}</p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="#walli">About Walli</a>
-        <a class="btn btn-ghost" href="#work">What else we make</a>
+      <div class="hero-layer">
+        <p class="place">${esc(SITE.heroEyebrow)}</p>
+        <h1>
+          ${esc(SITE.heroH1a)}
+          <a class="hero-accent" href="#walli">${esc(SITE.heroH1b)}</a>
+        </h1>
+        <p class="lede">${esc(SITE.heroLede)}</p>
+        <p class="voice">${esc(SITE.voiceLine)}</p>
       </div>
     </section>
 
-    <section id="walli" class="feature-band">
-      <div class="shell feature-grid">
-        <div class="feature-copy">
-          <span class="coral-rule" aria-hidden="true"></span>
-          <p class="eyebrow">What we are building</p>
-          <div class="feature-title-row">
-            <h2>${esc(featured.name)}</h2>
-            <span class="status ${featured.status}">${esc(featured.statusLabel)}</span>
-          </div>
+    <section id="walli" class="walli">
+      <div class="shell walli-grid">
+        <div class="walli-copy">
+          <h2>${esc(featured.name)}</h2>
           <p class="one-liner">${esc(featured.oneLiner)}</p>
-          <p class="section-copy">${esc(featured.lede)}</p>
-          <p class="section-copy">${esc(featured.note)}</p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="/products/${esc(featured.slug)}/">Read more about Walli</a>
-          </div>
+          <p>${esc(featured.lede)}</p>
+          <p>${esc(featured.note)}</p>
+          <p class="more"><a href="/products/${esc(featured.slug)}/">Walli, in a little more detail</a></p>
         </div>
-${yearMotif()}
+        ${yearMotif()}
       </div>
     </section>
 
-    <section id="work" class="section shell">
-      <div class="section-head">
-        <span class="coral-rule" aria-hidden="true"></span>
-        <p class="eyebrow">Also underway</p>
-        <h2>What else we make</h2>
-        <p class="section-copy">
-          Real products, honest status. Live sites stay one click away.
-          Unfinished work does not get a hard sell.
-        </p>
-      </div>
-      <div class="work-list">
-${workRows}
-      </div>
+    <section id="work" class="work shell">
+      <h2>Also</h2>
+      <ul class="work-list">
+${workItems}
+      </ul>
     </section>
 
-    <section id="about" class="section shell">
-      <div class="about-band">
-        <div class="about-main">
-          <span class="coral-rule" aria-hidden="true"></span>
-          <p class="eyebrow">About</p>
-          <h2>Two people. Nashville.</h2>
-          <p class="section-copy">
-            Trey spent ten years as a software PM. Now he and his husband build
-            products they actually want to use, starting with Walli.
-          </p>
-          <p class="section-copy">
-            This is not a consultancy. We are not for hire. We make our own things.
-          </p>
-          <p class="voice-line">${esc(SITE.voiceLine)}</p>
-        </div>
-        <ul class="about-points">
-          <li>
-            <strong>Walli first</strong>
-            <span>The year-at-a-glance calendar is the main work.</span>
-          </li>
-          <li>
-            <strong>Built together</strong>
-            <span>Trey and his husband. Not a solo-founder story.</span>
-          </li>
-          <li>
-            <strong>Other company</strong>
-            <span>Real estate lives on <a class="inline-link" href="https://burkettinv.com" rel="noopener">burkettinv.com</a>.</span>
-          </li>
-        </ul>
-      </div>
+    <section id="about" class="about shell">
+      <h2>Two people. Nashville.</h2>
+      <p>
+        Trey spent ten years as a software PM. Now he and his husband build
+        products they want to use, starting with Walli.
+      </p>
+      <p>
+        Real estate lives on
+        <a href="https://burkettinv.com" rel="noopener">burkettinv.com</a>.
+      </p>
     </section>
 
-    <section id="contact" class="section shell">
-      <div class="contact-panel">
-        <span class="coral-rule" aria-hidden="true"></span>
-        <p class="eyebrow">Contact</p>
-        <h2>Say hi.</h2>
-        <p class="section-copy">
-          Questions, notes, or just hello. Trey reads the mail.
-        </p>
-        <div class="contact-actions">
-          <a class="btn btn-primary" href="mailto:trey@burkettinv.com?subject=Burkett%20Studios">Email Trey</a>
-          <a class="btn btn-ghost" href="https://x.com/TreyBurkett" rel="noopener">Trey on X</a>
-        </div>
-      </div>
+    <section id="contact" class="contact shell">
+      <h2>Say hi.</h2>
+      <p>Questions, notes, or just hello. Trey reads the mail.</p>
+      <p class="contact-links">
+        <a href="mailto:trey@burkettinv.com?subject=Burkett%20Studios">Email Trey</a>
+        <a href="https://x.com/TreyBurkett" rel="noopener">Trey on X</a>
+      </p>
     </section>
   </main>
 ${footer}`;
