@@ -1,55 +1,59 @@
 {
   "generatedFrom": "scripts/generate-site.mjs",
-  "purpose": {
-    "title": "Burkett Studios — Digital products we own",
-    "description": "Burkett Studios is the digital-product arm of Burkett Investments. A map of products we build, run, and own, with links to each product site.",
-    "heroEyebrow": "Burkett Investments · Digital products",
-    "heroH1a": "The products",
-    "heroH1b": "we own.",
-    "heroLede": "Burkett Studios is the arm of Burkett Investments that builds, runs, and owns our digital products. This site is the map: what we hold, and where each product lives online."
+  "site": {
+    "title": "Burkett Studios · Building Walli in Nashville",
+    "description": "Trey Burkett and his husband build products in Nashville. Right now that means Walli, a year-at-a-glance calendar.",
+    "heroEyebrow": "Nashville",
+    "heroH1a": "We're building",
+    "heroH1b": "Walli.",
+    "heroLede": "The year-at-a-glance calendar. Whole year on one screen, continuous plan bars, household cloud. Two of us, making products we want to use.",
+    "voiceLine": "Software PM for 10 years. Building Walli with my husband. Nashville."
   },
   "products": [
     {
-      "slug": "year-wall",
-      "id": "yearwall",
-      "name": "Year Wall",
-      "tag": "iOS · Web",
-      "status": "ship",
-      "statusLabel": "Live",
+      "slug": "walli",
+      "id": "walli",
+      "name": "Walli",
+      "tag": "Calendar",
+      "status": "build",
+      "statusLabel": "Building",
+      "featured": true,
+      "quietOutbound": true,
       "oneLiner": "Your whole year on one screen.",
-      "card": "Dense year wall, continuous plan bars, household cloud. Not a day-list calendar.",
-      "lede": "Year Wall is a Burkett-owned calendar product: the full year visible at once, continuous plan bars, web and iPhone.",
+      "card": "Whole year at a glance, continuous plan bars, household cloud.",
+      "lede": "Walli is the year-at-a-glance calendar we are building in Nashville. The whole year stays on one screen, so a plan can stretch instead of getting chopped into a stack of days.",
       "bullets": [
-        "Whole-year wall with continuous plan bars",
-        "Household cloud across web and iPhone",
-        "Web live; iOS when quality clears the bar"
+        "The full year visible at once",
+        "Continuous plan bars, not a day list",
+        "Household cloud across web and iPhone"
       ],
       "marketing": {
         "href": "https://yearwall.burkettinv.com",
-        "label": "Go to Year Wall",
+        "label": "In-progress site",
         "host": "yearwall.burkettinv.com"
       },
       "app": null,
-      "waitlist": false
+      "waitlist": false,
+      "note": "We are still building Walli. It is not ready to send people into an app yet."
     },
     {
       "slug": "wandered",
       "id": "wandered",
       "name": "Wandered",
-      "tag": "iOS · Web",
-      "status": "ship",
+      "tag": "Travel map",
+      "status": "live",
       "statusLabel": "Live",
       "oneLiner": "Your world, filled in.",
-      "card": "Exact coastlines, trip journal, passport that fills as you travel.",
-      "lede": "Wandered is a Burkett-owned travel map product: where you have been, painted with real precision, plus trips and a passport.",
+      "card": "Exact coastlines, trip journal, a passport that fills as you travel.",
+      "lede": "Wandered paints where you have been onto a real map. Real coastlines, the trips that got you there, and a passport that fills itself.",
       "bullets": [
         "Unsimplified borders and real coastlines",
-        "Trip journal and passport",
-        "Marketing site and app are both on wandered.burkettinv.com"
+        "Trip journal and a passport that fills as you go",
+        "iPhone and web"
       ],
       "marketing": {
         "href": "https://wandered.burkettinv.com",
-        "label": "Go to Wandered",
+        "label": "Wandered site",
         "host": "wandered.burkettinv.com"
       },
       "app": {
@@ -62,63 +66,64 @@
       "slug": "surrostack",
       "id": "surrostack",
       "name": "SurroStack",
-      "tag": "Web",
-      "status": "ship",
-      "statusLabel": "Live pilot",
-      "oneLiner": "Ops stack for a high-stakes personal journey.",
-      "card": "Tasks, calendar, money, and share status for surrogacy logistics.",
-      "lede": "SurroStack is a Burkett-owned operations product for surrogacy journeys. The live product is a signed-in portal; this page is the public pointer.",
+      "tag": "Journey ops",
+      "status": "private",
+      "statusLabel": "Private",
+      "quietOutbound": true,
+      "oneLiner": "Ops for a surrogacy journey.",
+      "card": "Tasks, calendar, money, and a way to share status.",
+      "lede": "SurroStack helps a household keep a surrogacy journey in one place: tasks, calendar, money, and status you can share. It is a private pilot today.",
       "bullets": [
-        "Task portal and calendar for journey load",
-        "Share Status for partners and support",
-        "No separate public marketing domain yet"
+        "Tasks and calendar for the journey load",
+        "Share status with partners and support",
+        "Signed-in portal. Not a public launch."
       ],
       "marketing": null,
       "app": {
         "href": "https://app.burkettinv.com/surrostack/",
-        "label": "Open SurroStack"
+        "label": "Portal (if you have access)"
       },
       "waitlist": false,
-      "note": "Public marketing site not launched. Use the portal link if you have access."
+      "note": "Private pilot. The portal link only helps if you already have access."
     },
     {
       "slug": "massagenow",
       "id": "massagenow",
       "name": "MassageNow",
-      "tag": "Marketplace",
-      "status": "build",
-      "statusLabel": "Pilot",
-      "oneLiner": "Last-minute openings at licensed studios.",
-      "card": "Nashville pilot marketplace for same-day massage inventory.",
-      "lede": "MassageNow is a Burkett-owned marketplace product. Story and waitlist live on getmassagenow.com.",
+      "tag": "Nashville",
+      "status": "live",
+      "statusLabel": "Live",
+      "oneLiner": "Last-minute massage openings in Nashville.",
+      "card": "Same-day openings at licensed studios.",
+      "lede": "MassageNow is our Nashville experiment for last-minute massage inventory. The public story and waitlist live on getmassagenow.com.",
       "bullets": [
-        "Consumer booking for open slots",
-        "Studio fill for cancellations",
-        "Pilot market: Nashville"
+        "Same-day openings at licensed studios",
+        "Built for the empty slot, not a six-week book-ahead",
+        "Nashville first"
       ],
       "marketing": {
         "href": "https://getmassagenow.com",
-        "label": "Go to MassageNow",
+        "label": "MassageNow site",
         "host": "getmassagenow.com"
       },
       "app": null,
       "waitlist": true,
-      "waitlistNote": "Prefer the product site when it is open; or leave an email below."
+      "waitlistNote": "The product site is the better waitlist if it is open. Or leave an email below."
     },
     {
       "slug": "orient",
       "id": "orient",
       "name": "Orient",
       "tag": "Guides",
-      "status": "seed",
-      "statusLabel": "Seed",
-      "oneLiner": "Place guides with editorial standards.",
-      "card": "Local orientation without SEO directory sludge. Region pilots first.",
-      "lede": "Orient is a Burkett-owned place-guide product in seed. No public product site yet.",
+      "status": "waitlist",
+      "statusLabel": "Waitlist",
+      "oneLiner": "Place guides with a point of view.",
+      "card": "Local orientation, not an SEO directory.",
+      "lede": "Orient is a place-guide product in early days. Editorial standards first. No public site yet.",
       "bullets": [
-        "Editorial rules over directory spam",
-        "Minnesota pilot first",
-        "Waitlist until a product site ships"
+        "Guides with a point of view, not directory sludge",
+        "Region pilots before a big map",
+        "Waitlist until there is something to try"
       ],
       "marketing": null,
       "app": null,
@@ -129,15 +134,15 @@
       "id": "conflict",
       "name": "Conflict Patterns",
       "tag": "Personal",
-      "status": "seed",
-      "statusLabel": "Seed",
+      "status": "design",
+      "statusLabel": "In design",
       "oneLiner": "Private pattern tracking for hard conversations.",
-      "card": "Research-backed personal software. Privacy first. Still in design.",
-      "lede": "Conflict Patterns is a Burkett-owned personal product in seed. No public product site yet.",
+      "card": "Still in design. Privacy first.",
+      "lede": "Conflict Patterns is personal software for seeing patterns in hard conversations. Still in design. Privacy first.",
       "bullets": [
-        "Privacy-first design",
-        "Research structure, not gimmicks",
-        "Waitlist for early access"
+        "Private by default",
+        "Pattern tracking, not a gimmick journal",
+        "Waitlist for when there is something to try"
       ],
       "marketing": null,
       "app": null,

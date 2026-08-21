@@ -7,16 +7,17 @@
 
 ## Purpose (design around this)
 
-**Home and map for digital products Burkett owns through Burkett Studios.**
+**Public face for Trey Burkett and his husband: two people in Nashville building products, led by Walli.**
 
-1. Ownership (build / run / own)
-2. Portfolio directory with honest status
-3. Handoff to each product’s marketing site
-4. Boundary vs burkettinv.com (RE / consulting)
+1. Introduce the studio as people, not a holding company
+2. Lead with Walli (year-at-a-glance calendar)
+3. Honest list of the other real products
+4. Quiet handoff to a product site when one already exists
 
-**Not** build-for-hire. **Not** a mega brochure that replaces Year Wall / Wandered / MassageNow sites.
+**Not** build-for-hire. **Not** “the products we own.” **Not** a mega brochure that replaces Wandered / MassageNow sites.
 
-Primary CTA per product = product marketing URL when it exists.
+Product name is **Walli** only. Never “Year Wall” on this site.
+Do not hard-sell unfinished Walli to cold traffic.
 
 ## Product table
 
@@ -26,7 +27,7 @@ Do not edit `public/*.html` or `products.json` by hand. Those are generated.
 
 `PURPOSE.md` is the locked purpose note. The generator does not overwrite it.
 
-Johnson Harvesting (`jh.burkettstudios.com`) is a different site. Do not change it from this repo.
+Johnson Harvesting (`jh.burkettstudios.com`) is a different site. Do not change it from this repo. Leave it off the public homepage.
 
 ## Deploy
 
@@ -42,5 +43,7 @@ npm run deploy
 ## Style
 
 - No em dashes.
-- burkettinv.com DESIGN-LOCK: radius 0, hairlines, gold ignition.
-- Do not market Nashville HQ on the hero.
+- Accent is Walli coral `#ff5c54` only. Neutrals, black, cream around it.
+- Do not bring back burkettinv gold as a second brand color.
+- Nashville is welcome. This site is the X-profile public face.
+- Do not write Trey as a solo founder. Do not invent his husband’s name.

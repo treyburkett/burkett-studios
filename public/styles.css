@@ -1,23 +1,23 @@
-/* Burkett Studios — aligned to burkettinv.com DESIGN-LOCK
-   Black + steel + gold ignition. Radius 0. Hairlines. No pills. */
+/* Burkett Studios. Walli coral on cream.
+   Accent is #ff5c54 only. Neutrals, black, cream around it. */
 
 :root {
-  color-scheme: dark;
-  --bg: #08080a;
-  --bg-2: #0d0d10;
-  --panel: #111114;
-  --line: rgba(255, 255, 255, 0.1);
-  --line-2: rgba(255, 255, 255, 0.17);
-  --fg: #f4f4f5;
-  --muted: #9b9ba4;
-  --dim: #6a6a73;
-  --gold: #ead4a2;
-  --gold-deep: #b6a57e;
-  --gold-wash: rgba(234, 212, 162, 0.12);
-  --bk-blue: #3e6ae1;
-  --font: system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: light;
+  --bg: #f6f1e8;
+  --bg-2: #efe8dc;
+  --panel: #fffdf8;
+  --ink: #161412;
+  --muted: #5c5752;
+  --dim: #8a847c;
+  --line: rgba(22, 20, 18, 0.1);
+  --line-2: rgba(22, 20, 18, 0.16);
+  --coral: #ff5c54;
+  --coral-deep: #e24a43;
+  --coral-wash: rgba(255, 92, 84, 0.12);
+  --font: "Source Sans 3", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif: "Newsreader", "Iowan Old Style", Georgia, serif;
   --mono: ui-monospace, "SF Mono", Menlo, monospace;
-  --shell: min(1120px, calc(100% - 3rem));
+  --shell: min(1040px, calc(100% - 3rem));
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --duration: 200ms;
   --radius: 0;
@@ -37,7 +37,7 @@ body {
   margin: 0;
   min-height: 100vh;
   font-family: var(--font);
-  color: var(--fg);
+  color: var(--ink);
   background: var(--bg);
   line-height: 1.55;
   font-weight: 400;
@@ -51,7 +51,7 @@ a {
 }
 
 :focus-visible {
-  outline: 2px solid var(--bk-blue);
+  outline: 2px solid var(--coral);
   outline-offset: 2px;
 }
 
@@ -59,7 +59,7 @@ a {
   position: absolute;
   left: -999px;
   top: 0;
-  background: var(--fg);
+  background: var(--ink);
   color: var(--bg);
   padding: 0.5rem 0.75rem;
   z-index: 100;
@@ -87,12 +87,12 @@ a {
   margin-inline: auto;
 }
 
-/* —— Header (nav always black) —— */
 .site-header {
   position: sticky;
   top: 0;
   z-index: 40;
-  background: #000;
+  background: rgba(246, 241, 232, 0.92);
+  backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
 }
 
@@ -110,95 +110,100 @@ a {
   gap: 0.65rem;
   font-weight: 600;
   letter-spacing: -0.02em;
-  font-size: 0.95rem;
+  font-size: 1rem;
 }
 
 .mark-glyph {
-  width: 1.15rem;
-  height: 1.15rem;
-  background: var(--gold);
+  width: 0.7rem;
+  height: 0.7rem;
+  background: var(--coral);
 }
 
 .mark-text em {
   font-style: normal;
-  color: var(--gold);
-  font-weight: 500;
+  color: var(--coral);
+  font-weight: 600;
 }
 
 .nav {
   display: flex;
   align-items: center;
-  gap: 1.35rem;
+  gap: 1.5rem;
   color: var(--muted);
-  font-size: 0.72rem;
+  font-size: 0.95rem;
   font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
 }
 
 .nav a:hover,
 .nav a[aria-current="page"] {
-  color: var(--fg);
+  color: var(--ink);
 }
 
-.nav-cta {
-  color: #08080a !important;
-  background: var(--gold);
-  padding: 0.55rem 0.9rem;
-  letter-spacing: 0.1em;
-  transition: background var(--duration) var(--ease);
+.nav a[aria-current="page"] {
+  box-shadow: inset 0 -2px 0 var(--coral);
 }
 
-.nav-cta:hover {
-  background: var(--gold-deep);
-  color: #08080a !important;
-}
-
-/* —— Type primitives —— */
 .eyebrow {
   margin: 0 0 1rem;
   font-family: var(--mono);
   font-size: 0.7rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--dim);
+  color: var(--coral);
 }
 
-.gold-rule {
+.coral-rule {
   display: block;
   width: 2.5rem;
-  height: 1px;
-  background: var(--gold);
+  height: 2px;
+  background: var(--coral);
   margin: 0 0 1.25rem;
 }
 
-/* —— Hero —— */
 .hero {
-  padding: 5.5rem 0 4rem;
-  border-bottom: 1px solid var(--line);
-  background:
-    linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 100%);
+  padding: 5.75rem 0 4.25rem;
+}
+
+.hero h1,
+.section-head h2,
+.feature-copy h2,
+.about-main h2,
+.contact-panel h2,
+.product-hero h1,
+.waitlist-panel h2 {
+  font-family: var(--serif);
+  font-weight: 500;
+  letter-spacing: -0.03em;
 }
 
 .hero h1 {
   margin: 0;
-  max-width: 16ch;
-  font-size: clamp(2.5rem, 5.8vw, 4.25rem);
-  line-height: 0.98;
-  letter-spacing: -0.03em;
-  font-weight: 600;
+  max-width: 14ch;
+  font-size: clamp(3rem, 8vw, 5.4rem);
+  line-height: 0.96;
 }
 
 .hero-accent {
-  color: var(--gold);
+  color: var(--coral);
+  font-style: italic;
 }
 
 .lede {
-  margin: 1.5rem 0 0;
-  max-width: 42rem;
+  margin: 1.6rem 0 0;
+  max-width: 36rem;
   color: var(--muted);
-  font-size: 1.05rem;
-  line-height: 1.6;
+  font-size: 1.15rem;
+  line-height: 1.55;
+}
+
+.voice-line {
+  margin: 1.15rem 0 0;
+  max-width: 34rem;
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-style: italic;
+  line-height: 1.45;
+  color: var(--ink);
 }
 
 .hero-actions {
@@ -208,7 +213,6 @@ a {
   margin-top: 2rem;
 }
 
-/* —— Buttons: sharp rectangles, gold ignition —— */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -216,10 +220,9 @@ a {
   min-height: 2.75rem;
   padding: 0 1.15rem;
   border-radius: var(--radius);
-  font-size: 0.8rem;
+  font-size: 0.92rem;
   font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
   border: 1px solid transparent;
   transition:
     background var(--duration) var(--ease),
@@ -235,149 +238,193 @@ a {
 }
 
 .btn-primary {
-  background: var(--gold);
-  color: #08080a;
-  border-color: var(--gold);
+  background: var(--coral);
+  color: #fff;
+  border-color: var(--coral);
 }
 
 .btn-primary:hover {
-  background: var(--gold-deep);
-  border-color: var(--gold-deep);
+  background: var(--coral-deep);
+  border-color: var(--coral-deep);
 }
 
 .btn-ghost {
   border-color: var(--line-2);
-  color: var(--fg);
+  color: var(--ink);
   background: transparent;
 }
 
 .btn-ghost:hover {
-  border-color: var(--gold);
-  color: var(--gold);
+  border-color: var(--coral);
+  color: var(--coral);
 }
 
-/* —— Purpose strip (what this site is / is not) —— */
-.purpose-strip {
-  border-bottom: 1px solid var(--line);
+.feature-band {
   background: var(--bg-2);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
 }
 
-.purpose-grid {
+.feature-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 3rem;
+  align-items: center;
+  padding: 4.5rem 0;
 }
 
-.purpose-cell {
-  padding: 1.5rem 1.35rem;
-  border-right: 1px solid var(--line);
+.feature-title-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.85rem;
+  flex-wrap: wrap;
 }
 
-.purpose-cell:last-child {
-  border-right: 0;
-}
-
-.purpose-label {
+.feature-copy h2 {
   margin: 0;
+  font-size: clamp(2.1rem, 4vw, 3rem);
+  line-height: 1.05;
+}
+
+.year-motif {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 0.4rem;
+  min-height: 16rem;
+  padding: 1.25rem 1.1rem 0.85rem;
+  background: var(--panel);
+  border: 1px solid var(--line);
+}
+
+.year-col {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.year-bars {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-start;
+  gap: 0.28rem;
+  flex: 1;
+}
+
+.year-bar {
+  display: block;
+  width: 100%;
+  min-height: 0.35rem;
+}
+
+.year-bar-strong {
+  background: var(--coral);
+}
+
+.year-bar-soft {
+  background: rgba(255, 92, 84, 0.28);
+}
+
+.year-label {
+  margin-top: 0.55rem;
+  text-align: center;
   font-family: var(--mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
   color: var(--dim);
 }
 
-.purpose-value {
-  margin: 0.55rem 0 0;
-  font-size: 1.05rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.3;
-  color: var(--fg);
-}
-
-.purpose-value a {
-  color: var(--gold);
-}
-
-.purpose-value a:hover {
-  color: var(--gold-deep);
-}
-
-/* —— Sections —— */
 .section {
   padding: 4.5rem 0;
   border-bottom: 1px solid var(--line);
 }
 
 .section-head {
-  max-width: 40rem;
-  margin-bottom: 2.25rem;
+  max-width: 36rem;
+  margin-bottom: 2rem;
 }
 
-.section-head h2 {
+.section-head h2,
+.about-main h2,
+.contact-panel h2,
+.waitlist-panel h2 {
   margin: 0;
-  font-size: clamp(1.75rem, 3vw, 2.35rem);
-  letter-spacing: -0.03em;
-  line-height: 1.12;
-  font-weight: 600;
+  font-size: clamp(1.9rem, 3.4vw, 2.6rem);
+  line-height: 1.1;
 }
 
 .section-copy {
   margin: 0.9rem 0 0;
   color: var(--muted);
-  max-width: 42rem;
+  max-width: 38rem;
 }
 
-/* —— Product grid: hairline frames, not soft cards —— */
-.product-grid {
+.work-list {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0;
   border-top: 1px solid var(--line);
-  border-left: 1px solid var(--line);
 }
 
-.product-card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  min-height: 17.5rem;
-  padding: 1.4rem 1.35rem 1.4rem;
-  background: var(--bg);
-  border-right: 1px solid var(--line);
+.work-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.45rem;
+  padding: 1.45rem 0;
   border-bottom: 1px solid var(--line);
-  transition: background var(--duration) var(--ease);
 }
 
-.product-card:hover {
-  background: var(--panel);
-}
-
-.product-card::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 1px;
-  background: transparent;
-}
-
-.product-card:hover::before {
-  background: var(--gold);
-}
-
-.product-top {
+.work-head {
   display: flex;
+  align-items: baseline;
   justify-content: space-between;
-  align-items: center;
-  gap: 0.75rem;
+  gap: 1rem;
+}
+
+.work-row h3 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1.45rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.work-row h3 a:hover {
+  color: var(--coral);
+}
+
+.work-row p {
+  margin: 0;
+  color: var(--muted);
+  max-width: 40rem;
+}
+
+.card-one-liner {
+  color: var(--ink) !important;
+  font-size: 1.02rem;
+  font-weight: 500;
+}
+
+.work-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem 1.25rem;
+  margin-top: 0.35rem;
+}
+
+.work-link {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.work-link.primary,
+.work-link:hover {
+  color: var(--coral);
 }
 
 .product-tag,
 .status {
   font-family: var(--mono);
-  font-size: 0.65rem;
+  font-size: 0.68rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
@@ -387,101 +434,40 @@ a {
 }
 
 .status {
-  padding: 0.2rem 0.45rem;
-  border: 1px solid var(--line);
   color: var(--muted);
-  border-radius: var(--radius);
 }
 
-.status.ship {
-  color: var(--gold);
-  border-color: rgba(234, 212, 162, 0.35);
-  background: var(--gold-wash);
+.status.build,
+.status.live {
+  color: var(--coral);
 }
 
-.status.build {
-  color: var(--gold-deep);
-  border-color: rgba(182, 165, 126, 0.35);
-}
-
-.status.seed {
+.status.private,
+.status.waitlist,
+.status.design {
   color: var(--dim);
-}
-
-.product-card h3 {
-  margin: 0.15rem 0 0;
-  font-size: 1.2rem;
-  letter-spacing: -0.02em;
-  font-weight: 600;
-}
-
-.product-card h3 a:hover {
-  color: var(--gold);
-}
-
-.product-card p {
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.94rem;
-  flex: 1;
-}
-
-.card-one-liner {
-  margin: 0 !important;
-  color: var(--fg) !important;
-  font-size: 1rem !important;
-  font-weight: 500;
-  letter-spacing: -0.015em;
-  flex: 0 !important;
-}
-
-.card-links {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.75rem 1.1rem;
-  margin-top: 0.35rem;
-  padding-top: 0.85rem;
-  border-top: 1px solid var(--line);
-}
-
-.product-host {
-  margin-left: auto;
-  font-family: var(--mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.04em;
-  color: var(--dim);
-}
-
-.owned-tag {
-  margin: 0.75rem 0 0;
-  font-family: var(--mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--gold);
 }
 
 .inline-link {
-  color: var(--gold);
+  color: var(--coral);
   border-bottom: 1px solid transparent;
 }
 
 .inline-link:hover {
-  border-bottom-color: rgba(234, 212, 162, 0.45);
+  border-bottom-color: rgba(255, 92, 84, 0.45);
 }
 
 .about-band {
   display: grid;
-  grid-template-columns: 1.35fr 0.9fr;
+  grid-template-columns: 1.3fr 0.9fr;
   gap: 0;
   border: 1px solid var(--line);
+  background: var(--panel);
 }
 
 .about-main {
   padding: 2rem;
   border-right: 1px solid var(--line);
-  background: var(--bg-2);
 }
 
 .about-points {
@@ -501,40 +487,18 @@ a {
 
 .about-points strong {
   display: block;
-  font-weight: 600;
+  font-family: var(--serif);
+  font-weight: 500;
   letter-spacing: -0.015em;
   margin-bottom: 0.25rem;
-  color: var(--gold);
+  color: var(--coral);
 }
 
 .about-points span {
   color: var(--muted);
-  font-size: 0.95rem;
+  font-size: 0.98rem;
 }
 
-.product-link {
-  font-size: 0.72rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  font-weight: 600;
-  color: var(--gold);
-  width: fit-content;
-}
-
-.product-link:hover {
-  color: var(--gold-deep);
-}
-
-.product-link.secondary {
-  color: var(--muted);
-  font-weight: 500;
-}
-
-.product-link.secondary:hover {
-  color: var(--gold);
-}
-
-/* Product page: marketing / app link rows */
 .product-links-block {
   padding: 2rem 0 0;
 }
@@ -544,6 +508,7 @@ a {
   gap: 0;
   border: 1px solid var(--line);
   margin-top: 0.85rem;
+  background: var(--panel);
 }
 
 .link-row {
@@ -561,7 +526,7 @@ a {
 }
 
 .link-row:hover {
-  background: var(--panel);
+  background: var(--bg-2);
 }
 
 .link-row-kicker {
@@ -584,24 +549,25 @@ a {
 }
 
 .link-row-go {
-  color: var(--gold);
+  color: var(--coral);
   font-size: 1.1rem;
 }
 
 .one-liner {
   margin: 0.65rem 0 0;
-  font-size: clamp(1.15rem, 2.2vw, 1.45rem);
+  font-family: var(--serif);
+  font-size: clamp(1.2rem, 2.2vw, 1.55rem);
   font-weight: 500;
   letter-spacing: -0.02em;
-  color: var(--gold);
+  color: var(--coral);
   max-width: 28ch;
 }
 
 .callout {
   padding: 1rem 1.15rem;
   border: 1px solid var(--line);
-  border-left: 2px solid var(--gold);
-  background: var(--bg-2);
+  border-left: 2px solid var(--coral);
+  background: var(--panel);
 }
 
 .footer-grid {
@@ -616,9 +582,7 @@ a {
   flex-wrap: wrap;
   gap: 0.65rem 1.25rem;
   align-content: start;
-  font-size: 0.8rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  font-size: 0.95rem;
   font-weight: 500;
 }
 
@@ -627,25 +591,9 @@ a {
 }
 
 .footer-links a:hover {
-  color: var(--gold);
+  color: var(--coral);
 }
 
-@media (max-width: 900px) {
-  .link-row {
-    grid-template-columns: 1fr;
-    gap: 0.35rem;
-  }
-
-  .link-row-go {
-    display: none;
-  }
-
-  .footer-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* —— Contact —— */
 .contact-panel {
   padding: 2.25rem;
   border: 1px solid var(--line);
@@ -659,7 +607,6 @@ a {
   margin-top: 1.5rem;
 }
 
-/* —— Product page —— */
 .product-page .product-hero {
   padding: 3.25rem 0 2.25rem;
   border-bottom: 1px solid var(--line);
@@ -667,17 +614,13 @@ a {
 
 .product-hero h1 {
   margin: 0.65rem 0 0;
-  font-size: clamp(2.2rem, 4.5vw, 3.3rem);
-  letter-spacing: -0.03em;
+  font-size: clamp(2.4rem, 5vw, 3.8rem);
   line-height: 1.02;
-  font-weight: 600;
 }
 
 .crumb {
   margin: 0 0 1.25rem;
-  font-size: 0.72rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-size: 0.85rem;
   color: var(--dim);
 }
 
@@ -686,7 +629,14 @@ a {
 }
 
 .crumb a:hover {
-  color: var(--gold);
+  color: var(--coral);
+}
+
+.product-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .product-hero-top {
@@ -719,25 +669,17 @@ a {
   position: absolute;
   left: 0;
   top: 1.4rem;
-  width: 0.4rem;
-  height: 1px;
-  background: var(--gold);
+  width: 0.45rem;
+  height: 2px;
+  background: var(--coral);
 }
 
-/* —— Waitlist —— */
 .waitlist-panel {
   margin-top: 1.5rem;
   padding: 1.75rem;
   border: 1px solid var(--line);
-  background: var(--bg-2);
+  background: var(--panel);
   max-width: 32rem;
-}
-
-.waitlist-panel h2 {
-  margin: 0;
-  font-size: 1.35rem;
-  letter-spacing: -0.02em;
-  font-weight: 600;
 }
 
 .waitlist-form {
@@ -752,7 +694,7 @@ a {
   border-radius: var(--radius);
   border: 1px solid var(--line-2);
   background: var(--bg);
-  color: var(--fg);
+  color: var(--ink);
   font: inherit;
 }
 
@@ -761,7 +703,7 @@ a {
 }
 
 .waitlist-form input:focus {
-  outline: 2px solid var(--bk-blue);
+  outline: 2px solid var(--coral);
   outline-offset: 2px;
 }
 
@@ -773,38 +715,39 @@ a {
 .form-note {
   margin: 0.85rem 0 0;
   font-size: 0.88rem;
-  color: var(--gold);
+  color: var(--coral);
 }
 
-/* —— Footer —— */
 .site-footer {
   border-top: 1px solid var(--line);
   padding: 2.5rem 0 3rem;
   color: var(--muted);
-  background: #000;
+  background: var(--bg-2);
 }
 
 .footer-mark {
   margin: 0;
-  color: var(--fg);
+  color: var(--ink);
   font-weight: 600;
   letter-spacing: -0.02em;
 }
 
-.footer-note,
-.footer-legal {
-  margin: 0;
-  font-size: 0.88rem;
-  max-width: 42rem;
+.footer-mark em {
+  font-style: normal;
+  color: var(--coral);
 }
 
-/* —— Responsive —— */
-@media (max-width: 900px) {
-  .product-grid {
-    grid-template-columns: 1fr 1fr;
-  }
+.footer-note,
+.footer-legal {
+  margin: 0.45rem 0 0;
+  font-size: 0.92rem;
+  max-width: 36rem;
+}
 
-  .about-band {
+@media (max-width: 900px) {
+  .feature-grid,
+  .about-band,
+  .footer-grid {
     grid-template-columns: 1fr;
   }
 
@@ -813,58 +756,42 @@ a {
     border-bottom: 1px solid var(--line);
   }
 
-  .purpose-grid {
-    grid-template-columns: 1fr 1fr;
+  .year-motif {
+    min-height: 12rem;
   }
 
-  .purpose-cell:nth-child(2) {
-    border-right: 0;
+  .link-row {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
   }
 
-  .purpose-cell:nth-child(1),
-  .purpose-cell:nth-child(2) {
-    border-bottom: 1px solid var(--line);
-  }
-
-  .product-host {
-    margin-left: 0;
-    width: 100%;
+  .link-row-go {
+    display: none;
   }
 }
 
 @media (max-width: 640px) {
   :root {
-    --shell: min(1120px, calc(100% - 1.5rem));
+    --shell: min(1040px, calc(100% - 1.5rem));
   }
 
   .nav {
-    gap: 0.75rem;
-    font-size: 0.65rem;
-  }
-
-  .nav-cta {
-    display: none;
+    gap: 1rem;
+    font-size: 0.9rem;
   }
 
   .hero {
-    padding-top: 3.5rem;
+    padding: 3.5rem 0 3rem;
   }
 
-  .product-grid,
-  .purpose-grid {
-    grid-template-columns: 1fr;
+  .feature-grid,
+  .section {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
   }
 
-  .purpose-cell {
-    border-right: 0;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .purpose-cell:last-child {
-    border-bottom: 0;
-  }
-
-  .contact-panel {
+  .contact-panel,
+  .about-main {
     padding: 1.35rem;
   }
 }

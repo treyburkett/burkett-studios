@@ -2,25 +2,28 @@
 
 ## One sentence
 
-**Home and map for digital products Burkett Investments owns through Burkett Studios.**
+**Public face for Trey Burkett and his husband: two people in Nashville building products, led by Walli.**
 
 ## Jobs to do
 
-1. **Ownership** — Make clear these products are Burkett’s (built, run, owned), not client work.
-2. **Directory** — List the portfolio with honest status (live / pilot / seed).
-3. **Handoff** — Send people to each product’s own marketing site (and app when separate).
-4. **Boundary** — Separate Studios (digital assets) from burkettinv.com (RE / consulting / company OS).
+1. **Introduce.** Feel like two people building real products, not a holding company or PE portfolio.
+2. **Lead with Walli.** Year-at-a-glance calendar. Product name is Walli only. Never “Year Wall” on this site.
+3. **Directory.** List the other real products with honest status (building / live / waitlist / private / in design).
+4. **Handoff.** Quiet links to a live product site when one already exists. Do not hard-sell unfinished Walli.
 
 ## Jobs not to do
 
 - Sell software consulting or “build for hire”
-- Replace Year Wall / Wandered / MassageNow marketing sites with a mega brochure
-- Deep product docs or app UI chrome
+- Sound like “the products we own” or an asset map
+- Send cold X traffic to Walli as a finished app
+- Replace Wandered / MassageNow marketing sites with a mega brochure
+- Put Johnson Harvesting on the public homepage
+- Invent a second brand accent. Coral is `#ff5c54`.
 
 ## Design consequence
 
-Lead with portfolio. Primary CTA per product = product marketing site.
-Studios product pages = short ownership overview + links out.
-Minimal about/contact only.
+Lead with Walli and founder voice (we / husband / Nashville).
+Primary CTA for Walli = more about Walli on this site, not “go use the app.”
+Studios product pages = short and human. Minimal contact.
 
-Last locked: 2026-08-01
+Last locked: 2026-08-21
