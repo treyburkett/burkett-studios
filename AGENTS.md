@@ -7,16 +7,17 @@
 
 ## Purpose (design around this)
 
-**Home and map for digital products Burkett owns through Burkett Studios.**
+**Kyle and Trey Burkett make household software in Nashville.**
 
-1. Ownership (build / run / own)
-2. Portfolio directory with honest status
-3. Handoff to each product’s marketing site
-4. Boundary vs burkettinv.com (RE / consulting)
+1. Studio sentence first (who we are)
+2. Name Kyle and Trey
+3. Walli is the lead product, not the company. Still building. Not public yet.
+4. Handoff to Wandered and MassageNow. Keep SurroStack light. Leave Johnson Harvesting off this homepage.
 
-**Not** build-for-hire. **Not** a mega brochure that replaces Year Wall / Wandered / MassageNow sites.
+**Not** build-for-hire. **Not** a SaaS about page. **Not** a Burkett Investments brochure.
 
-Primary CTA per product = product marketing URL when it exists.
+Product name is **Walli** only. Never “Year Wall” on this site.
+Do not hard-sell unfinished Walli.
 
 ## Product table
 
@@ -26,7 +27,7 @@ Do not edit `public/*.html` or `products.json` by hand. Those are generated.
 
 `PURPOSE.md` is the locked purpose note. The generator does not overwrite it.
 
-Johnson Harvesting (`jh.burkettstudios.com`) is a different site. Do not change it from this repo.
+Johnson Harvesting (`jh.burkettstudios.com`) is a different site. Do not change it from this repo. Leave it off the public homepage.
 
 ## Deploy
 
@@ -39,8 +40,14 @@ npm run check
 npm run deploy
 ```
 
+Merge to `main` does not publish. Production is `npm run deploy` (Worker `burkett-studios-site`).
+
 ## Style
 
 - No em dashes.
-- burkettinv.com DESIGN-LOCK: radius 0, hairlines, gold ignition.
-- Do not market Nashville HQ on the hero.
+- House sans: `system-ui, -apple-system, "Segoe UI", sans-serif`. No Geist. No Inter.
+- Studio palette is cream / ink / neutral. Coral `#ff5c54` only on Walli moments.
+- Wandered blue `#5b8cff` stays on Wandered. Do not recast it in coral.
+- No Orient or Conflict Patterns on the public homepage or nav.
+- No decorative slabs, fake year-bars, or extra parallax.
+- Do not write Trey as a solo founder.

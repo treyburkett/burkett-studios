@@ -1,147 +1,91 @@
 {
+  "generatedAt": "2026-08-21",
   "generatedFrom": "scripts/generate-site.mjs",
-  "purpose": {
-    "title": "Burkett Studios — Digital products we own",
-    "description": "Burkett Studios is the digital-product arm of Burkett Investments. A map of products we build, run, and own, with links to each product site.",
-    "heroEyebrow": "Burkett Investments · Digital products",
-    "heroH1a": "The products",
-    "heroH1b": "we own.",
-    "heroLede": "Burkett Studios is the arm of Burkett Investments that builds, runs, and owns our digital products. This site is the map: what we hold, and where each product lives online."
-  },
+  "site": "https://burkettstudios.com",
+  "contact": "trey@burkettinv.com",
+  "thesis": "We make household software.",
+  "people": [
+    "Kyle Burkett",
+    "Trey Burkett"
+  ],
   "products": [
     {
-      "slug": "year-wall",
-      "id": "yearwall",
-      "name": "Year Wall",
-      "tag": "iOS · Web",
-      "status": "ship",
-      "statusLabel": "Live",
-      "oneLiner": "Your whole year on one screen.",
-      "card": "Dense year wall, continuous plan bars, household cloud. Not a day-list calendar.",
-      "lede": "Year Wall is a Burkett-owned calendar product: the full year visible at once, continuous plan bars, web and iPhone.",
-      "bullets": [
-        "Whole-year wall with continuous plan bars",
-        "Household cloud across web and iPhone",
-        "Web live; iOS when quality clears the bar"
-      ],
-      "marketing": {
-        "href": "https://yearwall.burkettinv.com",
-        "label": "Go to Year Wall",
-        "host": "yearwall.burkettinv.com"
-      },
-      "app": null,
-      "waitlist": false
+      "slug": "walli",
+      "name": "Walli",
+      "status": "building",
+      "listed": true,
+      "lead": true,
+      "href": "/products/walli/",
+      "outbound": null,
+      "color": "#ff5c54",
+      "oneLiner": "One year. On the wall. In the house.",
+      "summary": "A year you can walk up to. Still building. Not public yet.",
+      "pageTitle": "Walli"
     },
     {
       "slug": "wandered",
-      "id": "wandered",
       "name": "Wandered",
-      "tag": "iOS · Web",
-      "status": "ship",
-      "statusLabel": "Live",
-      "oneLiner": "Your world, filled in.",
-      "card": "Exact coastlines, trip journal, passport that fills as you travel.",
-      "lede": "Wandered is a Burkett-owned travel map product: where you have been, painted with real precision, plus trips and a passport.",
-      "bullets": [
-        "Unsimplified borders and real coastlines",
-        "Trip journal and passport",
-        "Marketing site and app are both on wandered.burkettinv.com"
-      ],
-      "marketing": {
-        "href": "https://wandered.burkettinv.com",
-        "label": "Go to Wandered",
-        "host": "wandered.burkettinv.com"
-      },
-      "app": {
-        "href": "https://wandered.burkettinv.com/app",
-        "label": "Open the app"
-      },
-      "waitlist": false
-    },
-    {
-      "slug": "surrostack",
-      "id": "surrostack",
-      "name": "SurroStack",
-      "tag": "Web",
-      "status": "ship",
-      "statusLabel": "Live pilot",
-      "oneLiner": "Ops stack for a high-stakes personal journey.",
-      "card": "Tasks, calendar, money, and share status for surrogacy logistics.",
-      "lede": "SurroStack is a Burkett-owned operations product for surrogacy journeys. The live product is a signed-in portal; this page is the public pointer.",
-      "bullets": [
-        "Task portal and calendar for journey load",
-        "Share Status for partners and support",
-        "No separate public marketing domain yet"
-      ],
-      "marketing": null,
-      "app": {
-        "href": "https://app.burkettinv.com/surrostack/",
-        "label": "Open SurroStack"
-      },
-      "waitlist": false,
-      "note": "Public marketing site not launched. Use the portal link if you have access."
+      "status": "live",
+      "listed": true,
+      "lead": false,
+      "href": "/products/wandered/",
+      "outbound": "https://wandered.burkettinv.com",
+      "color": "#5b8cff",
+      "oneLiner": "A trip you can still walk after you get home.",
+      "summary": "Live trip software. The map stays after the flight home.",
+      "pageTitle": "Wandered"
     },
     {
       "slug": "massagenow",
-      "id": "massagenow",
       "name": "MassageNow",
-      "tag": "Marketplace",
-      "status": "build",
-      "statusLabel": "Pilot",
-      "oneLiner": "Last-minute openings at licensed studios.",
-      "card": "Nashville pilot marketplace for same-day massage inventory.",
-      "lede": "MassageNow is a Burkett-owned marketplace product. Story and waitlist live on getmassagenow.com.",
-      "bullets": [
-        "Consumer booking for open slots",
-        "Studio fill for cancellations",
-        "Pilot market: Nashville"
-      ],
-      "marketing": {
-        "href": "https://getmassagenow.com",
-        "label": "Go to MassageNow",
-        "host": "getmassagenow.com"
-      },
-      "app": null,
-      "waitlist": true,
-      "waitlistNote": "Prefer the product site when it is open; or leave an email below."
+      "status": "live",
+      "listed": true,
+      "lead": false,
+      "href": "/products/massagenow/",
+      "outbound": "https://getmassagenow.com",
+      "color": null,
+      "oneLiner": "A booking site for a real table.",
+      "summary": "A booking site for a real table. Live.",
+      "pageTitle": "MassageNow"
+    },
+    {
+      "slug": "surrostack",
+      "name": "SurroStack",
+      "status": "pilot",
+      "listed": false,
+      "lead": false,
+      "href": "/products/surrostack/",
+      "outbound": "https://app.burkettinv.com",
+      "color": null,
+      "oneLiner": "A private pilot. Not a public product.",
+      "summary": "In use on a small private stack. Not for sale from this page.",
+      "pageTitle": "SurroStack"
     },
     {
       "slug": "orient",
-      "id": "orient",
       "name": "Orient",
-      "tag": "Guides",
       "status": "seed",
-      "statusLabel": "Seed",
-      "oneLiner": "Place guides with editorial standards.",
-      "card": "Local orientation without SEO directory sludge. Region pilots first.",
-      "lede": "Orient is a Burkett-owned place-guide product in seed. No public product site yet.",
-      "bullets": [
-        "Editorial rules over directory spam",
-        "Minnesota pilot first",
-        "Waitlist until a product site ships"
-      ],
-      "marketing": null,
-      "app": null,
-      "waitlist": true
+      "listed": false,
+      "lead": false,
+      "href": "/products/orient/",
+      "outbound": null,
+      "color": null,
+      "oneLiner": "A seed. Not on the public map.",
+      "summary": "Unlisted. Kept so the old URL does not 404.",
+      "pageTitle": "Orient"
     },
     {
       "slug": "conflict-patterns",
-      "id": "conflict",
       "name": "Conflict Patterns",
-      "tag": "Personal",
       "status": "seed",
-      "statusLabel": "Seed",
-      "oneLiner": "Private pattern tracking for hard conversations.",
-      "card": "Research-backed personal software. Privacy first. Still in design.",
-      "lede": "Conflict Patterns is a Burkett-owned personal product in seed. No public product site yet.",
-      "bullets": [
-        "Privacy-first design",
-        "Research structure, not gimmicks",
-        "Waitlist for early access"
-      ],
-      "marketing": null,
-      "app": null,
-      "waitlist": true
+      "listed": false,
+      "lead": false,
+      "href": "/products/conflict-patterns/",
+      "outbound": null,
+      "color": null,
+      "oneLiner": "A seed. Not on the public map.",
+      "summary": "Unlisted. Kept so the old URL does not 404.",
+      "pageTitle": "Conflict Patterns"
     }
   ]
 }

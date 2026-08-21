@@ -1,574 +1,503 @@
-#!/usr/bin/env node
-/**
- * Burkett Studios marketing site generator
- *
- * THIS FILE is the product table. Edit products here, then:
- *   npm run generate
- *   npm run deploy    (only when Trey confirms a live ship)
- *
- * products.json is a snapshot this script writes. Do not edit it by hand.
- * public/*.html and public/sitemap.xml are also written here. Do not edit those by hand.
- * PURPOSE.md is the locked purpose note. This script does not overwrite it.
- *
- * Johnson Harvesting (jh.burkettstudios.com) is a different site. Not in this table.
- *
- * PURPOSE OF burkettstudios.com
- * -----------------------------
- * Home for Burkett's owned digital products.
- * 1. State who owns the portfolio (Burkett Investments → Studios).
- * 2. List the products we build, run, and own.
- * 3. Send people to each product's own marketing site (and app when separate).
- *
- * Not a consultancy site. Not a second marketing page for every feature.
- * Product story lives on product domains; this site is the map.
- *
- * Brand: burkettinv.com DESIGN-LOCK.
- * Run: node scripts/generate-site.mjs
- */
-import { writeFileSync, mkdirSync } from "node:fs";
-import { join, dirname } from "node:path";
+import { mkdir, writeFile, readFile } from "node:fs/promises";
+import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-const pub = join(root, "public");
+const publicDir = join(root, "public");
+const siteOrigin = "https://burkettstudios.com";
+const generatedAt = new Date().toISOString().slice(0, 10);
+const contactEmail = "trey@burkettinv.com";
 
-const PURPOSE = {
-  title: "Burkett Studios — Digital products we own",
-  description:
-    "Burkett Studios is the digital-product arm of Burkett Investments. A map of products we build, run, and own, with links to each product site.",
-  heroEyebrow: "Burkett Investments · Digital products",
-  heroH1a: "The products",
-  heroH1b: "we own.",
-  heroLede:
-    "Burkett Studios is the arm of Burkett Investments that builds, runs, and owns our digital products. This site is the map: what we hold, and where each product lives online.",
-};
+const walliCoral = "#ff5c54";
+const wanderedBlue = "#5b8cff";
 
-/**
- * marketing = public product site (canonical story / waitlist / brand)
- * app = open the product when different from marketing
- */
 const products = [
   {
-    slug: "year-wall",
-    id: "yearwall",
-    name: "Year Wall",
-    tag: "iOS · Web",
-    status: "ship",
-    statusLabel: "Live",
-    oneLiner: "Your whole year on one screen.",
-    card: "Dense year wall, continuous plan bars, household cloud. Not a day-list calendar.",
-    lede: "Year Wall is a Burkett-owned calendar product: the full year visible at once, continuous plan bars, web and iPhone.",
-    bullets: [
-      "Whole-year wall with continuous plan bars",
-      "Household cloud across web and iPhone",
-      "Web live; iOS when quality clears the bar",
-    ],
-    // Audit 2026-08-14: this hostname did not resolve. Public URL left unchanged.
-    marketing: {
-      href: "https://yearwall.burkettinv.com",
-      label: "Go to Year Wall",
-      host: "yearwall.burkettinv.com",
-    },
-    app: null, // product site is the product
-    waitlist: false,
+    slug: "walli",
+    name: "Walli",
+    status: "building",
+    listed: true,
+    lead: true,
+    href: "/products/walli/",
+    outbound: null,
+    color: walliCoral,
+    oneLiner: "One year. On the wall. In the house.",
+    summary: "A year you can walk up to. Still building. Not public yet.",
+    pageTitle: "Walli",
+    letter: [
+      "Walli is a year on the wall.",
+      "Not a feed. Not a dashboard. A thing you can walk up to in the house and see the year you are actually in.",
+      "Trey and Kyle are still building it. It is not public yet. There is no \"go use it\" button here, because that would be a lie.",
+      "When it is ready to live with, it will have its own door. Until then, this letter is the honest page."
+    ]
   },
   {
     slug: "wandered",
-    id: "wandered",
     name: "Wandered",
-    tag: "iOS · Web",
-    status: "ship",
-    statusLabel: "Live",
-    oneLiner: "Your world, filled in.",
-    card: "Exact coastlines, trip journal, passport that fills as you travel.",
-    lede: "Wandered is a Burkett-owned travel map product: where you have been, painted with real precision, plus trips and a passport.",
-    bullets: [
-      "Unsimplified borders and real coastlines",
-      "Trip journal and passport",
-      "Marketing site and app are both on wandered.burkettinv.com",
-    ],
-    marketing: {
-      href: "https://wandered.burkettinv.com",
-      label: "Go to Wandered",
-      host: "wandered.burkettinv.com",
-    },
-    app: {
-      href: "https://wandered.burkettinv.com/app",
-      label: "Open the app",
-    },
-    waitlist: false,
-  },
-  {
-    slug: "surrostack",
-    id: "surrostack",
-    name: "SurroStack",
-    tag: "Web",
-    status: "ship",
-    statusLabel: "Live pilot",
-    oneLiner: "Ops stack for a high-stakes personal journey.",
-    card: "Tasks, calendar, money, and share status for surrogacy logistics.",
-    lede: "SurroStack is a Burkett-owned operations product for surrogacy journeys. The live product is a signed-in portal; this page is the public pointer.",
-    bullets: [
-      "Task portal and calendar for journey load",
-      "Share Status for partners and support",
-      "No separate public marketing domain yet",
-    ],
-    marketing: null,
-    app: {
-      href: "https://app.burkettinv.com/surrostack/",
-      label: "Open SurroStack",
-    },
-    waitlist: false,
-    note: "Public marketing site not launched. Use the portal link if you have access.",
+    status: "live",
+    listed: true,
+    lead: false,
+    href: "/products/wandered/",
+    outbound: "https://wandered.burkettinv.com",
+    color: wanderedBlue,
+    oneLiner: "A trip you can still walk after you get home.",
+    summary: "Live trip software. The map stays after the flight home.",
+    pageTitle: "Wandered",
+    letter: [
+      "Wandered is for a trip you want to keep.",
+      "Not a dump of tickets. A place you can walk after you get home.",
+      "It is live. If you have a trip, that is the next step."
+    ]
   },
   {
     slug: "massagenow",
-    id: "massagenow",
     name: "MassageNow",
-    tag: "Marketplace",
-    status: "build",
-    statusLabel: "Pilot",
-    oneLiner: "Last-minute openings at licensed studios.",
-    card: "Nashville pilot marketplace for same-day massage inventory.",
-    lede: "MassageNow is a Burkett-owned marketplace product. Story and waitlist live on getmassagenow.com.",
-    bullets: [
-      "Consumer booking for open slots",
-      "Studio fill for cancellations",
-      "Pilot market: Nashville",
-    ],
-    marketing: {
-      href: "https://getmassagenow.com",
-      label: "Go to MassageNow",
-      host: "getmassagenow.com",
-    },
-    app: null,
-    waitlist: true,
-    waitlistNote: "Prefer the product site when it is open; or leave an email below.",
+    status: "live",
+    listed: true,
+    lead: false,
+    href: "/products/massagenow/",
+    outbound: "https://getmassagenow.com",
+    color: null,
+    oneLiner: "A booking site for a real table.",
+    summary: "A booking site for a real table. Live.",
+    pageTitle: "MassageNow",
+    letter: [
+      "MassageNow is a booking site for a real table.",
+      "Not a marketplace. Not a pitch deck. A working front door.",
+      "If you need an appointment, go to the site."
+    ]
+  },
+  {
+    slug: "surrostack",
+    name: "SurroStack",
+    status: "pilot",
+    listed: false,
+    lead: false,
+    href: "/products/surrostack/",
+    outbound: "https://app.burkettinv.com",
+    color: null,
+    oneLiner: "A private pilot. Not a public product.",
+    summary: "In use on a small private stack. Not for sale from this page.",
+    pageTitle: "SurroStack",
+    letter: [
+      "SurroStack is a private pilot.",
+      "It sits behind app.burkettinv.com. It is not a public product and this page is not a sales letter.",
+      "If you already know why you are here, you already have the door."
+    ]
   },
   {
     slug: "orient",
-    id: "orient",
     name: "Orient",
-    tag: "Guides",
     status: "seed",
-    statusLabel: "Seed",
-    oneLiner: "Place guides with editorial standards.",
-    card: "Local orientation without SEO directory sludge. Region pilots first.",
-    lede: "Orient is a Burkett-owned place-guide product in seed. No public product site yet.",
-    bullets: [
-      "Editorial rules over directory spam",
-      "Minnesota pilot first",
-      "Waitlist until a product site ships",
-    ],
-    marketing: null,
-    app: null,
-    waitlist: true,
+    listed: false,
+    lead: false,
+    href: "/products/orient/",
+    outbound: null,
+    color: null,
+    oneLiner: "A seed. Not on the public map.",
+    summary: "Unlisted. Kept so the old URL does not 404.",
+    pageTitle: "Orient",
+    letter: [
+      "Orient is a seed. It is not on the public homepage or in the nav.",
+      "If you landed here from an old link, go back to the studio."
+    ]
   },
   {
     slug: "conflict-patterns",
-    id: "conflict",
     name: "Conflict Patterns",
-    tag: "Personal",
     status: "seed",
-    statusLabel: "Seed",
-    oneLiner: "Private pattern tracking for hard conversations.",
-    card: "Research-backed personal software. Privacy first. Still in design.",
-    lede: "Conflict Patterns is a Burkett-owned personal product in seed. No public product site yet.",
-    bullets: [
-      "Privacy-first design",
-      "Research structure, not gimmicks",
-      "Waitlist for early access",
-    ],
-    marketing: null,
-    app: null,
-    waitlist: true,
-  },
+    listed: false,
+    lead: false,
+    href: "/products/conflict-patterns/",
+    outbound: null,
+    color: null,
+    oneLiner: "A seed. Not on the public map.",
+    summary: "Unlisted. Kept so the old URL does not 404.",
+    pageTitle: "Conflict Patterns",
+    letter: [
+      "Conflict Patterns is a seed. It is not on the public homepage or in the nav.",
+      "If you landed here from an old link, go back to the studio."
+    ]
+  }
 ];
 
-function esc(s) {
-  return String(s)
-    .replace(/&/g, "&amp;")
-    .replace(/"/g, "&quot;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
+const listed = products.filter((product) => product.listed);
+const leadProduct = listed.find((product) => product.lead);
+const otherLive = listed.filter((product) => !product.lead);
+const walli = products.find((product) => product.slug === "walli");
+const surro = products.find((product) => product.slug === "surrostack");
+
+const nav = [
+  { href: "/work/", label: "Work" },
+  { href: "/about/", label: "About" },
+  { href: "/pulse/", label: "Pulse" },
+  { href: "/contact/", label: "Contact" }
+];
+
+const footerNav = [
+  { href: "/work/", label: "Work" },
+  { href: "/about/", label: "About" },
+  { href: "/pulse/", label: "Pulse" },
+  { href: "/contact/", label: "Contact" },
+  { href: "/notes/household-software/", label: "A note" }
+];
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
 }
 
-function stripProtocol(href) {
-  return String(href).replace(/^https?:\/\//, "");
+function pageUrl(path) {
+  return new URL(path, `${siteOrigin}/`).href;
 }
 
-function hrefHost(href) {
-  return stripProtocol(href).split("/")[0];
+function cssUrl(fromDir) {
+  const depth = fromDir.split("/").filter(Boolean).length;
+  return `${"../".repeat(depth)}styles.css`;
 }
 
-function hrefHostPath(href) {
-  return stripProtocol(href).replace(/\/$/, "");
-}
-
-const head = (title, description, canonical) => `<!DOCTYPE html>
+function layout({
+  title,
+  description,
+  path,
+  bodyClass = "",
+  extraHead = "",
+  main
+}) {
+  const canonical = pageUrl(path);
+  const fromDir = path.endsWith("/") ? path : dirname(path);
+  return `<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>${esc(title)}</title>
-  <meta name="description" content="${esc(description)}" />
-  <meta name="theme-color" content="#08080a" />
-  <link rel="canonical" href="${esc(canonical)}" />
-  <meta property="og:title" content="${esc(title.replace(/ — .*$/, ""))}" />
-  <meta property="og:description" content="${esc(description)}" />
-  <meta property="og:url" content="${esc(canonical)}" />
-  <meta property="og:type" content="website" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="/styles.css" />
-</head>`;
-
-const header = (active = "") => `
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${escapeHtml(title)}</title>
+  <meta name="description" content="${escapeHtml(description)}">
+  <link rel="canonical" href="${escapeHtml(canonical)}">
+  <meta property="og:title" content="${escapeHtml(title)}">
+  <meta property="og:description" content="${escapeHtml(description)}">
+  <meta property="og:url" content="${escapeHtml(canonical)}">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="${cssUrl(fromDir)}">
+  ${extraHead}
+</head>
+<body class="${escapeHtml(bodyClass)}">
   <a class="skip" href="#main">Skip to content</a>
-  <header class="site-header">
-    <div class="shell header-inner">
-      <a class="mark" href="/" aria-label="Burkett Studios home">
-        <span class="mark-glyph" aria-hidden="true"></span>
-        <span class="mark-text">Burkett <em>Studios</em></span>
-      </a>
-      <nav class="nav" aria-label="Primary">
-        <a href="/#products"${active === "products" ? ' aria-current="page"' : ""}>Products</a>
-        <a href="/#about"${active === "about" ? ' aria-current="page"' : ""}>About</a>
-        <a href="/#contact"${active === "contact" ? ' aria-current="page"' : ""}>Contact</a>
-        <a class="nav-cta" href="https://burkettinv.com" rel="noopener">Burkett Investments</a>
-      </nav>
-    </div>
-  </header>`;
-
-const footerProductLinks = products
-  .filter((p) => p.marketing)
-  .map(
-    (p) =>
-      `        <a href="${esc(p.marketing.href)}" rel="noopener">${esc(p.name)}</a>`
-  )
-  .join("\n");
-
-const footer = `
-  <footer class="site-footer">
-    <div class="shell footer-grid">
-      <div>
-        <p class="footer-mark">Burkett Studios</p>
-        <p class="footer-note">
-          Digital products owned by Burkett Investments.
-          Map of the portfolio. Product story lives on each product site.
-        </p>
-      </div>
-      <div class="footer-links">
-        <a href="/#products">All products</a>
-${footerProductLinks}
-        <a href="https://burkettinv.com" rel="noopener">Burkett Investments</a>
-      </div>
-    </div>
-    <div class="shell">
-      <p class="footer-legal">© <span data-year></span> Burkett Studios. All rights reserved.</p>
-    </div>
+  <header class="top">
+    <a class="wordmark" href="/">Burkett Studios</a>
+    <nav aria-label="Primary">
+      ${nav.map((item) => `<a href="${escapeHtml(item.href)}">${escapeHtml(item.label)}</a>`).join("\n      ")}
+    </nav>
+  </header>
+  <main id="main">
+    ${main}
+  </main>
+  <footer class="foot">
+    <p class="foot-mark">Burkett Studios</p>
+    <nav aria-label="Directory">
+      ${footerNav.map((item) => `<a href="${escapeHtml(item.href)}">${escapeHtml(item.label)}</a>`).join("\n      ")}
+    </nav>
+    <p class="fine">${escapeHtml(contactEmail)}</p>
   </footer>
-  <script src="/site.js" defer></script>
 </body>
-</html>`;
-
-function primaryHref(p) {
-  if (p.marketing) return p.marketing.href;
-  if (p.app) return p.app.href;
-  if (p.waitlist) return `/products/${p.slug}/#waitlist`;
-  return `/products/${p.slug}/`;
-}
-
-function primaryLabel(p) {
-  if (p.marketing) return p.marketing.label;
-  if (p.app) return p.app.label;
-  if (p.waitlist) return "Join waitlist";
-  return "Overview";
-}
-
-function waitlistBlock(productName) {
-  const id = productName.toLowerCase().replace(/\s+/g, "-");
-  return `
-      <section class="waitlist-panel" id="waitlist">
-        <span class="gold-rule" aria-hidden="true"></span>
-        <p class="eyebrow">Waitlist</p>
-        <h2>Early access</h2>
-        <p class="section-copy">For seed products without a public site yet. We only write when there is something to try.</p>
-        <form class="waitlist-form" data-waitlist="${esc(productName)}">
-          <label class="sr-only" for="email-${id}">Email</label>
-          <input id="email-${id}" name="email" type="email" required placeholder="you@example.com" autocomplete="email" />
-          <label class="sr-only" for="note-${id}">Note</label>
-          <input id="note-${id}" name="note" type="text" placeholder="Optional note" />
-          <button class="btn btn-primary" type="submit">Join waitlist</button>
-        </form>
-        <p class="form-note" data-form-note hidden></p>
-      </section>`;
-}
-
-function productPage(p) {
-  const rows = [];
-  if (p.marketing) {
-    rows.push(`
-        <a class="link-row" href="${esc(p.marketing.href)}" rel="noopener">
-          <span class="link-row-kicker">Product site</span>
-          <span class="link-row-title">${esc(p.marketing.label)}</span>
-          <span class="link-row-host">${esc(p.marketing.host)}</span>
-          <span class="link-row-go" aria-hidden="true">→</span>
-        </a>`);
-  }
-  if (p.app) {
-    rows.push(`
-        <a class="link-row" href="${esc(p.app.href)}" rel="noopener">
-          <span class="link-row-kicker">Open product</span>
-          <span class="link-row-title">${esc(p.app.label)}</span>
-          <span class="link-row-host">${esc(hrefHostPath(p.app.href))}</span>
-          <span class="link-row-go" aria-hidden="true">→</span>
-        </a>`);
-  }
-
-  const actions = [];
-  if (p.marketing) {
-    actions.push(
-      `<a class="btn btn-primary" href="${esc(p.marketing.href)}" rel="noopener">${esc(p.marketing.label)}</a>`
-    );
-  }
-  if (p.app) {
-    actions.push(
-      `<a class="btn ${p.marketing ? "btn-ghost" : "btn-primary"}" href="${esc(p.app.href)}" rel="noopener">${esc(p.app.label)}</a>`
-    );
-  }
-  if (p.waitlist) {
-    actions.push(`<a class="btn btn-ghost" href="#waitlist">Waitlist</a>`);
-  }
-  actions.push(`<a class="btn btn-ghost" href="/#products">All products</a>`);
-
-  const linksBlock = rows.length
-    ? `
-    <section class="shell product-links-block">
-      <p class="eyebrow">Where it lives</p>
-      <div class="link-rows">${rows.join("")}
-      </div>
-    </section>
-`
-    : "";
-
-  const bodyExtras = [];
-  if (p.note) {
-    bodyExtras.push(
-      `      <p class="section-copy callout">${esc(p.note)}</p>`
-    );
-  }
-  if (p.waitlistNote) {
-    bodyExtras.push(`      <p class="section-copy">${esc(p.waitlistNote)}</p>`);
-  }
-  if (p.waitlist) bodyExtras.push(waitlistBlock(p.name).trimEnd());
-
-  return `${head(
-    `${p.name} — Burkett Studios`,
-    p.card,
-    `https://burkettstudios.com/products/${esc(p.slug)}/`
-  )}
-<body class="product-page" data-product="${p.id}">
-${header("products")}
-  <main id="main">
-    <section class="product-hero shell">
-      <p class="crumb"><a href="/">Studios</a> / <a href="/#products">Products</a> / ${esc(p.name)}</p>
-      <div class="product-top product-hero-top">
-        <span class="product-tag">${esc(p.tag)}</span>
-        <span class="status ${p.status}">${esc(p.statusLabel)}</span>
-      </div>
-      <p class="owned-tag">Owned by Burkett Studios</p>
-      <h1>${esc(p.name)}</h1>
-      <p class="one-liner">${esc(p.oneLiner)}</p>
-      <p class="lede">${esc(p.lede)}</p>
-      <div class="hero-actions">
-        ${actions.join("\n        ")}
-      </div>
-    </section>
-${linksBlock}
-    <section class="product-body shell">
-      <p class="eyebrow">In short</p>
-      <ul class="feature-list">
-        ${p.bullets.map((b) => `<li>${esc(b)}</li>`).join("\n        ")}
-      </ul>
-${bodyExtras.length ? `${bodyExtras.join("\n")}\n` : ""}    </section>
-  </main>
-${footer}`;
-}
-
-function indexPage() {
-  const cards = products
-    .map((p) => {
-      const primary = primaryHref(p);
-      const primaryIsExternal = primary.startsWith("http");
-      const secondary =
-        p.marketing && p.app
-          ? `<a class="product-link secondary" href="${esc(p.app.href)}" rel="noopener">${esc(p.app.label)}</a>`
-          : `<a class="product-link secondary" href="/products/${esc(p.slug)}/">Studios overview</a>`;
-      const host = p.marketing
-        ? `<span class="product-host">${esc(p.marketing.host)}</span>`
-        : p.app
-          ? `<span class="product-host">${esc(hrefHost(p.app.href))}</span>`
-          : "";
-
-      return `
-        <article class="product-card" data-product="${p.id}">
-          <div class="product-top">
-            <span class="product-tag">${esc(p.tag)}</span>
-            <span class="status ${p.status}">${esc(p.statusLabel)}</span>
-          </div>
-          <h3>
-            <a href="${esc(primary)}"${primaryIsExternal ? ' rel="noopener"' : ""}>${esc(p.name)}</a>
-          </h3>
-          <p class="card-one-liner">${esc(p.oneLiner)}</p>
-          <p>${esc(p.card)}</p>
-          <div class="card-links">
-            <a class="product-link" href="${esc(primary)}"${primaryIsExternal ? ' rel="noopener"' : ""}>${esc(primaryLabel(p))}</a>
-            ${secondary}${host ? `\n            ${host}` : ""}
-          </div>
-        </article>`;
-    })
-    .join("\n");
-
-  return `${head(PURPOSE.title, PURPOSE.description, "https://burkettstudios.com/")}
-<body>
-${header()}
-  <main id="main">
-    <section class="hero shell">
-      <span class="gold-rule" aria-hidden="true"></span>
-      <p class="eyebrow">${esc(PURPOSE.heroEyebrow)}</p>
-      <h1>
-        ${esc(PURPOSE.heroH1a)}<br />
-        <span class="hero-accent">${esc(PURPOSE.heroH1b)}</span>
-      </h1>
-      <p class="lede">${esc(PURPOSE.heroLede)}</p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="#products">View products</a>
-        <a class="btn btn-ghost" href="https://burkettinv.com" rel="noopener">Company site</a>
-      </div>
-    </section>
-
-    <section class="purpose-strip" aria-label="What this site is">
-      <div class="shell purpose-grid">
-        <div class="purpose-cell">
-          <p class="purpose-label">This site is</p>
-          <p class="purpose-value">A map of digital products Burkett owns</p>
-        </div>
-        <div class="purpose-cell">
-          <p class="purpose-label">This site is not</p>
-          <p class="purpose-value">A consultancy or build-for-hire shop</p>
-        </div>
-        <div class="purpose-cell">
-          <p class="purpose-label">Product story</p>
-          <p class="purpose-value">Lives on each product’s own site</p>
-        </div>
-        <div class="purpose-cell">
-          <p class="purpose-label">Parent</p>
-          <p class="purpose-value"><a href="https://burkettinv.com" rel="noopener">Burkett Investments</a></p>
-        </div>
-      </div>
-    </section>
-
-    <section id="products" class="section shell">
-      <div class="section-head">
-        <span class="gold-rule" aria-hidden="true"></span>
-        <p class="eyebrow">Portfolio</p>
-        <h2>Owned products</h2>
-        <p class="section-copy">
-          Primary link goes to the product’s marketing site when one exists.
-          Use “Studios overview” for a short owned-by-Burkett note.
-        </p>
-      </div>
-      <div class="product-grid">
-${cards}
-      </div>
-    </section>
-
-    <section id="about" class="section shell">
-      <div class="about-band">
-        <div class="about-main">
-          <span class="gold-rule" aria-hidden="true"></span>
-          <p class="eyebrow">About</p>
-          <h2>Studios under Burkett Investments</h2>
-          <p class="section-copy">
-            Burkett Investments runs real estate consulting and investment management on
-            <a class="inline-link" href="https://burkettinv.com" rel="noopener">burkettinv.com</a>.
-            Burkett Studios is the digital-product arm: we hold title to the software listed above,
-            operate it, and point the public to each product’s home on the web.
-          </p>
-        </div>
-        <ul class="about-points">
-          <li>
-            <strong>Build</strong>
-            <span>We invent and ship the product.</span>
-          </li>
-          <li>
-            <strong>Run</strong>
-            <span>We keep it live and maintained.</span>
-          </li>
-          <li>
-            <strong>Own</strong>
-            <span>Burkett keeps the asset.</span>
-          </li>
-        </ul>
-      </div>
-    </section>
-
-    <section id="contact" class="section shell">
-      <div class="contact-panel">
-        <span class="gold-rule" aria-hidden="true"></span>
-        <p class="eyebrow">Contact</p>
-        <h2>Portfolio questions</h2>
-        <p class="section-copy">
-          Press, partnership, or feedback about Burkett digital products.
-          For product-specific support, use that product’s own site when available.
-        </p>
-        <div class="contact-actions">
-          <a class="btn btn-primary" href="mailto:trey@burkettinv.com?subject=Burkett%20Studios">Email Trey</a>
-          <a class="btn btn-ghost" href="https://burkettinv.com" rel="noopener">Burkett Investments</a>
-        </div>
-      </div>
-    </section>
-  </main>
-${footer}`;
-}
-
-function sitemap() {
-  const urls = [
-    "https://burkettstudios.com/",
-    ...products.map((p) => `https://burkettstudios.com/products/${p.slug}/`),
-  ];
-  return `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls
-  .map(
-    (u) => `  <url>
-    <loc>${u}</loc>
-    <changefreq>weekly</changefreq>
-  </url>`
-  )
-  .join("\n")}
-</urlset>
+</html>
 `;
 }
 
-writeFileSync(join(pub, "index.html"), indexPage());
-for (const p of products) {
-  const dir = join(pub, "products", p.slug);
-  mkdirSync(dir, { recursive: true });
-  writeFileSync(join(dir, "index.html"), productPage(p));
+function writeRedirect(fromPath, toPath) {
+  const target = pageUrl(toPath);
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="refresh" content="0; url=${escapeHtml(toPath)}">
+  <link rel="canonical" href="${escapeHtml(target)}">
+  <title>Moved</title>
+  <script>location.replace(${JSON.stringify(toPath)})</script>
+</head>
+<body>
+  <p>Moved to <a href="${escapeHtml(toPath)}">${escapeHtml(toPath)}</a>.</p>
+</body>
+</html>
+`;
 }
-writeFileSync(join(pub, "sitemap.xml"), sitemap());
-writeFileSync(
-  join(root, "products.json"),
-  JSON.stringify(
-    {
-      generatedFrom: "scripts/generate-site.mjs",
-      purpose: PURPOSE,
-      products,
-    },
-    null,
-    2
-  ) + "\n"
-);
-console.log("Generated home + product pages from scripts/generate-site.mjs.");
+
+const photoBlock = `
+<figure class="faces">
+  <div class="faces-row">
+    <figure>
+      <img src="/team/kyle-burkett.jpg" width="800" height="800" alt="Kyle Burkett">
+      <figcaption>Kyle</figcaption>
+    </figure>
+    <figure>
+      <img src="/team/trey-burkett.jpg" width="800" height="800" alt="Trey Burkett">
+      <figcaption>Trey</figcaption>
+    </figure>
+  </div>
+</figure>
+`;
+
+const home = layout({
+  title: "Burkett Studios",
+  description: "Kyle and Trey Burkett make household software in Nashville.",
+  path: "/",
+  bodyClass: "home",
+  extraHead: `<script type="application/ld+json">${JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Burkett Studios",
+    url: siteOrigin,
+    email: contactEmail,
+    founder: [
+      { "@type": "Person", name: "Trey Burkett" },
+      { "@type": "Person", name: "Kyle Burkett" }
+    ]
+  })}</script>`,
+  main: `
+    <section class="fold thesis">
+      <p class="kicker">Kyle and Trey · Nashville</p>
+      <h1>We make household software.</h1>
+      <p class="lead">Trey spent ten years as a software product manager. He studied MIS. Now he and Kyle build the software they want to live in.</p>
+      ${photoBlock}
+    </section>
+    <section class="fold walli-stage" aria-labelledby="walli-head">
+      <p class="kicker walli-kicker">${escapeHtml(walli.name)}</p>
+      <h2 id="walli-head">${escapeHtml(walli.oneLiner)}</h2>
+      <p class="lead">Still building. Not public yet.</p>
+      <p><a class="text-link walli-link" href="${escapeHtml(walli.href)}">Read the letter</a></p>
+    </section>
+    <section class="fold others" aria-labelledby="others-head">
+      <h2 id="others-head">Also live</h2>
+      <ul class="quiet-list">
+        ${otherLive
+          .map(
+            (product) => `
+          <li>
+            <a href="${escapeHtml(product.href)}">${escapeHtml(product.name)}</a>
+            <span>${escapeHtml(product.oneLiner)}</span>
+          </li>`
+          )
+          .join("")}
+      </ul>
+    </section>
+  `
+});
+
+const work = layout({
+  title: "Work · Burkett Studios",
+  description: "Walli, then the live work. A short directory.",
+  path: "/work/",
+  main: `
+    <article class="letter">
+      <p class="kicker">Work</p>
+      <h1>What is on the table.</h1>
+      <p class="lead">Walli is the lead. Wandered and MassageNow are live. That is the public list.</p>
+      <ol class="work-list">
+        ${[leadProduct, ...otherLive]
+          .map(
+            (product) => `
+          <li>
+            <a href="${escapeHtml(product.href)}">${escapeHtml(product.name)}</a>
+            <p>${escapeHtml(product.summary)}</p>
+            ${product.outbound ? `<p class="fine"><a href="${escapeHtml(product.outbound)}">${escapeHtml(product.outbound.replace("https://", ""))}</a></p>` : `<p class="fine">Not public yet.</p>`}
+          </li>`
+          )
+          .join("")}
+      </ol>
+      <p class="aside">SurroStack is a private pilot at <a href="${escapeHtml(surro.outbound)}">app.burkettinv.com</a>. It is not for sale from this page.</p>
+    </article>
+  `
+});
+
+const about = layout({
+  title: "About · Burkett Studios",
+  description: "Kyle and Trey Burkett. A studio of two in Nashville.",
+  path: "/about/",
+  main: `
+    <article class="letter">
+      <p class="kicker">About</p>
+      <h1>Kyle and Trey.</h1>
+      <p class="lead">A studio of two in Nashville. Husband and husband. They build household software together.</p>
+      ${photoBlock}
+      <p>Trey Burkett spent ten years as a software product manager. He studied management information systems. Kyle Burkett builds with him.</p>
+      <p>This site is the studio. Burkett Investments is the parent company. It has its own door. This is not that brochure, and it is not a page about owning assets.</p>
+      <p><a class="text-link" href="/contact/">Write Trey</a></p>
+    </article>
+  `
+});
+
+const pulseIndex = layout({
+  title: "Pulse · Burkett Studios",
+  description: "A short log. One real entry is enough.",
+  path: "/pulse/",
+  main: `
+    <article class="letter">
+      <p class="kicker">Pulse</p>
+      <h1>What changed.</h1>
+      <ol class="pulse-list">
+        <li>
+          <time datetime="2026-08-21">21 Aug 2026</time>
+          <a href="/pulse/2026-08-21-studio-site/">This studio site shipped.</a>
+        </li>
+      </ol>
+    </article>
+  `
+});
+
+const pulseEntry = layout({
+  title: "This studio site shipped · Pulse",
+  description: "21 Aug 2026. Burkett Studios got a public face.",
+  path: "/pulse/2026-08-21-studio-site/",
+  main: `
+    <article class="letter">
+      <p class="kicker"><a href="/pulse/">Pulse</a> · 21 Aug 2026</p>
+      <h1>This studio site shipped.</h1>
+      <p>burkettstudios.com was a holding-company map. Today it is the public face of the studio: Kyle and Trey, a sentence about household software, and an honest page for Walli.</p>
+      <p>Wandered and MassageNow stay live on their own sites. Johnson Harvesting stays off this homepage. The seed names are off the public map.</p>
+      <p>One dated note. No fake history behind it.</p>
+    </article>
+  `
+});
+
+const note = layout({
+  title: "Household software · Burkett Studios",
+  description: "Why a studio of two ships the thing they want to live in.",
+  path: "/notes/household-software/",
+  main: `
+    <article class="letter">
+      <p class="kicker">A note</p>
+      <h1>Ship the thing you want to live in.</h1>
+      <p>Most software is for a company you visit. Household software is for a room you already occupy. A year on the wall. A trip you can still walk. A table someone actually books.</p>
+      <p>Kyle and Trey are a studio of two. That is the point, not a constraint to apologize for. Two people can finish a thing they will use on Tuesday.</p>
+      <p>Walli is the one they want in the house. It is not public yet. The other live work already has a door. The work is to ship the next true thing, not to look busy.</p>
+    </article>
+  `
+});
+
+const contact = layout({
+  title: "Contact · Burkett Studios",
+  description: `Write Trey at ${contactEmail}.`,
+  path: "/contact/",
+  main: `
+    <article class="letter">
+      <p class="kicker">Contact</p>
+      <h1>Write Trey.</h1>
+      <p class="lead"><a class="text-link" href="mailto:${escapeHtml(contactEmail)}">${escapeHtml(contactEmail)}</a></p>
+      <p>That is the door. Kyle and Trey read what comes in. There is no form and no calendar embed on this page.</p>
+    </article>
+  `
+});
+
+function productPage(product) {
+  const isWalli = product.slug === "walli";
+  const next = product.outbound
+    ? `<p><a class="text-link" href="${escapeHtml(product.outbound)}">${escapeHtml(product.outbound.replace("https://", ""))}</a></p>`
+    : isWalli
+      ? `<p class="aside">Not public yet. No outbound button until that is true.</p>`
+      : `<p class="aside">Not on the public map.</p>`;
+
+  return layout({
+    title: `${product.pageTitle} · Burkett Studios`,
+    description: product.summary,
+    path: product.href,
+    bodyClass: isWalli ? "product walli-page" : product.slug === "wandered" ? "product wandered-page" : "product",
+    extraHead: product.color ? `<style>:root { --product: ${product.color}; }</style>` : "",
+    main: `
+      <article class="letter">
+        <p class="kicker">${isWalli ? `<span class="walli-kicker">${escapeHtml(product.name)}</span>` : escapeHtml(product.name)}</p>
+        <h1>${escapeHtml(product.oneLiner)}</h1>
+        ${product.letter.map((para) => `<p>${escapeHtml(para)}</p>`).join("\n        ")}
+        ${next}
+      </article>
+    `
+  });
+}
+
+const robots = `User-agent: *
+Allow: /
+
+Sitemap: ${siteOrigin}/sitemap.xml
+`;
+
+const sitemapPaths = [
+  "/",
+  "/work/",
+  "/about/",
+  "/pulse/",
+  "/pulse/2026-08-21-studio-site/",
+  "/notes/household-software/",
+  "/contact/",
+  ...products.filter((product) => product.listed || product.slug === "surrostack").map((product) => product.href)
+];
+
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${sitemapPaths
+  .map((path) => `  <url><loc>${pageUrl(path)}</loc><lastmod>${generatedAt}</lastmod></url>`)
+  .join("\n")}
+</urlset>
+`;
+
+const productsSnapshot = `${JSON.stringify(
+  {
+    generatedAt,
+    generatedFrom: "scripts/generate-site.mjs",
+    site: siteOrigin,
+    contact: contactEmail,
+    thesis: "We make household software.",
+    people: ["Kyle Burkett", "Trey Burkett"],
+    products: products.map(({ letter, ...rest }) => rest)
+  },
+  null,
+  2
+)}\n`;
+
+const files = {
+  "index.html": home,
+  "work/index.html": work,
+  "about/index.html": about,
+  "pulse/index.html": pulseIndex,
+  "pulse/2026-08-21-studio-site/index.html": pulseEntry,
+  "notes/household-software/index.html": note,
+  "contact/index.html": contact,
+  "robots.txt": robots,
+  "sitemap.xml": sitemap
+};
+
+for (const product of products) {
+  files[`products/${product.slug}/index.html`] = productPage(product);
+}
+files["products/year-wall/index.html"] = writeRedirect("/products/year-wall/", "/products/walli/");
+
+await mkdir(publicDir, { recursive: true });
+await writeFile(join(root, "products.json"), productsSnapshot);
+for (const [rel, contents] of Object.entries(files)) {
+  const dest = join(publicDir, rel);
+  await mkdir(dirname(dest), { recursive: true });
+  await writeFile(dest, contents);
+}
+
+if (
+  home.includes("Orient") ||
+  home.includes("Conflict") ||
+  home.includes("Geist") ||
+  home.includes("Inter") ||
+  home.includes("Year Wall")
+) {
+  throw new Error("Homepage leaked a seed name, banned type, or Year Wall.");
+}
+if (!home.includes("Kyle") || !home.includes("Trey") || !home.includes("household software")) {
+  throw new Error("Homepage missing Kyle, Trey, or the studio thesis.");
+}
+
+const css = await readFile(join(publicDir, "styles.css"), "utf8");
+if (css.includes("Geist") || css.includes("Inter") || css.includes("slab")) {
+  throw new Error("House CSS still carries Geist, Inter, or slab theater. Fix styles.css.");
+}
+
+console.log(`generated ${Object.keys(files).length} files for ${listed.length} listed products`);
