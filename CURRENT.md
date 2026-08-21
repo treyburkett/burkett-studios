@@ -1,7 +1,7 @@
 # CURRENT. Burkett Studios marketing site
 
 **Updated:** 2026-08-21  
-**Status:** Studio homepage: Kyle and Trey, household-software thesis, honest Walli, two live handoffs.
+**Status:** Studio one-liner, then Walli lock copy. Trey before Kyle. CSS load-path fix is live.
 
 ## Live
 
@@ -19,7 +19,7 @@ Johnson Harvesting at https://jh.burkettstudios.com is a different live site. No
 
 | Product | Status on this site | Outbound |
 |---------|--------|-----------------|
-| Walli | Building · not public yet · page `/products/walli/` · old `/products/year-wall/` redirects here | No “go use it” CTA. Never call it Year Wall. |
+| Walli | Household year calendar · lock sentence + four abilities · page `/products/walli/` · old `/products/year-wall/` redirects here | No download / wallicalendar.com / waitlist CTA. Never call it Year Wall. |
 | Wandered | Live · https://wandered.burkettinv.com · page `/products/wandered/` | Public marketing site. Keep blue `#5b8cff`. |
 | MassageNow | Live · https://getmassagenow.com · page `/products/massagenow/` | Public site. |
 | SurroStack | Private/pilot · page `/products/surrostack/` · light mention on `/work/` | https://app.burkettinv.com. No hard sell. |
@@ -28,7 +28,7 @@ Johnson Harvesting at https://jh.burkettstudios.com is a different live site. No
 
 ## Public map
 
-Homepage: thesis, Kyle and Trey, Walli, then Wandered and MassageNow.  
+Homepage: studio one-liner, Walli, Wandered, MassageNow, then portraits (Trey then Kyle).  
 Directory: `/work/`, `/about/`, `/pulse/`, `/contact/`. One note: `/notes/household-software/`.
 
 Portraits in `public/team/` came from burkettinv.com official team assets. There is no photo of the two of them together in this repo.
@@ -50,8 +50,8 @@ Pages load CSS at `/styles.css?v=<hash>` plus a small inline critical block. Do 
 
 ## Voice
 
-Kyle and Trey. Nashville. Trey: software PM for 10 years, MIS, building with Kyle.
-X: [@TreyBurkett](https://x.com/TreyBurkett). Do not write Trey as a solo founder.
+Burkett Studios makes household software. Walli lock copy is exact. If people are named: Trey first, then Kyle. No PM/MIS bio on the homepage.
+X: [@TreyBurkett](https://x.com/TreyBurkett).
 
 ## Next
 

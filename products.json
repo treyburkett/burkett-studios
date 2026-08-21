@@ -3,10 +3,10 @@
   "generatedFrom": "scripts/generate-site.mjs",
   "site": "https://burkettstudios.com",
   "contact": "trey@burkettinv.com",
-  "thesis": "We make household software.",
+  "thesis": "Burkett Studios makes household software.",
   "people": [
-    "Kyle Burkett",
-    "Trey Burkett"
+    "Trey Burkett",
+    "Kyle Burkett"
   ],
   "products": [
     {
@@ -18,9 +18,15 @@
       "href": "/products/walli/",
       "outbound": null,
       "color": "#ff5c54",
-      "oneLiner": "One year. On the wall. In the house.",
-      "summary": "A year you can walk up to. Still building. Not public yet.",
-      "pageTitle": "Walli"
+      "oneLiner": "A household year calendar.",
+      "summary": "Walli is a household year calendar. The whole year sits on one wall so a family can see what's coming, together — not a week agenda you have to hunt through.",
+      "pageTitle": "Walli",
+      "abilities": [
+        "See the year at a glance. The year is the product.",
+        "One wall for the household, not one calendar per person.",
+        "Plans as stamps on the year, not a dense agenda.",
+        "Invite people onto the same year."
+      ]
     },
     {
       "slug": "wandered",

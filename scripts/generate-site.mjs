@@ -22,14 +22,17 @@ const products = [
     href: "/products/walli/",
     outbound: null,
     color: walliCoral,
-    oneLiner: "One year. On the wall. In the house.",
-    summary: "A year you can walk up to. Still building. Not public yet.",
+    oneLiner: "A household year calendar.",
+    summary: "Walli is a household year calendar. The whole year sits on one wall so a family can see what's coming, together — not a week agenda you have to hunt through.",
     pageTitle: "Walli",
+    abilities: [
+      "See the year at a glance. The year is the product.",
+      "One wall for the household, not one calendar per person.",
+      "Plans as stamps on the year, not a dense agenda.",
+      "Invite people onto the same year."
+    ],
     letter: [
-      "Walli is a year on the wall.",
-      "Not a feed. Not a dashboard. A thing you can walk up to in the house and see the year you are actually in.",
-      "Trey and Kyle are still building it. It is not public yet. There is no \"go use it\" button here, because that would be a lie.",
-      "When it is ready to live with, it will have its own door. Until then, this letter is the honest page."
+      "Walli is a household year calendar. The whole year sits on one wall so a family can see what's coming, together — not a week agenda you have to hunt through."
     ]
   },
   {
@@ -126,6 +129,8 @@ const listed = products.filter((product) => product.listed);
 const leadProduct = listed.find((product) => product.lead);
 const otherLive = listed.filter((product) => !product.lead);
 const walli = products.find((product) => product.slug === "walli");
+const wandered = products.find((product) => product.slug === "wandered");
+const massageNow = products.find((product) => product.slug === "massagenow");
 const surro = products.find((product) => product.slug === "surrostack");
 
 const nav = [
@@ -171,7 +176,7 @@ body{margin:0;min-height:100vh;display:flex;flex-direction:column;font-family:va
 .wordmark{font-weight:600;letter-spacing:-.03em;text-decoration:none}
 .top nav,.foot nav{display:flex;flex-wrap:wrap;gap:.85rem 1.15rem}
 .thesis h1,.letter h1{margin:0;font-weight:600;letter-spacing:-.045em;line-height:.96}
-.thesis h1{max-width:11ch;font-size:clamp(3.2rem,11vw,6.4rem)}
+.thesis h1{max-width:22ch;font-size:clamp(2.6rem,8vw,4.4rem)}
 .letter h1{font-size:clamp(2.1rem,6vw,3.6rem)}
 .faces{margin:2.6rem 0 0}
 .faces-row{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
@@ -252,20 +257,29 @@ const photoBlock = `
 <figure class="faces">
   <div class="faces-row">
     <figure>
-      <img src="/team/kyle-burkett.jpg" width="800" height="800" alt="Kyle Burkett">
-      <figcaption>Kyle</figcaption>
-    </figure>
-    <figure>
       <img src="/team/trey-burkett.jpg" width="800" height="800" alt="Trey Burkett">
       <figcaption>Trey</figcaption>
+    </figure>
+    <figure>
+      <img src="/team/kyle-burkett.jpg" width="800" height="800" alt="Kyle Burkett">
+      <figcaption>Kyle</figcaption>
     </figure>
   </div>
 </figure>
 `;
 
+const walliLock =
+  "Walli is a household year calendar. The whole year sits on one wall so a family can see what's coming, together — not a week agenda you have to hunt through.";
+
+function abilityList(abilities) {
+  return `<ul class="abilities">
+        ${abilities.map((line) => `<li>${escapeHtml(line)}</li>`).join("\n        ")}
+      </ul>`;
+}
+
 const home = layout({
   title: "Burkett Studios",
-  description: "Kyle and Trey Burkett make household software in Nashville.",
+  description: "Burkett Studios makes household software. Walli is a household year calendar.",
   path: "/",
   bodyClass: "home",
   extraHead: `<script type="application/ld+json">${JSON.stringify({
@@ -281,30 +295,27 @@ const home = layout({
   })}</script>`,
   main: `
     <section class="fold thesis">
-      <p class="kicker">Kyle and Trey · Nashville</p>
-      <h1>We make household software.</h1>
-      <p class="lead">Trey spent ten years as a software product manager. He studied MIS. Now he and Kyle build the software they want to live in.</p>
-      ${photoBlock}
+      <h1>Burkett Studios makes household software.</h1>
     </section>
     <section class="fold walli-stage" aria-labelledby="walli-head">
       <p class="kicker walli-kicker">${escapeHtml(walli.name)}</p>
       <h2 id="walli-head">${escapeHtml(walli.oneLiner)}</h2>
-      <p class="lead">Still building. Not public yet.</p>
-      <p><a class="text-link walli-link" href="${escapeHtml(walli.href)}">Read the letter</a></p>
+      <p class="lead">${escapeHtml(walliLock)}</p>
+      ${abilityList(walli.abilities)}
+      <p><a class="text-link walli-link" href="${escapeHtml(walli.href)}">More about Walli</a></p>
     </section>
-    <section class="fold others" aria-labelledby="others-head">
-      <h2 id="others-head">Also live</h2>
-      <ul class="quiet-list">
-        ${otherLive
-          .map(
-            (product) => `
-          <li>
-            <a href="${escapeHtml(product.href)}">${escapeHtml(product.name)}</a>
-            <span>${escapeHtml(product.oneLiner)}</span>
-          </li>`
-          )
-          .join("")}
-      </ul>
+    <section class="fold face" aria-labelledby="wandered-head">
+      <h2 id="wandered-head"><a href="${escapeHtml(wandered.href)}">${escapeHtml(wandered.name)}</a></h2>
+      <p class="lead">${escapeHtml(wandered.oneLiner)}</p>
+      <p><a class="text-link" href="${escapeHtml(wandered.outbound)}">${escapeHtml(wandered.outbound.replace("https://", ""))}</a></p>
+    </section>
+    <section class="fold face" aria-labelledby="massage-head">
+      <h2 id="massage-head"><a href="${escapeHtml(massageNow.href)}">${escapeHtml(massageNow.name)}</a></h2>
+      <p class="lead">${escapeHtml(massageNow.oneLiner)}</p>
+      <p><a class="text-link" href="${escapeHtml(massageNow.outbound)}">${escapeHtml(massageNow.outbound.replace("https://", ""))}</a></p>
+    </section>
+    <section class="fold faces-fold" aria-label="Trey and Kyle">
+      ${photoBlock}
     </section>
   `
 });
@@ -317,7 +328,7 @@ const work = layout({
     <article class="letter">
       <p class="kicker">Work</p>
       <h1>What is on the table.</h1>
-      <p class="lead">Walli is the lead. Wandered and MassageNow are live. That is the public list.</p>
+      <p class="lead">Walli is the household year calendar. Wandered and MassageNow keep their own doors.</p>
       <ol class="work-list">
         ${[leadProduct, ...otherLive]
           .map(
@@ -337,15 +348,14 @@ const work = layout({
 
 const about = layout({
   title: "About · Burkett Studios",
-  description: "Kyle and Trey Burkett. A studio of two in Nashville.",
+  description: "Trey and Kyle Burkett. Burkett Studios makes household software in Nashville.",
   path: "/about/",
   main: `
     <article class="letter">
       <p class="kicker">About</p>
-      <h1>Kyle and Trey.</h1>
-      <p class="lead">A studio of two in Nashville. Husband and husband. They build household software together.</p>
+      <h1>Trey and Kyle.</h1>
+      <p class="lead">Burkett Studios makes household software in Nashville.</p>
       ${photoBlock}
-      <p>Trey Burkett spent ten years as a software product manager. He studied management information systems. Kyle Burkett builds with him.</p>
       <p>This site is the studio. Burkett Investments is the parent company. It has its own door. This is not that brochure, and it is not a page about owning assets.</p>
       <p><a class="text-link" href="/contact/">Write Trey</a></p>
     </article>
@@ -378,7 +388,7 @@ const pulseEntry = layout({
     <article class="letter">
       <p class="kicker"><a href="/pulse/">Pulse</a> · 21 Aug 2026</p>
       <h1>This studio site shipped.</h1>
-      <p>burkettstudios.com was a holding-company map. Today it is the public face of the studio: Kyle and Trey, a sentence about household software, and an honest page for Walli.</p>
+      <p>burkettstudios.com was a holding-company map. Today it is the studio: household software, then Walli, then the other live work.</p>
       <p>Wandered and MassageNow stay live on their own sites. Johnson Harvesting stays off this homepage. The seed names are off the public map.</p>
       <p>One dated note. No fake history behind it.</p>
     </article>
@@ -394,8 +404,8 @@ const note = layout({
       <p class="kicker">A note</p>
       <h1>Ship the thing you want to live in.</h1>
       <p>Most software is for a company you visit. Household software is for a room you already occupy. A year on the wall. A trip you can still walk. A table someone actually books.</p>
-      <p>Kyle and Trey are a studio of two. That is the point, not a constraint to apologize for. Two people can finish a thing they will use on Tuesday.</p>
-      <p>Walli is the one they want in the house. It is not public yet. The other live work already has a door. The work is to ship the next true thing, not to look busy.</p>
+      <p>Trey and Kyle are a studio of two. That is the point, not a constraint to apologize for. Two people can finish a thing a household will actually use.</p>
+      <p>Walli is the household year calendar. The other live work already has a door. The work is to ship the next true thing, not to look busy.</p>
     </article>
   `
 });
@@ -409,7 +419,7 @@ const contact = layout({
       <p class="kicker">Contact</p>
       <h1>Write Trey.</h1>
       <p class="lead"><a class="text-link" href="mailto:${escapeHtml(contactEmail)}">${escapeHtml(contactEmail)}</a></p>
-      <p>That is the door. Kyle and Trey read what comes in. There is no form and no calendar embed on this page.</p>
+      <p>That is the door. Trey and Kyle read what comes in. There is no form and no calendar embed on this page.</p>
     </article>
   `
 });
@@ -433,6 +443,7 @@ function productPage(product) {
         <p class="kicker">${isWalli ? `<span class="walli-kicker">${escapeHtml(product.name)}</span>` : escapeHtml(product.name)}</p>
         <h1>${escapeHtml(product.oneLiner)}</h1>
         ${product.letter.map((para) => `<p>${escapeHtml(para)}</p>`).join("\n        ")}
+        ${product.abilities ? abilityList(product.abilities) : ""}
         ${next}
       </article>
     `
@@ -470,8 +481,8 @@ const productsSnapshot = `${JSON.stringify(
     generatedFrom: "scripts/generate-site.mjs",
     site: siteOrigin,
     contact: contactEmail,
-    thesis: "We make household software.",
-    people: ["Kyle Burkett", "Trey Burkett"],
+    thesis: "Burkett Studios makes household software.",
+    people: ["Trey Burkett", "Kyle Burkett"],
     products: products.map(({ letter, ...rest }) => rest)
   },
   null,
@@ -512,8 +523,27 @@ if (
 ) {
   throw new Error("Homepage leaked a seed name, banned type, or Year Wall.");
 }
-if (!home.includes("Kyle") || !home.includes("Trey") || !home.includes("household software")) {
-  throw new Error("Homepage missing Kyle, Trey, or the studio thesis.");
+if (!home.includes("Burkett Studios makes household software.")) {
+  throw new Error("Homepage missing the studio one-liner.");
+}
+if (!home.includes(walliLock)) {
+  throw new Error("Homepage missing the Walli lock sentence.");
+}
+for (const ability of walli.abilities) {
+  if (!home.includes(ability)) {
+    throw new Error(`Homepage missing Walli ability: ${ability}`);
+  }
+}
+if (home.includes("ten years") || home.includes("MIS") || home.includes("wallicalendar") || home.includes("TestFlight")) {
+  throw new Error("Homepage leaked rejected bio or shipping claims.");
+}
+const treyPhotoAt = home.indexOf("/team/trey-burkett.jpg");
+const kylePhotoAt = home.indexOf("/team/kyle-burkett.jpg");
+if (treyPhotoAt < 0 || kylePhotoAt < 0 || treyPhotoAt > kylePhotoAt) {
+  throw new Error("Homepage must show Trey before Kyle.");
+}
+if (home.indexOf("Trey") > home.indexOf("Kyle")) {
+  throw new Error("Homepage named Kyle before Trey.");
 }
 
 const stylesheetRe = /href="([^"]*styles\.css[^"]*)"/g;

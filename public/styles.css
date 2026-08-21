@@ -132,20 +132,26 @@ main {
 }
 
 .thesis h1 {
-  max-width: 11ch;
-  font-size: clamp(3.2rem, 11vw, 6.4rem);
+  max-width: 22ch;
+  font-size: clamp(2.6rem, 8vw, 4.4rem);
 }
 
 .walli-stage h2,
 .letter h1,
-.others h2 {
+.others h2,
+.face h2 {
   font-size: clamp(2.1rem, 6vw, 3.6rem);
 }
 
-.others h2 {
+.others h2,
+.face h2 {
   margin: 0;
   font-weight: 600;
   letter-spacing: -0.04em;
+}
+
+.face h2 a {
+  text-decoration: none;
 }
 
 .lead,
@@ -235,6 +241,19 @@ main {
 
 .faces-note {
   margin-top: 0.9rem;
+}
+
+.abilities {
+  list-style: none;
+  margin: 1.6rem 0 1.2rem;
+  padding: 0;
+}
+
+.abilities li {
+  max-width: 36rem;
+  padding: 0.85rem 0;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
 }
 
 .quiet-list,
