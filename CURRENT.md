@@ -46,6 +46,8 @@ npm run deploy
 
 Merge to `main` does not publish. `deploy:pages-backup` is an old Cloudflare Pages fallback. Do not use it unless the Worker deploy is down.
 
+Pages load CSS at `/styles.css?v=<hash>` plus a small inline critical block. Do not use relative `styles.css` paths. Worker `not_found_handling` is `none` so missing `.css` / image URLs 404 instead of HTML.
+
 ## Voice
 
 Kyle and Trey. Nashville. Trey: software PM for 10 years, MIS, building with Kyle.

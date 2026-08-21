@@ -1,4 +1,5 @@
-import { mkdir, writeFile, readFile } from "node:fs/promises";
+import { createHash } from "node:crypto";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -154,10 +155,30 @@ function pageUrl(path) {
   return new URL(path, `${siteOrigin}/`).href;
 }
 
-function cssUrl(fromDir) {
-  const depth = fromDir.split("/").filter(Boolean).length;
-  return `${"../".repeat(depth)}styles.css`;
+const houseCss = await readFile(join(publicDir, "styles.css"), "utf8");
+if (houseCss.includes("Geist") || houseCss.includes("Inter") || houseCss.includes("slab")) {
+  throw new Error("House CSS still carries Geist, Inter, or slab theater. Fix styles.css.");
 }
+const cssStamp = createHash("sha256").update(houseCss).digest("hex").slice(0, 10);
+const stylesheetHref = `/styles.css?v=${cssStamp}`;
+
+const criticalCss = `
+:root{color-scheme:light;--bg:#f6f1e8;--ink:#161412;--muted:#5c5752;--dim:#8a847c;--line:rgba(22,20,18,.14);--font:system-ui,-apple-system,"Segoe UI",sans-serif;--shell:min(720px,calc(100% - 3rem))}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:flex;flex-direction:column;font-family:var(--font);color:var(--ink);background:var(--bg);line-height:1.5}
+.top,main,.foot{width:var(--shell);margin-inline:auto}
+.top{display:flex;align-items:baseline;justify-content:space-between;gap:1.5rem;padding:1.4rem 0 1.2rem}
+.wordmark{font-weight:600;letter-spacing:-.03em;text-decoration:none}
+.top nav,.foot nav{display:flex;flex-wrap:wrap;gap:.85rem 1.15rem}
+.thesis h1,.letter h1{margin:0;font-weight:600;letter-spacing:-.045em;line-height:.96}
+.thesis h1{max-width:11ch;font-size:clamp(3.2rem,11vw,6.4rem)}
+.letter h1{font-size:clamp(2.1rem,6vw,3.6rem)}
+.faces{margin:2.6rem 0 0}
+.faces-row{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.faces img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:cover;background:#ddd6c8}
+.foot{padding:1.6rem 0 2.6rem;border-top:1px solid var(--line)}
+.foot-mark{margin:0 0 .7rem;font-weight:600}
+`.replace(/\n/g, "");
 
 function layout({
   title,
@@ -168,7 +189,6 @@ function layout({
   main
 }) {
   const canonical = pageUrl(path);
-  const fromDir = path.endsWith("/") ? path : dirname(path);
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -183,7 +203,8 @@ function layout({
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="${cssUrl(fromDir)}">
+  <style>${criticalCss}</style>
+  <link rel="stylesheet" href="${stylesheetHref}">
   ${extraHead}
 </head>
 <body class="${escapeHtml(bodyClass)}">
@@ -495,9 +516,19 @@ if (!home.includes("Kyle") || !home.includes("Trey") || !home.includes("househol
   throw new Error("Homepage missing Kyle, Trey, or the studio thesis.");
 }
 
-const css = await readFile(join(publicDir, "styles.css"), "utf8");
-if (css.includes("Geist") || css.includes("Inter") || css.includes("slab")) {
-  throw new Error("House CSS still carries Geist, Inter, or slab theater. Fix styles.css.");
+const stylesheetRe = /href="([^"]*styles\.css[^"]*)"/g;
+for (const [rel, contents] of Object.entries(files)) {
+  if (!rel.endsWith(".html") || rel.includes("year-wall")) continue;
+  const hrefs = [...contents.matchAll(stylesheetRe)].map((match) => match[1]);
+  if (hrefs.length !== 1 || hrefs[0] !== stylesheetHref) {
+    throw new Error(`${rel} must load ${stylesheetHref}, got ${JSON.stringify(hrefs)}`);
+  }
+  if (!contents.includes("<style>") || !contents.includes("--bg:#f6f1e8")) {
+    throw new Error(`${rel} is missing inline critical CSS.`);
+  }
+  if (contents.includes('href="styles.css"') || contents.includes("../styles.css")) {
+    throw new Error(`${rel} still uses a relative stylesheet path.`);
+  }
 }
 
-console.log(`generated ${Object.keys(files).length} files for ${listed.length} listed products`);
+console.log(`generated ${Object.keys(files).length} files for ${listed.length} listed products (${stylesheetHref})`);
