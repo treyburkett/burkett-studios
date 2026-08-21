@@ -19,7 +19,7 @@ Johnson Harvesting at https://jh.burkettstudios.com is a different live site. No
 
 | Product | Status on this site | Outbound |
 |---------|--------|-----------------|
-| Walli | Household year calendar · lock sentence + four abilities · page `/products/walli/` · old `/products/year-wall/` redirects here | No download / wallicalendar.com / waitlist CTA. Never call it Year Wall. |
+| Walli | Household year calendar · lock sentence + four abilities · Contacts texture under the year (not a fifth card) · page `/products/walli/` · old `/products/year-wall/` redirects here | No download / wallicalendar.com / waitlist CTA. Never call it Year Wall. Contacts merge is in flight: do not ship it as a feature. |
 | Wandered | Live · https://wandered.burkettinv.com · page `/products/wandered/` | Public marketing site. Keep blue `#5b8cff`. |
 | MassageNow | Live · https://getmassagenow.com · page `/products/massagenow/` | Public site. |
 | SurroStack | Private/pilot · page `/products/surrostack/` · light mention on `/work/` | https://app.burkettinv.com. No hard sell. |

@@ -256,6 +256,19 @@ main {
   color: var(--muted);
 }
 
+.texture-head,
+.texture {
+  max-width: 36rem;
+  margin: 1.05rem 0 0;
+  color: var(--muted);
+  font-size: 1.08rem;
+}
+
+.texture-head {
+  margin-top: 1.8rem;
+  color: var(--ink);
+}
+
 .quiet-list,
 .work-list,
 .pulse-list {
