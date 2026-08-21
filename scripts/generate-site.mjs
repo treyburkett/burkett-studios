@@ -33,6 +33,12 @@ const products = [
     ],
     letter: [
       "Walli is a household year calendar. The whole year sits on one wall so a family can see what's coming, together — not a week agenda you have to hunt through."
+    ],
+    peopleTexture: [
+      "People on the year, contacts on the phone, one household.",
+      "Walli Calendar is a household year. The people on it are the point.",
+      "Your address book never has to leave the phone.",
+      "A household calendar should not mean three copies of Dad."
     ]
   },
   {
@@ -277,6 +283,12 @@ function abilityList(abilities) {
       </ul>`;
 }
 
+function peopleTexture(lines) {
+  return lines
+    .map((line, index) => `<p class="${index === 0 ? "texture-head" : "texture"}">${escapeHtml(line)}</p>`)
+    .join("\n      ");
+}
+
 const home = layout({
   title: "Burkett Studios",
   description: "Burkett Studios makes household software. Walli is a household year calendar.",
@@ -302,6 +314,7 @@ const home = layout({
       <h2 id="walli-head">${escapeHtml(walli.oneLiner)}</h2>
       <p class="lead">${escapeHtml(walliLock)}</p>
       ${abilityList(walli.abilities)}
+      ${peopleTexture(walli.peopleTexture)}
       <p><a class="text-link walli-link" href="${escapeHtml(walli.href)}">More about Walli</a></p>
     </section>
     <section class="fold face" aria-labelledby="wandered-head">
@@ -444,6 +457,7 @@ function productPage(product) {
         <h1>${escapeHtml(product.oneLiner)}</h1>
         ${product.letter.map((para) => `<p>${escapeHtml(para)}</p>`).join("\n        ")}
         ${product.abilities ? abilityList(product.abilities) : ""}
+        ${product.peopleTexture ? peopleTexture(product.peopleTexture) : ""}
         ${next}
       </article>
     `
@@ -534,8 +548,29 @@ for (const ability of walli.abilities) {
     throw new Error(`Homepage missing Walli ability: ${ability}`);
   }
 }
-if (home.includes("ten years") || home.includes("MIS") || home.includes("wallicalendar") || home.includes("TestFlight")) {
-  throw new Error("Homepage leaked rejected bio or shipping claims.");
+if ((home.match(/<ul class="abilities">/g) || []).length !== 1) {
+  throw new Error("Homepage should have one Walli ability list.");
+}
+if ((home.split('<ul class="abilities">')[1].split("</ul>")[0].match(/<li>/g) || []).length !== 4) {
+  throw new Error("Homepage must keep exactly four Walli abilities.");
+}
+for (const line of walli.peopleTexture) {
+  if (!home.includes(line)) {
+    throw new Error(`Homepage missing Contacts texture: ${line}`);
+  }
+}
+if (
+  home.includes("ten years") ||
+  home.includes("MIS") ||
+  home.includes("wallicalendar") ||
+  home.includes("TestFlight") ||
+  home.includes("open Settings") ||
+  home.includes("merge duplicates") ||
+  home.includes("fuzzy match") ||
+  home.includes("Merge All") ||
+  home.includes("vCard")
+) {
+  throw new Error("Homepage leaked rejected bio, shipping claims, or Contacts internals.");
 }
 const treyPhotoAt = home.indexOf("/team/trey-burkett.jpg");
 const kylePhotoAt = home.indexOf("/team/kyle-burkett.jpg");
