@@ -10,6 +10,7 @@ workers_dev = false
 [assets]
 directory = "./public"
 html_handling = "auto-trailing-slash"
+# Missing files 404. Do not serve index.html for .css .js .svg .jpg .jpeg .png .woff2.
 not_found_handling = "none"
 
 [[routes]]

@@ -47,4 +47,22 @@ if (diff.status !== 0) {
   process.exit(1);
 }
 
+const pages = spawnSync(
+  "git",
+  ["grep", "-n", 'rel="stylesheet"', "--", "public"],
+  { cwd: root, encoding: "utf8" }
+);
+if (pages.status !== 0 && pages.status !== 1) {
+  process.stderr.write(pages.stderr || "git grep failed\n");
+  process.exit(pages.status ?? 1);
+}
+const bad = (pages.stdout || "")
+  .split("\n")
+  .filter((line) => line && !line.includes('href="/styles.css?v='));
+if (bad.length) {
+  process.stderr.write("Stylesheet hrefs must be root-absolute /styles.css?v=...\n");
+  process.stderr.write(`${bad.join("\n")}\n`);
+  process.exit(1);
+}
+
 console.log("Generate check passed: committed pages match the product table.");
