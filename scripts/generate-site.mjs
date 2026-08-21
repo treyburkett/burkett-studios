@@ -275,21 +275,6 @@ const footer = `
 </body>
 </html>`;
 
-function primaryHref(p) {
-  if (p.featured || p.quietOutbound) return `/products/${p.slug}/`;
-  if (p.marketing) return p.marketing.href;
-  if (p.waitlist) return `/products/${p.slug}/#waitlist`;
-  return `/products/${p.slug}/`;
-}
-
-function primaryLabel(p) {
-  if (p.featured) return "About Walli";
-  if (p.quietOutbound) return "Read more";
-  if (p.marketing) return p.marketing.label;
-  if (p.waitlist) return "Join waitlist";
-  return "Read more";
-}
-
 function waitlistBlock(productName) {
   const id = productName.toLowerCase().replace(/\s+/g, "-");
   return `
@@ -459,27 +444,26 @@ ${footer}`;
 }
 
 function workRow(p) {
-  const primary = primaryHref(p);
-  const primaryIsExternal = primary.startsWith("http");
+  const internal = `/products/${esc(p.slug)}/`;
   const extra =
     p.marketing && !p.quietOutbound
       ? `<a class="work-link" href="${esc(p.marketing.href)}" rel="noopener">${esc(p.marketing.host)}</a>`
       : p.waitlist
-        ? `<a class="work-link" href="/products/${esc(p.slug)}/#waitlist">Waitlist</a>`
+        ? `<a class="work-link" href="${internal}#waitlist">Waitlist</a>`
         : "";
 
   return `
         <article class="work-row" data-product="${p.id}">
           <div class="work-head">
             <h3>
-              <a href="${esc(primary)}"${primaryIsExternal ? ' rel="noopener"' : ""}>${esc(p.name)}</a>
+              <a href="${internal}">${esc(p.name)}</a>
             </h3>
             <span class="status ${p.status}">${esc(p.statusLabel)}</span>
           </div>
           <p class="card-one-liner">${esc(p.oneLiner)}</p>
           <p>${esc(p.card)}</p>
           <div class="work-links">
-            <a class="work-link primary" href="${esc(primary)}"${primaryIsExternal ? ' rel="noopener"' : ""}>${esc(primaryLabel(p))}</a>
+            <a class="work-link primary" href="${internal}">Read more</a>
             ${extra}
           </div>
         </article>`;
